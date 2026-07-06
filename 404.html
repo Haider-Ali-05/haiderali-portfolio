@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyber">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Target Missing | Error 404</title>
+  
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/main.css">
+  
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--gradient-hero);
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .err-card {
+      max-width: 500px;
+      padding: 3.5rem 2rem;
+    }
+    .err-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--accent-danger);
+      text-shadow: 0 0 20px rgba(255, 56, 96, 0.3);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .err-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .err-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="err-card glass glow">
+    <div class="err-code">&gt;_404</div>
+    <h1 class="err-title">TARGET_NOT_FOUND</h1>
+    <p class="err-desc">
+      The requesting address is unrecognized, deleted, or protected behind a security protocol. Please return to the root console.
+    </p>
+    <a class="tool-btn" href="index.html" style="padding: 0.8rem 2rem;">Return to Console</a>
+  </div>
+
+</body>
+</html>

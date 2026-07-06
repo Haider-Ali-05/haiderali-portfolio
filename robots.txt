@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /data/settings.json
+
+Sitemap: https://ihaiderali.dev/sitemap.xml
