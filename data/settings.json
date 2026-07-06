@@ -1,8 +1,8 @@
 {
   "adminPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
   "defaultPassword": true,
-  "siteLoginEnabled": false,
-  "siteLoginPassword": "",
+  "siteLoginEnabled": true,
+  "siteLoginPassword": "haider321",
   "company": {
     "name": "CyberShield Technologies",
     "url": "https://example.com",
