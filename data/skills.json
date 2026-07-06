@@ -1,0 +1,43 @@
+[
+  {
+    "category": "Security",
+    "items": [
+      { "name": "Penetration Testing", "level": 95 },
+      { "name": "Vulnerability Assessment", "level": 90 },
+      { "name": "Network Security", "level": 88 },
+      { "name": "Incident Response", "level": 85 },
+      { "name": "SIEM / SOC", "level": 82 },
+      { "name": "Cryptography", "level": 80 }
+    ]
+  },
+  {
+    "category": "Languages",
+    "items": [
+      { "name": "Python", "level": 92 },
+      { "name": "JavaScript", "level": 85 },
+      { "name": "Bash / Shell", "level": 88 },
+      { "name": "C / C++", "level": 70 },
+      { "name": "SQL", "level": 78 }
+    ]
+  },
+  {
+    "category": "Tools",
+    "items": [
+      { "name": "Burp Suite", "level": 93 },
+      { "name": "Metasploit", "level": 90 },
+      { "name": "Wireshark", "level": 88 },
+      { "name": "Nmap", "level": 92 },
+      { "name": "Kali Linux", "level": 95 },
+      { "name": "Docker", "level": 75 }
+    ]
+  },
+  {
+    "category": "Frameworks",
+    "items": [
+      { "name": "Django", "level": 80 },
+      { "name": "Node.js", "level": 78 },
+      { "name": "React", "level": 72 },
+      { "name": "Flask", "level": 82 }
+    ]
+  }
+]

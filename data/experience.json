@@ -1,0 +1,32 @@
+[
+  {
+    "id": "exp-001",
+    "company": "CyberShield Technologies",
+    "position": "Senior Security Analyst",
+    "startDate": "2024-06",
+    "endDate": null,
+    "isCurrent": true,
+    "description": "Leading penetration testing engagements for enterprise clients. Conducting vulnerability assessments, red team operations, and security architecture reviews. Mentoring junior analysts and developing internal security tools.",
+    "companyUrl": "https://example.com"
+  },
+  {
+    "id": "exp-002",
+    "company": "DataFort Security",
+    "position": "Security Engineer",
+    "startDate": "2022-03",
+    "endDate": "2024-05",
+    "isCurrent": false,
+    "description": "Designed and implemented security solutions for cloud infrastructure. Performed code audits, developed SIEM correlation rules, and managed incident response procedures. Achieved 40% reduction in security incidents.",
+    "companyUrl": "https://example.com"
+  },
+  {
+    "id": "exp-003",
+    "company": "TechVault Solutions",
+    "position": "Junior Developer",
+    "startDate": "2020-08",
+    "endDate": "2022-02",
+    "isCurrent": false,
+    "description": "Full-stack web development with focus on secure coding practices. Built RESTful APIs, implemented OAuth2 authentication flows, and conducted security testing for web applications.",
+    "companyUrl": "https://example.com"
+  }
+]

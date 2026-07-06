@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tool-001",
+    "name": "Hash Generator",
+    "description": "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from any text input",
+    "icon": "🔐",
+    "type": "builtin",
+    "component": "hashGenerator"
+  },
+  {
+    "id": "tool-002",
+    "name": "Base64 Codec",
+    "description": "Encode and decode Base64 strings instantly",
+    "icon": "🔄",
+    "type": "builtin",
+    "component": "base64Codec"
+  },
+  {
+    "id": "tool-003",
+    "name": "Password Generator",
+    "description": "Generate cryptographically secure random passwords with custom rules",
+    "icon": "🔑",
+    "type": "builtin",
+    "component": "passwordGenerator"
+  },
+  {
+    "id": "tool-004",
+    "name": "URL Encoder/Decoder",
+    "description": "Encode and decode URL components for safe transmission",
+    "icon": "🌐",
+    "type": "builtin",
+    "component": "urlCodec"
+  },
+  {
+    "id": "tool-005",
+    "name": "JWT Decoder",
+    "description": "Decode and inspect JSON Web Tokens without verification",
+    "icon": "🎫",
+    "type": "builtin",
+    "component": "jwtDecoder"
+  },
+  {
+    "id": "tool-006",
+    "name": "Calculator",
+    "description": "Scientific calculator with common mathematical functions",
+    "icon": "🧮",
+    "type": "builtin",
+    "component": "calculator"
+  }
+]

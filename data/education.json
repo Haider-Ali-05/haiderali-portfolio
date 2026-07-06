@@ -1,0 +1,20 @@
+[
+  {
+    "id": "edu-001",
+    "institution": "National University of Sciences & Technology",
+    "degree": "Bachelor of Science",
+    "field": "Cybersecurity",
+    "startDate": "2018",
+    "endDate": "2022",
+    "description": "Specialized in network security, cryptography, and ethical hacking. Dean's list recipient. Led the university's CTF team to national competitions."
+  },
+  {
+    "id": "edu-002",
+    "institution": "Offensive Security",
+    "degree": "Certification",
+    "field": "OSCP — Offensive Security Certified Professional",
+    "startDate": "2023",
+    "endDate": "2023",
+    "description": "Successfully completed the Penetration Testing with Kali Linux course and passed the 24-hour hands-on exam."
+  }
+]

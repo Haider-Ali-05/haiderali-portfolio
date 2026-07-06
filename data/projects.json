@@ -1,0 +1,35 @@
+[
+  {
+    "id": "proj-001",
+    "name": "NetShield Firewall Analyzer",
+    "shortInfo": "Automated network traffic analysis and threat detection tool",
+    "description": "A comprehensive network security tool that captures and analyzes traffic in real-time, identifies potential threats using signature-based detection, and generates detailed security reports. Built with Python and integrated with Suricata IDS rules.",
+    "publicationDate": "2025-03-15",
+    "screenshots": ["uploads/projects/netshield-1.jpg", "uploads/projects/netshield-2.jpg"],
+    "downloadFile": "uploads/projects/netshield.zip",
+    "downloadAllowed": true,
+    "tags": ["Python", "Network Security", "IDS", "Threat Detection"]
+  },
+  {
+    "id": "proj-002",
+    "name": "VaultCrypt Password Manager",
+    "shortInfo": "Zero-knowledge encrypted password vault with CLI interface",
+    "description": "A zero-knowledge password manager built from scratch using AES-256-GCM encryption. Features include master password derivation via Argon2, secure clipboard integration, TOTP generation, and encrypted cloud sync. No plaintext ever leaves the device.",
+    "publicationDate": "2025-01-20",
+    "screenshots": ["uploads/projects/vaultcrypt-1.jpg"],
+    "downloadFile": "uploads/projects/vaultcrypt.zip",
+    "downloadAllowed": false,
+    "tags": ["Cryptography", "Python", "Security", "CLI"]
+  },
+  {
+    "id": "proj-003",
+    "name": "WebRecon OSINT Framework",
+    "shortInfo": "Open-source intelligence gathering toolkit for web targets",
+    "description": "An automated OSINT framework for gathering intelligence on web targets. Performs subdomain enumeration, technology fingerprinting, email harvesting, social media correlation, and generates comprehensive reconnaissance reports in PDF format.",
+    "publicationDate": "2024-11-05",
+    "screenshots": ["uploads/projects/webrecon-1.jpg"],
+    "downloadFile": "uploads/projects/webrecon.zip",
+    "downloadAllowed": true,
+    "tags": ["OSINT", "Python", "Reconnaissance", "Automation"]
+  }
+]

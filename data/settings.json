@@ -1,0 +1,22 @@
+{
+  "adminPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
+  "defaultPassword": true,
+  "siteLoginEnabled": false,
+  "siteLoginPassword": "",
+  "company": {
+    "name": "CyberShield Technologies",
+    "url": "https://example.com",
+    "primaryColor": "#2563eb",
+    "secondaryColor": "#1e40af"
+  },
+  "seo": {
+    "title": "Haider Ali | Cybersecurity Expert & Developer",
+    "description": "Portfolio of Haider Ali — Cybersecurity specialist, penetration tester, and developer. Expert in web security, network security, and ethical hacking.",
+    "keywords": "haider ali, haider, cyber expert, cybersecurity, penetration testing, ethical hacker, web security, ihaiderali.dev"
+  },
+  "web3formsKey": "YOUR_WEB3FORMS_ACCESS_KEY",
+  "analytics": {
+    "enabled": true,
+    "visitors": []
+  }
+}
