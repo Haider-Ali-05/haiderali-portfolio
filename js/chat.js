@@ -106,25 +106,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // MOCK API for Phase 1
+  // Real API Integration (Phase 2)
   async function mockSendMessageToAI(message) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const lowerMsg = message.toLowerCase();
-        let reply = "I am Haider's AI assistant. I'm currently in Phase 1 of my development. Soon, I'll have a direct link to his brain (and his social media data)!";
-        
-        if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) {
-          reply = "Hello! I'm Nexus. How can I help you learn more about Haider?";
-        } else if (lowerMsg.includes('skills') || lowerMsg.includes('tech')) {
-          reply = "Haider is skilled in Penetration Testing, Vulnerability Assessment, and Secure Application Development.";
-        } else if (lowerMsg.includes('contact') || lowerMsg.includes('email')) {
-          reply = "You can reach Haider via the contact form on this site, or through his linked social accounts.";
-        } else if (lowerMsg.includes('resume') || lowerMsg.includes('cv')) {
-          reply = "You can download his full resume from the Hero section above!";
-        }
+    try {
+      const response = await fetch('https://haider-ai-backend.futurehacker-7-8-7.workers.dev', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          messages: [{ role: 'user', text: message }]
+        })
+      });
 
-        resolve(reply);
-      }, 1500); // Simulate network delay
-    });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      return data.reply;
+    } catch (error) {
+      console.error('Error talking to AI:', error);
+      throw error;
+    }
   }
 });
