@@ -2,7 +2,7 @@
 
 import { initTheme } from './theme.js';
 import { initContact } from './contact.js';
-import { initTools } from './tools.js';
+import { initTools } from './tools.js?v=2';
 import { trackVisit } from './analytics.js';
 
 // Global Data State
@@ -468,8 +468,42 @@ function initBackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
-
 function initScrollAnimations() {
+  // 1. Scroll Progress Bar updates
+  const progressBar = document.getElementById('scroll-progress');
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight > 0) {
+        const scrollPercentage = (window.scrollY / scrollHeight) * 100;
+        progressBar.style.width = `${scrollPercentage}%`;
+      }
+    }, { passive: true });
+  }
+
+  // 2. Initialize Stagger Delay for Grid Items
+  const staggerContainers = document.querySelectorAll('[data-stagger]');
+  staggerContainers.forEach(container => {
+    const applyStagger = () => {
+      const children = container.children;
+      Array.from(children).forEach((child, index) => {
+        child.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        child.style.transitionDelay = `${index * 0.08}s`;
+        if (!container.closest('.fade-in-section').classList.contains('visible')) {
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(30px)';
+        }
+      });
+    };
+
+    applyStagger();
+    
+    // MutationObserver to stagger dynamic items once loaded via fetch
+    const observer = new MutationObserver(applyStagger);
+    observer.observe(container, { childList: true });
+  });
+
+  // 3. IntersectionObserver for Section Fade-Ins
   const sections = document.querySelectorAll('.fade-in-section');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -486,7 +520,6 @@ function initScrollAnimations() {
 
   sections.forEach(sec => observer.observe(sec));
 }
-
 function initSkillBarAnimations() {
   const fills = document.querySelectorAll('.skill-bar-fill');
   fills.forEach(fill => {
