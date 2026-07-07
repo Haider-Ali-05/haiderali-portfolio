@@ -77,13 +77,27 @@
   <div id="password-screen">
     <h2>Admin Access</h2>
     <p>Enter the password to teach the AI new facts.</p>
-    <input type="password" id="admin-password" placeholder="Password (default: haideradmin)">
+    <input type="password" id="admin-password" placeholder="Enter password">
     <button id="login-btn">Login</button>
   </div>
 
   <!-- Chat Screen -->
   <div id="chat-screen">
-    <h2>AI Memory Teacher</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2>AI Memory Teacher</h2>
+      <button id="show-change-pwd-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);">Change Password</button>
+    </div>
+    
+    <div id="change-pwd-section" style="display: none; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+      <h3 style="margin-top: 0; font-size: 1rem;">Change Admin Password</h3>
+      <input type="password" id="new-password" placeholder="New Password">
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="save-pwd-btn" style="flex: 1;">Save</button>
+        <button id="cancel-pwd-btn" style="flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);">Cancel</button>
+      </div>
+      <p id="pwd-msg" style="font-size: 0.8rem; text-align: center; margin-bottom: 0;"></p>
+    </div>
+
     <p style="font-size: 0.9rem; opacity: 0.7;">Chat normally. I will extract facts you tell me and save them to KV permanently.</p>
     <div id="chat-messages">
       <div class="message ai-message" style="margin-bottom: 1rem;">

@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminInput = document.getElementById('admin-input');
   const sendBtn = document.getElementById('send-btn');
 
+  const showPwdBtn = document.getElementById('show-change-pwd-btn');
+  const pwdSection = document.getElementById('change-pwd-section');
+  const savePwdBtn = document.getElementById('save-pwd-btn');
+  const cancelPwdBtn = document.getElementById('cancel-pwd-btn');
+  const newPwdInput = document.getElementById('new-password');
+  const pwdMsg = document.getElementById('pwd-msg');
+
   let adminPassword = '';
   let messageHistory = [];
 
@@ -20,6 +27,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
   passwordInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') loginBtn.click();
+  });
+
+  // Change Password UI Toggle
+  showPwdBtn.addEventListener('click', () => {
+    pwdSection.style.display = 'block';
+    pwdMsg.textContent = '';
+  });
+  cancelPwdBtn.addEventListener('click', () => {
+    pwdSection.style.display = 'none';
+    newPwdInput.value = '';
+  });
+
+  // Change Password API Call
+  savePwdBtn.addEventListener('click', async () => {
+    const newPassword = newPwdInput.value.trim();
+    if (!newPassword) return;
+
+    pwdMsg.textContent = 'Saving...';
+    pwdMsg.style.color = 'var(--text-main)';
+
+    try {
+      const response = await fetch('https://haider-ai-backend.futurehacker-7-8-7.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'change_password',
+          adminPassword: adminPassword,
+          newPassword: newPassword
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to update password');
+      
+      const data = await response.json();
+      if (data.success) {
+        pwdMsg.textContent = 'Password updated successfully!';
+        pwdMsg.style.color = '#4ade80'; // green
+        adminPassword = newPassword; // Update local state
+        setTimeout(() => {
+          pwdSection.style.display = 'none';
+          newPwdInput.value = '';
+        }, 2000);
+      } else {
+        throw new Error(data.error || 'Failed');
+      }
+    } catch (error) {
+      pwdMsg.textContent = 'Error: Check current password or try again.';
+      pwdMsg.style.color = '#f87171'; // red
+    }
   });
 
   function appendMessage(role, text) {

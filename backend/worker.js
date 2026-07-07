@@ -37,11 +37,10 @@ export default {
     }
 
     try {
-      const { messages, adminPassword } = await request.json();
-
-      if (!messages || !Array.isArray(messages)) {
-        return new Response('Invalid request payload', { status: 400, headers: corsHeaders });
-      }
+      const payload = await request.json();
+      const messages = payload.messages;
+      const adminPassword = payload.adminPassword;
+      const action = payload.action;
 
       // We need an API key stored in Cloudflare Environment Variables
       const GEMINI_API_KEY = env.GEMINI_API_KEY;
@@ -49,8 +48,31 @@ export default {
         return new Response('API key not configured in backend', { status: 500, headers: corsHeaders });
       }
 
-      const ADMIN_PASSWORD = env.ADMIN_PASSWORD || "haideradmin";
+      // Check dynamic admin password from KV
+      let ADMIN_PASSWORD = env.ADMIN_PASSWORD || "haideradmin";
+      if (env.AI_MEMORY) {
+        const customPassword = await env.AI_MEMORY.get("admin_password");
+        if (customPassword) {
+          ADMIN_PASSWORD = customPassword;
+        }
+      }
       const isAdmin = adminPassword === ADMIN_PASSWORD;
+
+      // Handle Change Password action
+      if (action === 'change_password') {
+        if (!isAdmin) {
+          return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders });
+        }
+        if (env.AI_MEMORY && payload.newPassword) {
+          await env.AI_MEMORY.put("admin_password", payload.newPassword.trim());
+          return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+        }
+        return new Response(JSON.stringify({ error: 'KV not configured' }), { status: 500, headers: corsHeaders });
+      }
+
+      if (!messages || !Array.isArray(messages)) {
+        return new Response('Invalid request payload', { status: 400, headers: corsHeaders });
+      }
 
       // 1. Read existing dynamic memory from KV (if available)
       let dynamicMemory = "";
