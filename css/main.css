@@ -391,6 +391,7 @@ button {
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-top: -6rem;
 }
 
 .profile-pic-wrapper {
@@ -1294,6 +1295,7 @@ button {
   }
   .hero-image {
     order: 1;
+    margin-top: 0;
   }
   .profile-pic-wrapper {
     width: 250px;
