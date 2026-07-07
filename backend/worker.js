@@ -37,7 +37,7 @@ export default {
     }
 
     try {
-      const { messages } = await request.json();
+      const { messages, adminPassword } = await request.json();
 
       if (!messages || !Array.isArray(messages)) {
         return new Response('Invalid request payload', { status: 400, headers: corsHeaders });
@@ -48,6 +48,43 @@ export default {
       if (!GEMINI_API_KEY) {
         return new Response('API key not configured in backend', { status: 500, headers: corsHeaders });
       }
+
+      const ADMIN_PASSWORD = env.ADMIN_PASSWORD || "haideradmin";
+      const isAdmin = adminPassword === ADMIN_PASSWORD;
+
+      // 1. Read existing dynamic memory from KV (if available)
+      let dynamicMemory = "";
+      if (env.AI_MEMORY) {
+        dynamicMemory = await env.AI_MEMORY.get("dynamic_facts") || "";
+      }
+
+      // 2. If Admin, extract facts and save them
+      if (isAdmin && messages.length > 0) {
+        const lastUserMessage = messages[messages.length - 1].text;
+        
+        const factUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+        const factResponse = await fetch(factUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: "Extract any new facts about Haider Ali from the user's message. Output ONLY the new facts as a concise bulleted list. If there are no clear facts to remember, output exactly 'NONE'." }] },
+            contents: [{ role: 'user', parts: [{ text: lastUserMessage }] }]
+          })
+        });
+        
+        if (factResponse.ok) {
+           const factData = await factResponse.json();
+           const extractedFact = factData.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+           if (extractedFact && extractedFact !== "NONE") {
+              dynamicMemory += "\n" + extractedFact;
+              if (env.AI_MEMORY) {
+                 await env.AI_MEMORY.put("dynamic_facts", dynamicMemory.trim());
+              }
+           }
+        }
+      }
+
+      const FINAL_SYSTEM_PROMPT = SYSTEM_PROMPT + "\n\nHere is newly learned dynamic information about Haider:\n" + dynamicMemory;
 
       // Convert standard chat history to Gemini's format
       const geminiContents = messages.map(msg => ({
@@ -65,7 +102,7 @@ export default {
         },
         body: JSON.stringify({
           system_instruction: {
-            parts: [{ text: SYSTEM_PROMPT }]
+            parts: [{ text: FINAL_SYSTEM_PROMPT }]
           },
           contents: geminiContents,
           generationConfig: {
