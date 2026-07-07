@@ -10,11 +10,11 @@
   },
   {
     "id": "edu-002",
-    "institution": "Offensive Security",
+    "institution": "Pre Security",
     "degree": "Certification",
-    "field": "OSCP — Offensive Security Certified Professional",
-    "startDate": "2023",
-    "endDate": "2023",
-    "description": "Successfully completed the Penetration Testing with Kali Linux course and passed the 24-hour hands-on exam."
+    "field": "Cyber Security",
+    "startDate": "2025",
+    "endDate": "2025",
+    "description": "Successfully completed the pre security course with Tryhackme.com. "
   }
 ]
