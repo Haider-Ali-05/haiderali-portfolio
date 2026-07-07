@@ -203,7 +203,15 @@ class AdminSettings {
         }
 
         const bcrypt = window.bcrypt || (window.dcodeIO && window.dcodeIO.bcrypt);
-        if (bcrypt && bcrypt.compareSync(curr, settings.adminPasswordHash)) {
+        let isValid = false;
+
+        if (settings.defaultPassword && curr === 'admin123') {
+          isValid = true;
+        } else if (bcrypt && bcrypt.compareSync(curr, settings.adminPasswordHash)) {
+          isValid = true;
+        }
+
+        if (isValid) {
           const newHash = bcrypt.hashSync(nPass, 12);
           settings.adminPasswordHash = newHash;
           settings.defaultPassword = false;
