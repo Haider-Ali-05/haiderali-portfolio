@@ -1,116 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cyber">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - AI Memory Teacher</title>
+  <title>Console Control | Admin Panel</title>
+  
+  <!-- SEO & Favicon -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff3860'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/themes.css">
   <link rel="stylesheet" href="css/main.css">
-  <style>
-    body {
-      background: var(--bg-main);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: monospace;
-    }
-    #admin-container {
-      width: 100%;
-      max-width: 600px;
-      background: var(--bg-card);
-      backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
-    #password-screen {
-      text-align: center;
-    }
-    input {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 1rem 0;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid var(--border-color);
-      color: white;
-      border-radius: 8px;
-    }
-    button {
-      padding: 0.8rem 1.5rem;
-      background: var(--primary-color);
-      color: var(--bg-main);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    #chat-screen {
-      display: none;
-      flex-direction: column;
-      height: 60vh;
-    }
-    #chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      background: rgba(0,0,0,0.2);
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-    }
-    .input-group {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .input-group input {
-      margin: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
 
-<div id="admin-container">
-  <!-- Password Screen -->
-  <div id="password-screen">
-    <h2>Admin Access</h2>
-    <p>Enter the password to teach the AI new facts.</p>
-    <input type="password" id="admin-password" placeholder="Enter password">
-    <button id="login-btn">Login</button>
+  <!-- 1. Password Verification Gateway -->
+  <div class="admin-login" id="admin-login">
+    <div class="admin-login-card glass glow">
+      <div class="admin-login-logo">&gt; admin_console_auth</div>
+      <form id="admin-login-form">
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label" for="admin-pass">Access Code:</label>
+          <input class="form-input" type="password" id="admin-pass" placeholder="Enter passphrase" required>
+        </div>
+        <button class="btn-submit" type="submit">Verify Authority</button>
+      </form>
+    </div>
   </div>
 
-  <!-- Chat Screen -->
-  <div id="chat-screen">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <h2>AI Memory Teacher</h2>
-      <button id="show-change-pwd-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);">Change Password</button>
+  <!-- 2. GitHub Token Authorization View -->
+  <div class="github-pat-view" id="github-pat-view" style="display: none;">
+    <div class="github-pat-card glass glow">
+      <h2 class="admin-title" style="font-size: 1.5rem; margin-bottom: 1rem;">git_auth_required</h2>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem;">
+        This console edits static JSON files using Git commits. Please supply a GitHub Personal Access Token (PAT) with <code style="color:var(--accent-secondary);">repo</code> scope to sync changes.
+      </p>
+      <form id="github-pat-form">
+        <div class="form-group" style="text-align: left; margin-bottom: 1.2rem;">
+          <label class="form-label" for="github-owner">GitHub Username (Owner):</label>
+          <input class="form-input" type="text" id="github-owner" placeholder="e.g. haiderali-dev" required>
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 1.2rem;">
+          <label class="form-label" for="github-repo">Repository Name:</label>
+          <input class="form-input" type="text" id="github-repo" placeholder="e.g. portfolio-site" required>
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 2rem;">
+          <label class="form-label" for="github-token">Personal Access Token (PAT):</label>
+          <input class="form-input" type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx" required>
+        </div>
+        <button class="btn-submit" type="submit">Authorize and Link Repo</button>
+      </form>
     </div>
+  </div>
+
+  <!-- 3. SPA Admin Layout Dashboard -->
+  <div class="admin-container" id="admin-layout" style="display: none;">
     
-    <div id="change-pwd-section" style="display: none; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-      <h3 style="margin-top: 0; font-size: 1rem;">Change Admin Password</h3>
-      <input type="password" id="new-password" placeholder="New Password">
-      <div style="display: flex; gap: 0.5rem;">
-        <button id="save-pwd-btn" style="flex: 1;">Save</button>
-        <button id="cancel-pwd-btn" style="flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);">Cancel</button>
+    <!-- Sidebar Controls -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">&gt; main_core</div>
       </div>
-      <p id="pwd-msg" style="font-size: 0.8rem; text-align: center; margin-bottom: 0;"></p>
-    </div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link active" href="#" data-page="dashboard">
+          <span class="sidebar-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="profile">
+          <span class="sidebar-icon">👤</span>
+          <span>Profile</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="projects">
+          <span class="sidebar-icon">📁</span>
+          <span>Projects</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="experience">
+          <span class="sidebar-icon">💼</span>
+          <span>Experience</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="education">
+          <span class="sidebar-icon">🎓</span>
+          <span>Education</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="skills">
+          <span class="sidebar-icon">⚡</span>
+          <span>Skills</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="tools">
+          <span class="sidebar-icon">🔧</span>
+          <span>Tools</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="messages">
+          <span class="sidebar-icon">📨</span>
+          <span>Messages</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="analytics">
+          <span class="sidebar-icon">📈</span>
+          <span>Analytics</span>
+        </a>
+        <a class="sidebar-link" href="#" data-page="settings">
+          <span class="sidebar-icon">⚙️</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-status" id="sidebar-status">node: connected</div>
+        <button class="btn-logout" id="admin-logout-btn">
+          <span>Close Session</span>
+        </button>
+      </div>
+    </aside>
 
-    <p style="font-size: 0.9rem; opacity: 0.7;">Chat normally. I will extract facts you tell me and save them to KV permanently.</p>
-    <div id="chat-messages">
-      <div class="message ai-message" style="margin-bottom: 1rem;">
-        <div class="message-bubble" style="background: var(--primary-color); color: var(--bg-main); padding: 0.8rem; border-radius: 8px; display: inline-block;">Hello Haider. What would you like to teach me today?</div>
+    <!-- Main Dynamic Content Canvas -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1 class="admin-title" id="admin-page-title">Dashboard</h1>
+        <div id="save-status-indicator" style="font-family: monospace; font-size: 0.9rem; color: var(--text-muted);">synced</div>
+      </header>
+      <div id="admin-content">
+        <!-- Rendered dynamically -->
       </div>
-    </div>
-    <div class="input-group">
-      <input type="text" id="admin-input" placeholder="e.g. I am traveling to Dubai tomorrow.">
-      <button id="send-btn">Send</button>
-    </div>
+    </main>
   </div>
-</div>
 
-<script src="js/admin.js"></script>
+  <!-- Admin Toast Notifications -->
+  <div id="admin-toast-container"></div>
+
+  <!-- Dependencies & SPA JS Modules -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+  <script src="js/admin/github-api.js"></script>
+  <script src="js/admin/auth.js"></script>
+  <script src="js/admin/dashboard.js"></script>
+  <script src="js/admin/editor.js"></script>
+  <script src="js/admin/settings.js"></script>
+
+  <!-- Router Setup Script -->
+  <script src="js/admin/boot.js"></script>
 </body>
 </html>

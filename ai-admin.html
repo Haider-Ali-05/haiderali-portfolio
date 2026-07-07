@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - AI Memory Teacher</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: monospace;
+    }
+    #admin-container {
+      width: 100%;
+      max-width: 600px;
+      background: var(--bg-card);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+    #password-screen {
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border-color);
+      color: white;
+      border-radius: 8px;
+    }
+    button {
+      padding: 0.8rem 1.5rem;
+      background: var(--primary-color);
+      color: var(--bg-main);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #chat-screen {
+      display: none;
+      flex-direction: column;
+      height: 60vh;
+    }
+    #chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+    .input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .input-group input {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="admin-container">
+  <!-- Password Screen -->
+  <div id="password-screen">
+    <h2>Admin Access</h2>
+    <p>Enter the password to teach the AI new facts.</p>
+    <input type="password" id="admin-password" placeholder="Enter password">
+    <button id="login-btn">Login</button>
+  </div>
+
+  <!-- Chat Screen -->
+  <div id="chat-screen">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2>AI Memory Teacher</h2>
+      <button id="show-change-pwd-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);">Change Password</button>
+    </div>
+    
+    <div id="change-pwd-section" style="display: none; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+      <h3 style="margin-top: 0; font-size: 1rem;">Change Admin Password</h3>
+      <input type="password" id="new-password" placeholder="New Password">
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="save-pwd-btn" style="flex: 1;">Save</button>
+        <button id="cancel-pwd-btn" style="flex: 1; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);">Cancel</button>
+      </div>
+      <p id="pwd-msg" style="font-size: 0.8rem; text-align: center; margin-bottom: 0;"></p>
+    </div>
+
+    <p style="font-size: 0.9rem; opacity: 0.7;">Chat normally. I will extract facts you tell me and save them to KV permanently.</p>
+    <div id="chat-messages">
+      <div class="message ai-message" style="margin-bottom: 1rem;">
+        <div class="message-bubble" style="background: var(--primary-color); color: var(--bg-main); padding: 0.8rem; border-radius: 8px; display: inline-block;">Hello Haider. What would you like to teach me today?</div>
+      </div>
+    </div>
+    <div class="input-group">
+      <input type="text" id="admin-input" placeholder="e.g. I am traveling to Dubai tomorrow.">
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/ai-admin.js"></script>
+</body>
+</html>
