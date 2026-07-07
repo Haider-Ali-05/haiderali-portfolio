@@ -1,12 +1,1 @@
-[
-  {
-    "id": "exp-003",
-    "company": "TechVault Solutions",
-    "position": "Junior Developer",
-    "startDate": "2020-08",
-    "endDate": "2022-02",
-    "isCurrent": false,
-    "description": "Full-stack web development with focus on secure coding practices. Built RESTful APIs, implemented OAuth2 authentication flows, and conducted security testing for web applications.",
-    "companyUrl": "https://example.com"
-  }
-]
+[]
