@@ -7,5 +7,14 @@
     "endDate": null,
     "isCurrent": true,
     "description": "Managing Director"
+  },
+  {
+    "id": "exp-vgnemeauy",
+    "company": "X-Group",
+    "position": "Admin/Spoke-person",
+    "startDate": "2026-01",
+    "endDate": null,
+    "isCurrent": true,
+    "description": "Admin/Spoke-person"
   }
 ]
