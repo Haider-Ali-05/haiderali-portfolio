@@ -1,15 +1,5 @@
 [
   {
-    "id": "exp-002",
-    "company": "DataFort Security",
-    "position": "Security Engineer",
-    "startDate": "2022-03",
-    "endDate": "2024-05",
-    "isCurrent": false,
-    "description": "Designed and implemented security solutions for cloud infrastructure. Performed code audits, developed SIEM correlation rules, and managed incident response procedures. Achieved 40% reduction in security incidents.",
-    "companyUrl": "https://example.com"
-  },
-  {
     "id": "exp-003",
     "company": "TechVault Solutions",
     "position": "Junior Developer",
