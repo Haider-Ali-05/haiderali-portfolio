@@ -1341,3 +1341,23 @@ button {
     font-size: 18px;
   }
 }
+
+/* Scroll Progress Indicator & Premium Scroll Animation Additions */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  z-index: 10001; /* Layered above absolute overlays */
+  width: 0%;
+  box-shadow: 0 0 8px var(--accent-primary);
+  transition: width 0.1s ease-out;
+  pointer-events: none;
+}
+
+/* Stagger transition trigger rule */
+.fade-in-section.visible [data-stagger] > * {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
