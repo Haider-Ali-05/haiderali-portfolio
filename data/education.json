@@ -1,12 +1,12 @@
 [
   {
     "id": "edu-001",
-    "institution": "National University of Sciences & Technology",
+    "institution": "Capital University of Sciences & Technology",
     "degree": "Bachelor of Science",
     "field": "Cybersecurity",
-    "startDate": "2018",
-    "endDate": "2022",
-    "description": "Specialized in network security, cryptography, and ethical hacking. Dean's list recipient. Led the university's CTF team to national competitions."
+    "startDate": "2025",
+    "endDate": "2029",
+    "description": "Started in 2025, currently pursuing my undergraduate studies while developing expertise in cybersecurity, software development, networking, and emerging technologies through academic coursework and practical projects.\n"
   },
   {
     "id": "edu-002",
