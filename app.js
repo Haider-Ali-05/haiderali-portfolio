@@ -2,7 +2,7 @@
 
 import { initTheme } from './theme.js';
 import { initContact } from './contact.js';
-import { initTools } from './tools.js';
+import { initTools } from './tools.js?v=2';
 import { trackVisit } from './analytics.js';
 
 // Global Data State
