@@ -427,7 +427,7 @@ function renderCalculator(container) {
           }
 
           // Evaluate using a safe function execution
-          const result = new Function(`return ${evalExpr}`)();
+          const result = new Function('return ' + evalExpr)();
           
           if (result === undefined || !Number.isFinite(result)) {
             throw new Error('Invalid math');
