@@ -1,7 +1,7 @@
 {
   "adminPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
   "defaultPassword": true,
-  "siteLoginEnabled": true,
+  "siteLoginEnabled": false,
   "siteLoginPassword": "haider321",
   "company": {
     "name": "Xsec solutions",
