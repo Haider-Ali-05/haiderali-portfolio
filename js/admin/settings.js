@@ -283,8 +283,9 @@ class AdminSettings {
     toast.style.zIndex = '3500';
     toast.innerHTML = `
       <span>${message}</span>
-      <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+      <button class="toast-close">&times;</button>
     `;
+    toast.querySelector('.toast-close').addEventListener('click', () => toast.remove());
     container.appendChild(toast);
     setTimeout(() => toast.remove(), 4000);
   }

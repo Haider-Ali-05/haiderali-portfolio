@@ -2,7 +2,7 @@
   "adminPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
   "defaultPassword": true,
   "siteLoginEnabled": false,
-  "siteLoginPassword": "",
+  "visitorPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
   "company": {
     "name": "CyberShield Technologies",
     "url": "https://example.com",

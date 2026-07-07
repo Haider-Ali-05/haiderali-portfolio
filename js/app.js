@@ -102,8 +102,17 @@ function showSiteLoginOverlay() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const passInput = document.getElementById('site-pass');
+    const password = passInput.value;
+    const hash = siteData.settings.visitorPasswordHash;
     
-    if (passInput.value === siteData.settings.siteLoginPassword) {
+    const bcrypt = window.bcrypt || (window.dcodeIO && window.dcodeIO.bcrypt);
+    let isValid = false;
+    
+    if (bcrypt && hash) {
+      isValid = bcrypt.compareSync(password, hash);
+    }
+    
+    if (isValid) {
       sessionStorage.setItem('portfolio_unlocked', 'true');
       overlay.style.display = 'none';
       window.location.reload();
@@ -381,7 +390,7 @@ function openProjectModal(project) {
 
   const descContainer = document.getElementById('modal-project-description');
   if (window.marked) {
-    descContainer.innerHTML = window.marked.parse(project.description);
+    descContainer.innerHTML = window.DOMPurify.sanitize(window.marked.parse(project.description));
   } else {
     descContainer.innerText = project.description;
   }

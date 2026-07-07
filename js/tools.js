@@ -345,7 +345,63 @@ function renderJwtDecoder(container, showToast) {
   });
 }
 
-/* 6. Scientific Calculator */
+// Safe Math Parser (Replaces eval)
+function evaluateMath(expression) {
+  const tokens = expression.match(/(?:Math\.sqrt|\d+\.?\d*|\+|-|\*|\/|\^|\(|\)|Math\.PI)/g) || [];
+  let pos = 0;
+  function parseExpression() {
+      let node = parseTerm();
+      while (pos < tokens.length && (tokens[pos] === '+' || tokens[pos] === '-')) {
+          let operator = tokens[pos++];
+          let right = parseTerm();
+          node = operator === '+' ? node + right : node - right;
+      }
+      return node;
+  }
+  function parseTerm() {
+      let node = parseFactor();
+      while (pos < tokens.length && (tokens[pos] === '*' || tokens[pos] === '/')) {
+          let operator = tokens[pos++];
+          let right = parseFactor();
+          node = operator === '*' ? node * right : node / right;
+      }
+      return node;
+  }
+  function parseFactor() {
+      let node = parsePower();
+      while (pos < tokens.length && tokens[pos] === '^') {
+          pos++;
+          let right = parseFactor();
+          node = Math.pow(node, right);
+      }
+      return node;
+  }
+  function parsePower() {
+      if (pos >= tokens.length) return 0;
+      let token = tokens[pos++];
+      if (token === '-') return -parsePower();
+      if (token === '+') return parsePower();
+      if (token === '(') {
+          let node = parseExpression();
+          if (tokens[pos] === ')') pos++;
+          return node;
+      }
+      if (token === 'Math.sqrt') {
+          if (tokens[pos] === '(') {
+              pos++;
+              let node = parseExpression();
+              if (tokens[pos] === ')') pos++;
+              return Math.sqrt(node);
+          }
+      }
+      if (token === 'Math.PI') return Math.PI;
+      return parseFloat(token);
+  }
+  const result = parseExpression();
+  if (pos < tokens.length) throw new Error("Unexpected token");
+  return result;
+}
+
 function renderCalculator(container) {
   container.innerHTML = `
     <div class="calc-container" style="max-width: 340px; margin: 0 auto; background: rgba(15, 22, 41, 0.85); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-glow);">
@@ -427,7 +483,7 @@ function renderCalculator(container) {
           }
 
           // Evaluate using a safe function execution
-          const result = new Function('return ' + evalExpr)();
+          const result = evaluateMath(evalExpr);
           
           if (result === undefined || !Number.isFinite(result)) {
             throw new Error('Invalid math');
