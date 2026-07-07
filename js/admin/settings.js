@@ -60,6 +60,23 @@ class AdminSettings {
         </div>
 
         <div class="admin-card glass glow">
+          <h2 class="admin-card-title">ai_teacher_password_reset</h2>
+          <form id="form-ai-password" class="admin-form-grid">
+            <div class="form-group">
+              <label class="form-label" for="sett-ai-curr-pass">Current AI Chat Password:</label>
+              <input class="form-input" type="password" id="sett-ai-curr-pass" required placeholder="Default: haideradmin">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sett-ai-new-pass">New AI Chat Password:</label>
+              <input class="form-input" type="password" id="sett-ai-new-pass" required>
+            </div>
+            <div class="admin-btn-group admin-form-full">
+              <button class="admin-btn admin-btn-primary" type="submit">Update AI Password</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-card glass glow">
           <h2 class="admin-card-title">site_access_control</h2>
           <form id="form-site-access" class="admin-form-grid">
             <div class="form-group admin-form-full">
@@ -198,6 +215,38 @@ class AdminSettings {
           }
         } else {
           this.showToast('Current passphrase confirmation rejected.', 'error');
+        }
+      });
+
+      // 1b. AI Teacher Password Reset
+      container.querySelector('#form-ai-password').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const curr = document.getElementById('sett-ai-curr-pass').value;
+        const nPass = document.getElementById('sett-ai-new-pass').value;
+        
+        try {
+          const response = await fetch('https://haider-ai-backend.futurehacker-7-8-7.workers.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'change_password',
+              adminPassword: curr,
+              newPassword: nPass
+            })
+          });
+
+          if (!response.ok) throw new Error('Failed to update password');
+          
+          const data = await response.json();
+          if (data.success) {
+            this.showToast('AI Teacher Password updated successfully in Cloudflare!', 'success');
+            document.getElementById('sett-ai-curr-pass').value = '';
+            document.getElementById('sett-ai-new-pass').value = '';
+          } else {
+            throw new Error(data.error || 'Failed');
+          }
+        } catch (error) {
+          this.showToast('AI Password reset rejected. Check current password.', 'error');
         }
       });
 
