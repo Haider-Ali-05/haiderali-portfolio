@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "exp-42sh13vlp",
+    "company": "XSEC SOLUTIONS",
+    "position": "MD(Managing Director)",
+    "startDate": "2026-06",
+    "endDate": null,
+    "isCurrent": true,
+    "description": "Managing Director"
+  }
+]
