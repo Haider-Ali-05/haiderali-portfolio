@@ -470,82 +470,135 @@ function renderJwtDecoder(container, showToast) {
 /* 6. Scientific Calculator */
 function renderCalculator(container) {
   container.innerHTML = `
-    <div class="calc-container" style="max-width: 320px; margin: 0 auto;">
-      <div class="calc-display" id="calc-disp">0</div>
-      <div class="calc-grid" style="margin-top: 15px;">
-        <button class="calc-btn calc-action" data-val="C">C</button>
-        <button class="calc-btn calc-action" data-val="sqrt">√</button>
-        <button class="calc-btn calc-action" data-val="pow">^</button>
-        <button class="calc-btn calc-action" data-val="/">/</button>
+    <div class="calc-container" style="max-width: 340px; margin: 0 auto; background: rgba(15, 22, 41, 0.85); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-glow);">
+      <div class="calc-display" id="calc-disp" style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 240, 255, 0.15); border-radius: 8px; color: var(--accent-primary); font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; padding: 1rem; text-align: right; word-break: break-all; min-height: 60px; display: flex; align-items: center; justify-content: flex-end; text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);">0</div>
+      <div class="calc-grid" style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+        <button class="calc-btn calc-action" data-val="C" style="background: rgba(255, 56, 96, 0.15); border: 1px solid rgba(255, 56, 96, 0.3); color: var(--accent-danger);">C</button>
+        <button class="calc-btn calc-action" data-val="sqrt" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">√</button>
+        <button class="calc-btn calc-action" data-val="pow" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">^</button>
+        <button class="calc-btn calc-action" data-val="/" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">/</button>
         
-        <button class="calc-btn" data-val="7">7</button>
-        <button class="calc-btn" data-val="8">8</button>
-        <button class="calc-btn" data-val="9">9</button>
-        <button class="calc-btn calc-action" data-val="*">*</button>
+        <button class="calc-btn" data-val="7" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">7</button>
+        <button class="calc-btn" data-val="8" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">8</button>
+        <button class="calc-btn" data-val="9" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">9</button>
+        <button class="calc-btn calc-action" data-val="*" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">*</button>
         
-        <button class="calc-btn" data-val="4">4</button>
-        <button class="calc-btn" data-val="5">5</button>
-        <button class="calc-btn" data-val="6">6</button>
-        <button class="calc-btn calc-action" data-val="-">-</button>
+        <button class="calc-btn" data-val="4" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">4</button>
+        <button class="calc-btn" data-val="5" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">5</button>
+        <button class="calc-btn" data-val="6" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">6</button>
+        <button class="calc-btn calc-action" data-val="-" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">-</button>
         
-        <button class="calc-btn" data-val="1">1</button>
-        <button class="calc-btn" data-val="2">2</button>
-        <button class="calc-btn" data-val="3">3</button>
-        <button class="calc-btn calc-action" data-val="+">+</button>
+        <button class="calc-btn" data-val="1" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">1</button>
+        <button class="calc-btn" data-val="2" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">2</button>
+        <button class="calc-btn" data-val="3" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">3</button>
+        <button class="calc-btn calc-action" data-val="+" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">+</button>
         
-        <button class="calc-btn" data-val="0">0</button>
-        <button class="calc-btn" data-val=".">.</button>
-        <button class="calc-btn calc-action" data-val="pi">π</button>
-        <button class="calc-btn calc-equals" data-val="=">=</button>
+        <button class="calc-btn" data-val="0" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">0</button>
+        <button class="calc-btn" data-val="." style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-primary);">.</button>
+        <button class="calc-btn calc-action" data-val="pi" style="background: rgba(0, 240, 255, 0.08); border: 1px solid rgba(0, 240, 255, 0.15); color: var(--accent-primary);">π</button>
+        <button class="calc-btn calc-equals" data-val="=" style="background: rgba(57, 255, 20, 0.15); border: 1px solid rgba(57, 255, 20, 0.3); color: var(--accent-secondary); font-weight: bold;">=</button>
       </div>
     </div>
+    <style>
+      .calc-btn {
+        padding: 1rem 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        outline: none;
+      }
+      .calc-btn:hover {
+        background: rgba(0, 240, 255, 0.2) !important;
+        border-color: var(--accent-primary) !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        transform: translateY(-2px);
+      }
+      .calc-btn.calc-action:hover {
+        background: rgba(0, 240, 255, 0.25) !important;
+      }
+      .calc-btn.calc-equals:hover {
+        background: rgba(57, 255, 20, 0.3) !important;
+        border-color: var(--accent-secondary) !important;
+        box-shadow: 0 0 12px rgba(57, 255, 20, 0.3);
+      }
+    </style>
   `;
 
   const disp = container.querySelector('#calc-disp');
-  let currentExpr = '';
+  let displayExpr = '';
+  let evalExpr = '';
 
   container.querySelectorAll('.calc-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const val = btn.dataset.val;
 
       if (val === 'C') {
-        currentExpr = '';
+        displayExpr = '';
+        evalExpr = '';
         disp.innerText = '0';
       } else if (val === '=') {
+        if (!evalExpr) return;
         try {
-          // Replace symbols with JS equivalents
-          let expr = currentExpr.replace(/pi/g, 'Math.PI');
-          if (expr.includes('sqrt(')) {
-            // simple conversion
-          } else if (expr.includes('^')) {
-            const parts = expr.split('^');
-            expr = `Math.pow(${parts[0]}, ${parts[1]})`;
+          // Balance parentheses automatically
+          const openP = (evalExpr.split('(').length - 1) - (evalExpr.split(')').length - 1);
+          for (let i = 0; i < openP; i++) {
+            evalExpr += ')';
+            displayExpr += ')';
+          }
+
+          // Evaluate using a safe function execution
+          const result = new Function(\`return \${evalExpr}\`)();
+          
+          if (result === undefined || !Number.isFinite(result)) {
+            throw new Error('Invalid math');
           }
           
-          // Safe eval using direct mathematical evaluation only
-          const result = new Function(`return ${expr}`)();
-          disp.innerText = Number.isFinite(result) ? result : 'Error';
-          currentExpr = disp.innerText;
+          // Render result cleanly
+          disp.innerText = Number(result.toFixed(8)).toString(); // Limit decimals, clean floats
+          displayExpr = disp.innerText;
+          evalExpr = disp.innerText;
         } catch (e) {
-          disp.innerText = 'Syntax Error';
-          currentExpr = '';
+          disp.innerText = 'Error';
+          displayExpr = '';
+          evalExpr = '';
         }
       } else if (val === 'sqrt') {
-        currentExpr = `Math.sqrt(${currentExpr || '0'})`;
-        disp.innerText = currentExpr;
-      } else if (val === 'pow') {
-        currentExpr += '^';
-        disp.innerText = currentExpr;
-      } else if (val === 'pi') {
-        currentExpr += 'pi';
-        disp.innerText = currentExpr;
-      } else {
-        if (currentExpr === '0' || disp.innerText === 'Syntax Error' || disp.innerText === 'Error') {
-          currentExpr = '';
+        // Smart multiply if previous char is a number
+        const lastChar = evalExpr.slice(-1);
+        if (/[0-9.]$/.test(lastChar)) {
+          evalExpr += '*';
+          displayExpr += '*';
         }
-        currentExpr += val;
-        disp.innerText = currentExpr;
+        evalExpr += 'Math.sqrt(';
+        displayExpr += '√(';
+        disp.innerText = displayExpr;
+      } else if (val === 'pow') {
+        evalExpr += '**';
+        displayExpr += '^';
+        disp.innerText = displayExpr;
+      } else if (val === 'pi') {
+        const lastChar = evalExpr.slice(-1);
+        if (/[0-9.]$/.test(lastChar)) {
+          evalExpr += '*';
+          displayExpr += '*';
+        }
+        evalExpr += 'Math.PI';
+        displayExpr += 'π';
+        disp.innerText = displayExpr;
+      } else {
+        // Standard digits / operators
+        if (displayExpr === '0' || disp.innerText === 'Error') {
+          displayExpr = '';
+          evalExpr = '';
+        }
+        displayExpr += val;
+        evalExpr += val;
+        disp.innerText = displayExpr;
       }
     });
   });
 }
+
+
