@@ -1,15 +1,5 @@
 [
   {
-    "id": "exp-001",
-    "company": "CyberShield Technologies",
-    "position": "Senior Security Analyst",
-    "startDate": "2024-06",
-    "endDate": null,
-    "isCurrent": true,
-    "description": "Leading penetration testing engagements for enterprise clients. Conducting vulnerability assessments, red team operations, and security architecture reviews. Mentoring junior analysts and developing internal security tools.",
-    "companyUrl": "https://example.com"
-  },
-  {
     "id": "exp-002",
     "company": "DataFort Security",
     "position": "Security Engineer",
