@@ -1303,7 +1303,8 @@ button {
 
 #ai-chat-window {
   width: 350px;
-  height: 500px;
+  height: 420px;
+  max-height: calc(100vh - 120px);
   background: var(--bg-card);
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-color);
