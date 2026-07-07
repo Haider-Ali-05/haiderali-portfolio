@@ -106,8 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  let messageHistory = [];
+
   // Real API Integration (Phase 2)
   async function mockSendMessageToAI(message) {
+    // Add user message to history
+    messageHistory.push({ role: 'user', text: message });
+
     try {
       const response = await fetch('https://haider-ai-backend.futurehacker-7-8-7.workers.dev', {
         method: 'POST',
@@ -115,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          messages: [{ role: 'user', text: message }]
+          messages: messageHistory
         })
       });
 
@@ -124,9 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const data = await response.json();
+      
+      // Add AI response to history
+      messageHistory.push({ role: 'ai', text: data.reply });
+      
       return data.reply;
     } catch (error) {
       console.error('Error talking to AI:', error);
+      // Remove the last user message from history if the request failed
+      messageHistory.pop(); 
       throw error;
     }
   }

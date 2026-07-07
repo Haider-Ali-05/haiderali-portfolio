@@ -70,8 +70,14 @@ export default {
           contents: geminiContents,
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 800,
-          }
+            maxOutputTokens: 200, // Reduced from 800 for much faster response times
+          },
+          safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+          ]
         })
       });
 
@@ -84,8 +90,11 @@ export default {
       const data = await geminiResponse.json();
       
       let replyText = "I'm sorry, I couldn't generate a response.";
-      if (data.candidates && data.candidates[0].content.parts[0].text) {
+      // Safely check if the response contains text (prevents crashing if blocked by safety)
+      if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text) {
         replyText = data.candidates[0].content.parts[0].text;
+      } else if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === "SAFETY") {
+        replyText = "I'm sorry, my safety filters prevented me from generating an answer to that question.";
       }
 
       return new Response(JSON.stringify({ reply: replyText }), {
