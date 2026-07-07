@@ -55,8 +55,8 @@ export default {
         parts: [{ text: msg.text }]
       }));
 
-      // Call Google Gemini API
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+      // Call Google Gemini API using the latest Flash model
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
       
       const geminiResponse = await fetch(geminiUrl, {
         method: 'POST',
