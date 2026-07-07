@@ -2,7 +2,7 @@
 
 import { initTheme } from './theme.js';
 import { initContact } from './contact.js';
-import { initTools } from './tools.js?v=2';
+import { initTools } from './tools.js';
 import { trackVisit } from './analytics.js';
 
 // Global Data State
@@ -11,6 +11,9 @@ let siteData = {};
 document.addEventListener('DOMContentLoaded', () => {
   init().catch(err => {
     console.error('System boot failure:', err);
+    // Always hide loading screen even on failure
+    const loader = document.getElementById('loading-screen');
+    if (loader) loader.classList.add('hidden');
     showToast('Failed to initialize system core.', 'error');
   });
 });
