@@ -55,8 +55,8 @@ export default {
         parts: [{ text: msg.text }]
       }));
 
-      // Call Google Gemini API using the latest Flash model
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+      // Call Google Gemini API using the Lightning-Fast 2.5 Lite model
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
       
       const geminiResponse = await fetch(geminiUrl, {
         method: 'POST',
@@ -70,7 +70,7 @@ export default {
           contents: geminiContents,
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 200, // Reduced from 800 for much faster response times
+            maxOutputTokens: 800, // Restored to 800 so it can finish its sentences
           },
           safetySettings: [
             { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
