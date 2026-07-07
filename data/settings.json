@@ -2,19 +2,19 @@
   "adminPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
   "defaultPassword": true,
   "siteLoginEnabled": false,
-  "siteLoginPassword": "haider321",
+  "siteLoginPassword": "",
   "company": {
-    "name": "Xsec solutions",
-    "url": "https://xgroup.digital/",
-    "primaryColor": "#24c3eb",
-    "secondaryColor": "#1f70a3"
+    "name": "CyberShield Technologies",
+    "url": "https://example.com",
+    "primaryColor": "#2563eb",
+    "secondaryColor": "#1e40af"
   },
   "seo": {
     "title": "Haider Ali | Cybersecurity Expert & Developer",
     "description": "Portfolio of Haider Ali — Cybersecurity specialist, penetration tester, and developer. Expert in web security, network security, and ethical hacking.",
     "keywords": "haider ali, haider, cyber expert, cybersecurity, penetration testing, ethical hacker, web security, ihaiderali.dev"
   },
-  "web3formsKey": "602b0e30-d2e1-437a-8f4c-44384c765262",
+  "web3formsKey": "YOUR_WEB3FORMS_ACCESS_KEY",
   "analytics": {
     "enabled": true,
     "visitors": []
