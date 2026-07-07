@@ -272,7 +272,7 @@ button {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
@@ -338,7 +338,7 @@ button {
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
   font-family: 'JetBrains Mono', monospace;
   letter-spacing: -1px;
 }
@@ -347,14 +347,14 @@ button {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--accent-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .hero-bio {
   color: var(--text-secondary);
   font-size: 1.1rem;
   max-width: 600px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 .hero-social {
