@@ -1,23 +1,5 @@
 [
   {
-    "id": "proj-002",
-    "name": "VaultCrypt Password Manager",
-    "shortInfo": "Zero-knowledge encrypted password vault with CLI interface",
-    "description": "A zero-knowledge password manager built from scratch using AES-256-GCM encryption. Features include master password derivation via Argon2, secure clipboard integration, TOTP generation, and encrypted cloud sync. No plaintext ever leaves the device.",
-    "publicationDate": "2025-01-20",
-    "screenshots": [
-      "uploads/projects/vaultcrypt-1.jpg"
-    ],
-    "downloadFile": "uploads/projects/vaultcrypt.zip",
-    "downloadAllowed": false,
-    "tags": [
-      "Cryptography",
-      "Python",
-      "Security",
-      "CLI"
-    ]
-  },
-  {
     "id": "proj-003",
     "name": "WebRecon OSINT Framework",
     "shortInfo": "Open-source intelligence gathering toolkit for web targets",
