@@ -1,6 +1,6 @@
 {
-  "adminPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
-  "defaultPassword": true,
+  "adminPasswordHash": "$2a$12$7KZZe2BuFAhU.sG3TYpnJO0dRrUyHllAidelMgyF/ee/GobEtsivC",
+  "defaultPassword": false,
   "siteLoginEnabled": false,
   "visitorPasswordHash": "$2a$10$dIJYGvKNvITeljfEgi9HgOyUZFZqWZca/vLAwHzpgTqVSe/EyXZA",
   "company": {
