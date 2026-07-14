@@ -38,6 +38,7 @@ async function init() {
 
   // 4. Populate layout content
   applySEO(siteData.settings, siteData.profile, siteData.social);
+  applyBrand(siteData.settings);
   renderHero(siteData.profile, siteData.social);
   renderAbout(siteData.profile);
   renderExperience(siteData.experience);
@@ -153,6 +154,16 @@ function updateMetaTag(name, content) {
     document.head.appendChild(tag);
   }
   tag.setAttribute('content', content);
+}
+
+function applyBrand(settings) {
+  if (settings.company) {
+    const logoEl = document.getElementById('nav-brand-logo');
+    if (settings.company.logoUrl && logoEl) {
+      logoEl.src = settings.company.logoUrl;
+      logoEl.style.display = 'block';
+    }
+  }
 }
 
 function renderHero(profile, social) {

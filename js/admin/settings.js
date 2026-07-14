@@ -131,7 +131,12 @@ class AdminSettings {
             </div>
             <div class="form-group">
               <label class="form-label" for="sett-comp-url">Company Website URL:</label>
-              <input class="form-input" type="url" id="sett-comp-url" value="${sanitizeHTML(settings.company.url)}" required>
+              <div style="display:flex; gap:0.5rem;">
+                <input class="form-input" type="url" id="sett-comp-url" value="${sanitizeHTML(settings.company.url)}" required style="flex:1;">
+                <button type="button" id="btn-extract-theme" class="admin-btn" style="padding: 0 1rem; background: var(--bg-card); border: 1px solid var(--primary-color); color: var(--primary-color);">🪄 Auto-Extract</button>
+              </div>
+              <input type="hidden" id="sett-comp-logo" value="${sanitizeHTML(settings.company.logoUrl || '')}">
+              <div id="extract-status" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);"></div>
             </div>
             <div class="form-group">
               <label class="form-label">Brand Primary Color (affects Company Theme):</label>
@@ -295,13 +300,67 @@ class AdminSettings {
         });
       });
 
+      const extractBtn = container.querySelector('#btn-extract-theme');
+      const urlInput = container.querySelector('#sett-comp-url');
+      const statusText = container.querySelector('#extract-status');
+      const col1Input = container.querySelector('#sett-comp-col1');
+      const col2Input = container.querySelector('#sett-comp-col2');
+      const logoInput = container.querySelector('#sett-comp-logo');
+
+      if (settings.company.logoUrl) {
+         statusText.innerHTML = `Current Logo: <img src="${settings.company.logoUrl}" style="height:20px; vertical-align:middle; margin-left:10px; border-radius:4px;">`;
+      }
+
+      extractBtn.addEventListener('click', async () => {
+        const url = urlInput.value.trim();
+        if (!url) {
+          statusText.innerText = 'Please enter a valid URL first.';
+          return;
+        }
+        
+        statusText.innerText = 'Analyzing website...';
+        extractBtn.disabled = true;
+
+        try {
+          const res = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}&palette=true`);
+          const data = await res.json();
+
+          if (data.status === 'success') {
+            const logo = data.data.logo?.url || data.data.image?.url;
+            // Fallback to existing colors if microlink doesn't find palette
+            const primary = data.data.logo?.background_color || data.data.image?.background_color || col1Input.value;
+            const secondary = data.data.logo?.color || data.data.image?.color || col2Input.value;
+
+            col1Input.value = primary;
+            col1Input.nextElementSibling.innerText = primary;
+            col2Input.value = secondary;
+            col2Input.nextElementSibling.innerText = secondary;
+            
+            if (logo) {
+              logoInput.value = logo;
+              statusText.innerHTML = `<span style="color:#4ade80;">Theme extracted successfully!</span> <img src="${logo}" style="height:20px; vertical-align:middle; margin-left:10px; border-radius:4px;">`;
+            } else {
+              logoInput.value = '';
+              statusText.innerHTML = `<span style="color:#4ade80;">Colors extracted, but no logo found.</span>`;
+            }
+          } else {
+            throw new Error('Failed to parse website');
+          }
+        } catch (e) {
+          statusText.innerHTML = `<span style="color:#f87171;">Extraction failed: ${e.message}</span>`;
+        } finally {
+          extractBtn.disabled = false;
+        }
+      });
+
       container.querySelector('#form-company').addEventListener('submit', async (e) => {
         e.preventDefault();
         settings.company = {
           name: document.getElementById('sett-comp-name').value,
           url: document.getElementById('sett-comp-url').value,
           primaryColor: document.getElementById('sett-comp-col1').value,
-          secondaryColor: document.getElementById('sett-comp-col2').value
+          secondaryColor: document.getElementById('sett-comp-col2').value,
+          logoUrl: document.getElementById('sett-comp-logo').value
         };
         await this.saveData('settings.json', settings, 'Update current company styling profile');
       });
