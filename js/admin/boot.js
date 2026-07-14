@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let dashboard = null;
   let settings = null;
 
-  auth.init();
-
   async function navigateTo(page) {
     const content = document.getElementById('admin-content');
     const pageTitle = document.getElementById('admin-page-title');
@@ -77,4 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navigateTo('dashboard');
   };
+
+  // Initialize auth after all global callbacks are defined
+  auth.init();
 });
