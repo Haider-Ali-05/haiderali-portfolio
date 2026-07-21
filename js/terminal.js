@@ -108,15 +108,7 @@ export function initTerminal(profile) {
         output.innerHTML = '';
         break;
       case 'submit_flag':
-        if (args[1] === 'FLAG{c0ns0l3_h4ck3r}') {
-          printOut('SUCCESS: Flag 1 captured!', false, true);
-          printOut('<span style="color: gold;">🏆 You found the Console Flag!</span>', false, true);
-        } else if (args[1] === 'FLAG{r0b0ts_ar3_f0r_s30}') {
-          printOut('SUCCESS: Flag 2 captured!', false, true);
-          printOut('<span style="color: gold;">🏆 You found the HTML Comment Flag!</span>', false, true);
-        } else {
-          printOut('Error: Invalid or missing flag.', true);
-        }
+        checkFlag(args[1]);
         break;
       case 'sudo':
         printOut('Nice try. This incident will be reported.', true);
@@ -124,7 +116,28 @@ export function initTerminal(profile) {
       case '':
         break;
       default:
-        printOut(`bash: ${base}: command not found`, true);
+        if (base.startsWith('flag{') && base.endsWith('}')) {
+          checkFlag(base);
+        } else {
+          printOut(`bash: ${base}: command not found`, true);
+        }
+    }
+
+    function checkFlag(flagInput) {
+      if (!flagInput) {
+        printOut('Error: Invalid or missing flag.', true);
+        return;
+      }
+      const flagUpper = flagInput.toUpperCase();
+      if (flagUpper === 'FLAG{C0NS0L3_H4CK3R}') {
+        printOut('SUCCESS: Flag 1 captured!', false, true);
+        printOut('<span style="color: gold;">🏆 You found the Console Flag!</span>', false, true);
+      } else if (flagUpper === 'FLAG{R0B0TS_AR3_F0R_S30}') {
+        printOut('SUCCESS: Flag 2 captured!', false, true);
+        printOut('<span style="color: gold;">🏆 You found the HTML Comment Flag!</span>', false, true);
+      } else {
+        printOut('Error: Invalid flag.', true);
+      }
     }
   }
 }
