@@ -25,6 +25,13 @@ export function initTerminal(profile) {
     });
   }
 
+  const fab = document.getElementById('terminal-fab');
+  if (fab) {
+    fab.addEventListener('click', () => {
+      toggleTerminal();
+    });
+  }
+
   // Draggable logic
   termHeader.addEventListener('mousedown', (e) => {
     isDragging = true;
