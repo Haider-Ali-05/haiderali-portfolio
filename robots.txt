@@ -1,6 +1,42 @@
+# Haider Ali Portfolio - robots.txt
+# https://ihaiderali.dev/
+
 User-agent: *
 Allow: /
+Allow: /sitemap.xml
+Allow: /uploads/
+
+# Block sensitive files
 Disallow: /admin.html
+Disallow: /ai-admin.html
 Disallow: /data/settings.json
+Disallow: /data/
+Disallow: /backend/
+
+# Block common scanner paths
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /*.json$
+
+# Allow major crawlers explicitly
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
 
 Sitemap: https://ihaiderali.dev/sitemap.xml
