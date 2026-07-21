@@ -1158,8 +1158,8 @@ button {
 /* Back to Top */
 .back-to-top {
   position: fixed;
-  bottom: 6rem;
-  right: 2rem;
+  bottom: 6.5rem;
+  right: calc(2rem + 7px);
   width: 46px;
   height: 46px;
   border-radius: 50%;
