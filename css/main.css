@@ -778,6 +778,36 @@ button {
   opacity: 1;
 }
 
+/* Interactive Terminal Modal */
+#interactive-terminal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: var(--shadow-glow-strong);
+  z-index: 4000;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#interactive-terminal .terminal-body {
+  font-family: monospace;
+  font-size: 0.95rem;
+  padding: 15px;
+  color: var(--text-primary);
+  line-height: 1.4;
+  background: var(--bg-tertiary);
+}
+
+#interactive-terminal .terminal-body div {
+  margin-bottom: 4px;
+}
+
 .modal-content {
   width: 100%;
   max-width: 750px;

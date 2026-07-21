@@ -12,7 +12,11 @@ export function initTheme(settings = null) {
 
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
-      const nextTheme = currentTheme === 'cyber' ? 'company' : 'cyber';
+      let nextTheme;
+      if (currentTheme === 'cyber') nextTheme = 'company';
+      else if (currentTheme === 'company') nextTheme = 'matrix';
+      else nextTheme = 'cyber';
+      
       setTheme(nextTheme);
       currentTheme = nextTheme;
     });
@@ -25,7 +29,16 @@ export function setTheme(theme) {
   
   const toggleBtn = document.getElementById('theme-toggle');
   if (toggleBtn) {
-    toggleBtn.innerText = theme === 'cyber' ? '🌙' : '☀️';
+    if (theme === 'cyber') toggleBtn.innerText = '🌙';
+    else if (theme === 'company') toggleBtn.innerText = '☀️';
+    else toggleBtn.innerText = '01'; // Matrix icon
+  }
+
+  const heatmap = document.getElementById('github-heatmap');
+  if (heatmap) {
+    if (theme === 'cyber') heatmap.src = 'https://ghchart.rshah.org/00f0ff/Haider-Ali-05';
+    else if (theme === 'company') heatmap.src = 'https://ghchart.rshah.org/2563eb/Haider-Ali-05';
+    else if (theme === 'matrix') heatmap.src = 'https://ghchart.rshah.org/00ff00/Haider-Ali-05';
   }
 }
 

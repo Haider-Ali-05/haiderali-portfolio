@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- FLAG{r0b0ts_ar3_f0r_s30} -->
 <html lang="en" data-theme="cyber">
 <head>
   <meta charset="UTF-8">
@@ -55,6 +56,9 @@
   </script>
 </head>
 <body>
+
+  <!-- Matrix Background -->
+  <canvas id="matrix-canvas"></canvas>
 
   <!-- Loading Screen -->
   <div class="loading-screen" id="loading-screen">
@@ -196,7 +200,25 @@
     <div class="container">
       <h2 class="section-title">Projects</h2>
       <p class="section-subtitle">Showcasing security research, automated tools, and code repositories</p>
+      
+      <!-- GitHub Heatmap -->
+      <div class="glass glow" style="padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; text-align: center; overflow-x: auto;">
+        <h3 style="margin-bottom: 1rem; color: var(--text-primary); font-size: 1.2rem;">GitHub Contribution Activity</h3>
+        <img id="github-heatmap" src="https://ghchart.rshah.org/00f0ff/Haider-Ali-05" alt="Haider Ali's Github chart" style="min-width: 700px; margin: 0 auto;">
+      </div>
+
       <div class="projects-grid" id="projects-container" data-stagger>
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog / Writeups Section -->
+  <section class="section fade-in-section" id="blog">
+    <div class="container">
+      <h2 class="section-title">Security Write-ups</h2>
+      <p class="section-subtitle">CTF solutions, vulnerability research, and tutorials</p>
+      <div class="blog-grid" id="blog-container" data-stagger style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
         <!-- Populated dynamically -->
       </div>
     </div>
@@ -279,6 +301,20 @@
     </div>
   </div>
 
+  <!-- Blog Article Modal -->
+  <div class="modal" id="blog-modal">
+    <div class="modal-content glass glow" style="max-width: 800px; padding: 2.5rem;">
+      <button class="modal-close" id="blog-modal-close" aria-label="Close modal">&times;</button>
+      <div style="margin-bottom: 2rem;">
+        <h3 class="timeline-company" id="blog-modal-title" style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--text-primary);">Blog Title</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;" id="blog-modal-meta">July 22, 2026</p>
+      </div>
+      <div id="blog-modal-body" style="color: var(--text-primary); line-height: 1.6;">
+        <!-- Markdown content injected here -->
+      </div>
+    </div>
+  </div>
+
   <!-- Interactive Security Tool Modal -->
   <div class="modal" id="tool-modal">
     <div class="modal-content glass glow" style="max-width: 600px;">
@@ -288,6 +324,23 @@
       <div id="tool-modal-body">
         <!-- Interactive Tool UI injected here -->
       </div>
+    </div>
+  </div>
+
+  <!-- Interactive Hacker Terminal -->
+  <div id="interactive-terminal" class="glass glow" style="display: none;">
+    <div id="terminal-drag-handle" class="terminal-header" style="cursor: move;">
+      <div class="terminal-dot red" id="terminal-close" style="cursor: pointer;"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+      <span style="margin-left: 10px; font-size: 0.8rem; color: var(--text-secondary);">bash - haider_ali</span>
+    </div>
+    <div id="terminal-out" class="terminal-body" style="height: 250px; overflow-y: auto; padding-bottom: 5px;">
+      <div style="color: var(--text-secondary); margin-bottom: 10px;">Welcome to HaiderOS v2.4. Type 'help' to see available commands.</div>
+    </div>
+    <div style="display: flex; background: var(--terminal-bg); padding: 5px 15px;">
+      <span style="color: var(--terminal-green); margin-right: 8px;">&gt;</span>
+      <input type="text" id="terminal-in" autocomplete="off" spellcheck="false" style="background: transparent; border: none; outline: none; color: var(--text-primary); font-family: monospace; width: 100%;">
     </div>
   </div>
 

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "intro-to-blog",
+    "title": "Welcome to my Security Blog",
+    "date": "2026-07-22",
+    "summary": "This is where I will be posting my latest CTF writeups, vulnerability disclosures, and security tutorials.",
+    "tags": ["welcome", "news"],
+    "content": "# Welcome\n\nThis is the beginning of my new markdown-powered blog. Stay tuned for deep technical dives into reverse engineering, penetration testing, and web security!"
+  }
+]

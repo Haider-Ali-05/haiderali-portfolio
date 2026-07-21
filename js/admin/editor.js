@@ -1221,6 +1221,153 @@ class ContentEditor {
     });
   }
 
+  // ====== BLOG EDITOR ======
+  async renderBlogEditor(container) {
+    container.innerHTML = '<div class="loading-spinner" style="margin: 5rem auto;"></div>';
+    const blog = await this.loadData('blog.json');
+
+    container.innerHTML = `
+      <div class="admin-card glass glow">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+          <h2 class="admin-card-title" style="margin:0;">blog_writeups_engine</h2>
+          <button class="admin-btn admin-btn-primary admin-btn-sm" id="btn-new-blog">+ Add Post</button>
+        </div>
+        <div id="blog-form-container" style="display:none; margin-bottom: 2rem;"></div>
+        
+        <div class="table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Tags</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="blog-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    const tableBody = container.querySelector('#blog-table-body');
+    const formContainer = container.querySelector('#blog-form-container');
+
+    const renderList = () => {
+      tableBody.innerHTML = '';
+      if (blog.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No blog posts found.</td></tr>';
+        return;
+      }
+
+      blog.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight:600;">${sanitizeHTML(item.title)}</td>
+          <td style="font-family:monospace;">${item.date}</td>
+          <td>${sanitizeHTML((item.tags || []).join(', '))}</td>
+          <td style="text-align:right;">
+            <button class="admin-btn admin-btn-secondary admin-btn-sm btn-edit-blog" data-id="${item.id}">Edit</button>
+            <button class="admin-btn admin-btn-danger admin-btn-sm btn-del-blog" data-id="${item.id}">Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      tableBody.querySelectorAll('.btn-edit-blog').forEach(btn => {
+        btn.addEventListener('click', () => {
+          showForm(blog.find(b => b.id === btn.dataset.id));
+        });
+      });
+
+      tableBody.querySelectorAll('.btn-del-blog').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (confirm('Delete this blog post?')) {
+            const idx = blog.findIndex(b => b.id === btn.dataset.id);
+            if (idx !== -1) {
+              blog.splice(idx, 1);
+              const success = await this.saveData('blog.json', blog, 'Delete blog post');
+              if (success) renderList();
+            }
+          }
+        });
+      });
+    };
+
+    const showForm = (item = null) => {
+      formContainer.style.display = 'block';
+      formContainer.innerHTML = `
+        <div class="glass" style="padding: 2rem; border-color: var(--accent-primary);">
+          <h3 class="admin-card-title">${item ? 'edit_blog_post' : 'create_blog_post'}</h3>
+          <form id="blog-form" class="admin-form-grid">
+            <div class="form-group">
+              <label class="form-label" for="blog-title">Post Title:</label>
+              <input class="form-input" type="text" id="blog-title" value="${item ? sanitizeHTML(item.title) : ''}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="blog-date">Publish Date:</label>
+              <input class="form-input" type="date" id="blog-date" value="${item ? item.date : new Date().toISOString().split('T')[0]}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="blog-tags">Tags (comma-separated):</label>
+              <input class="form-input" type="text" id="blog-tags" value="${item ? sanitizeHTML((item.tags || []).join(', ')) : ''}" placeholder="e.g. ctf, websec, tutorial">
+            </div>
+            <div class="form-group admin-form-full">
+              <label class="form-label" for="blog-summary">Summary:</label>
+              <input class="form-input" type="text" id="blog-summary" value="${item ? sanitizeHTML(item.summary) : ''}" required>
+            </div>
+            <div class="form-group admin-form-full">
+              <label class="form-label" for="blog-content">Markdown Content:</label>
+              <textarea class="form-textarea" id="blog-content" required style="min-height: 250px; font-family: monospace;">${item ? sanitizeHTML(item.content) : ''}</textarea>
+            </div>
+            <div class="admin-btn-group admin-form-full">
+              <button class="admin-btn admin-btn-primary" type="submit">Save Post</button>
+              <button class="admin-btn admin-btn-secondary" type="button" id="btn-cancel-blog">Cancel</button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      const form = formContainer.querySelector('#blog-form');
+
+      form.querySelector('#btn-cancel-blog').addEventListener('click', () => {
+        formContainer.style.display = 'none';
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const payload = {
+          id: item ? item.id : 'post-' + Math.random().toString(36).substr(2, 9),
+          title: form.querySelector('#blog-title').value,
+          date: form.querySelector('#blog-date').value,
+          summary: form.querySelector('#blog-summary').value,
+          tags: form.querySelector('#blog-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+          content: form.querySelector('#blog-content').value
+        };
+
+        if (item) {
+          const idx = blog.findIndex(x => x.id === item.id);
+          blog[idx] = payload;
+        } else {
+          blog.push(payload);
+        }
+
+        blog.sort((a,b) => b.date.localeCompare(a.date)); // Sort latest first
+
+        const success = await this.saveData('blog.json', blog, 'Save blog post');
+        if (success) {
+          formContainer.style.display = 'none';
+          renderList();
+        }
+      });
+    };
+
+    container.querySelector('#btn-new-blog').addEventListener('click', () => showForm());
+    renderList();
+  }
+
   // ====== GENERAL UTILITIES ======
   fileToBase64(file) {
     return new Promise((resolve, reject) => {

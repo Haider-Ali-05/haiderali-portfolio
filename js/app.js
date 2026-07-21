@@ -4,6 +4,8 @@ import { initTheme } from './theme.js';
 import { initContact } from './contact.js';
 import { initTools } from './tools.js';
 import { trackVisit } from './analytics.js';
+import { initMatrix } from './matrix.js';
+import { initTerminal } from './terminal.js';
 
 // Global Data State
 let siteData = {};
@@ -19,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function init() {
+  console.info('%cSTOP!', 'color: red; font-size: 40px; font-weight: bold;');
+  console.info('%cThis is a browser feature intended for developers. But since you are here... FLAG{c0ns0l3_h4ck3r}', 'color: #00ff00; font-size: 14px; font-family: monospace;');
+
   // 1. Fetch all data in parallel
   siteData = await loadData();
 
@@ -34,17 +39,20 @@ async function init() {
   initTheme(siteData.settings);
   initContact(siteData.settings.web3formsKey, showToast);
   initTools(showToast);
+  initMatrix();
   trackVisit().catch(e => console.warn('Visitor tracking error:', e));
 
   // 4. Populate layout content
   applySEO(siteData.settings, siteData.profile, siteData.social);
   applyBrand(siteData.settings);
   renderHero(siteData.profile, siteData.social);
+  initTerminal(siteData.profile);
   renderAbout(siteData.profile);
   renderExperience(siteData.experience);
   renderEducation(siteData.education);
   renderSkills(siteData.skills);
   renderProjects(siteData.projects);
+  renderBlog(siteData.blog);
 
   // 5. Setup UI listeners and animations
   initNavbar();
@@ -62,7 +70,7 @@ async function init() {
 async function loadData() {
   const endpoints = [
     'profile', 'projects', 'experience', 'education', 
-    'skills', 'tools', 'social', 'settings'
+    'skills', 'tools', 'social', 'settings', 'blog'
   ];
   
   try {
@@ -549,6 +557,65 @@ function initSkillBarAnimations() {
     const lvl = fill.dataset.level;
     fill.style.width = `${lvl}%`;
   });
+}
+
+// ==========================================
+// Blog Rendering
+// ==========================================
+function renderBlog(blogPosts) {
+  const container = document.getElementById('blog-container');
+  if (!container || !blogPosts || blogPosts.length === 0) return;
+
+  const modal = document.getElementById('blog-modal');
+  const modalClose = document.getElementById('blog-modal-close');
+  const modalTitle = document.getElementById('blog-modal-title');
+  const modalMeta = document.getElementById('blog-modal-meta');
+  const modalBody = document.getElementById('blog-modal-body');
+
+  if (modalClose) {
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('visible');
+      document.body.style.overflow = 'auto'; // Restore scroll
+    });
+  }
+
+  container.innerHTML = blogPosts.map((post) => `
+    <div class="glass glow" style="padding: 1.5rem; border-radius: 10px; cursor: pointer; display: flex; flex-direction: column; height: 100%; transition: transform 0.3s ease;" 
+         onmouseover="this.style.transform='translateY(-5px)'" 
+         onmouseout="this.style.transform='translateY(0)'"
+         onclick="openBlogModal('${post.id}')">
+      <div style="color: var(--accent-primary); font-family: monospace; font-size: 0.85rem; margin-bottom: 0.5rem;">${post.date}</div>
+      <h3 style="color: var(--text-primary); font-size: 1.25rem; margin-bottom: 1rem;">${post.title}</h3>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; flex-grow: 1;">${post.summary}</p>
+      <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        ${(post.tags || []).map(tag => `<span style="background: var(--bg-tertiary); color: var(--accent-secondary); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--border-color);">#${tag}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  // Make the function globally available for onclick handlers
+  window.openBlogModal = (postId) => {
+    const post = blogPosts.find(p => p.id === postId);
+    if (!post || !modal) return;
+    
+    modalTitle.innerText = post.title;
+    modalMeta.innerText = `${post.date} | Tags: ${(post.tags || []).join(', ')}`;
+    
+    // Very basic markdown parsing
+    let html = post.content
+      .replace(/^### (.*$)/gim, '<h4>$1</h4>')
+      .replace(/^## (.*$)/gim, '<h3 style="margin-top:1.5rem;margin-bottom:0.5rem;">$1</h3>')
+      .replace(/^# (.*$)/gim, '<h2 style="margin-top:1.5rem;margin-bottom:1rem;color:var(--accent-primary);">$1</h2>')
+      .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+      .replace(/\*(.*)\*/gim, '<em>$1</em>')
+      .replace(/`(.*?)`/gim, '<code style="background:var(--bg-tertiary);padding:2px 4px;border-radius:3px;">$1</code>')
+      .replace(/\n\n/gim, '<br><br>');
+      
+    modalBody.innerHTML = html;
+    
+    modal.classList.add('visible');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+  };
 }
 
 // Helpers

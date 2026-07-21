@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'projects':
           await editor.renderProjectsEditor(content);
           break;
+        case 'blog':
+          await editor.renderBlogEditor(content);
+          break;
         case 'experience':
           await editor.renderExperienceEditor(content);
           break;
