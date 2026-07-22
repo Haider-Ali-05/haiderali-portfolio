@@ -61,6 +61,7 @@
   ═══════════════════════════════════════════ -->
   <link rel="icon" type="image/jpeg" href="https://ihaiderali.dev/uploads/profile/avatar.jpg">
   <link rel="apple-touch-icon" href="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+  <link rel="manifest" href="manifest.json">
 
   <!-- ═══════════════════════════════════════════
        PERFORMANCE: PRECONNECT
@@ -154,6 +155,19 @@
 </head>
 <body>
 
+  <!-- SEO: Noscript Fallback for Search Engines -->
+  <noscript>
+    <div style="padding: 2rem; text-align: center; font-family: sans-serif; background: #0a0e1a; color: #e0e6ed; min-height: 100vh;">
+      <h1>Haider Ali — Cybersecurity Expert & Ethical Hacker</h1>
+      <p>Welcome to the portfolio of <strong>Haider Ali</strong>, a <strong>cybersecurity specialist</strong>, <strong>penetration tester</strong>, and <strong>ethical hacker</strong> from Pakistan.</p>
+      <p>Expert in: Web Security, Network Security, SIEM/SOC, Vulnerability Assessment, Incident Response, Cryptography.</p>
+      <p>Tools: Kali Linux, Burp Suite, Metasploit, Nmap, Wireshark, Python, Bash.</p>
+      <p>Certifications & Education in Cybersecurity. Available for hire and security consulting.</p>
+      <p>Contact: <a href="mailto:contact@ihaiderali.dev" style="color: #00f0ff;">contact@ihaiderali.dev</a></p>
+      <p><a href="https://github.com/Haider-Ali-05" style="color: #00f0ff;">GitHub</a> | <a href="https://linkedin.com/in/haiderali" style="color: #00f0ff;">LinkedIn</a></p>
+    </div>
+  </noscript>
+
   <!-- Matrix Background -->
   <canvas id="matrix-canvas"></canvas>
 
@@ -181,9 +195,9 @@
   <div id="scroll-progress"></div>
 
   <!-- Navigation Bar -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="container">
-      <a class="nav-logo" href="#hero" style="display: flex; align-items: center;">
+      <a class="nav-logo" href="#hero" style="display: flex; align-items: center;" aria-label="Haider Ali - Home">
         <img id="nav-brand-logo" src="" alt="Company Logo" style="display: none; height: 32px; margin-right: 10px; border-radius: 4px; object-fit: contain;">
         <span id="nav-brand-text">&gt; haider_ali</span>
       </a>
@@ -198,18 +212,18 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-right">
-        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">☀️</button>
-        <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">☀️</button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open mobile menu" aria-expanded="false">☰</button>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="section" id="hero">
+  <section class="section" id="hero" aria-label="Hero introduction">
     <div class="container">
-      <div class="hero-content">
+      <div class="hero-content" itemscope itemtype="https://schema.org/Person">
         <div class="hero-text">
-          <div class="hero-terminal">
+          <div class="hero-terminal" role="presentation" aria-hidden="true">
             <div class="terminal-header">
               <div class="terminal-dot red"></div>
               <div class="terminal-dot yellow"></div>
@@ -222,9 +236,9 @@
               <div class="terminal-line"><span class="terminal-output typing-text" id="typing-text"></span><span class="cursor"></span></div>
             </div>
           </div>
-          <h1 class="hero-name" id="hero-name">Haider Ali</h1>
-          <p class="hero-title" id="title-text">Cybersecurity Specialist</p>
-          <p class="hero-bio" id="bio-text">Securing applications, hacking systems ethically, and building modern, reliable software. Let's make the web a safer place.</p>
+          <h1 class="hero-name" id="hero-name" itemprop="name">Haider Ali</h1>
+          <p class="hero-title" id="title-text" itemprop="jobTitle">Cybersecurity Specialist</p>
+          <p class="hero-bio" id="bio-text" itemprop="description">Securing applications, hacking systems ethically, and building modern, reliable software. Let's make the web a safer place.</p>
           <div class="hero-social" id="social-links">
             <a class="social-btn linkedin" href="#" target="_blank" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -242,7 +256,7 @@
         </div>
         <div class="hero-image">
           <div class="profile-pic-wrapper">
-            <img id="profile-pic" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200' fill='%23141b2d'%3E%3Ccircle cx='100' cy='80' r='40' fill='%235a6478'/%3E%3Cpath d='M100 130c-35 0-60 20-60 35h120c0-15-25-35-60-35z' fill='%235a6478'/%3E%3C/svg%3E" alt="Profile Picture">
+            <img id="profile-pic" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200' fill='%23141b2d'%3E%3Ccircle cx='100' cy='80' r='40' fill='%235a6478'/%3E%3Cpath d='M100 130c-35 0-60 20-60 35h120c0-15-25-35-60-35z' fill='%235a6478'/%3E%3C/svg%3E" alt="Haider Ali - Cybersecurity Expert, Ethical Hacker and Penetration Tester from Pakistan" width="280" height="280" itemprop="image">
           </div>
         </div>
       </div>
@@ -260,9 +274,9 @@
   </section>
 
   <!-- Experience Section -->
-  <section class="section fade-in-section" id="experience">
+  <section class="section fade-in-section" id="experience" aria-label="Work Experience">
     <div class="container">
-      <h2 class="section-title">Work Experience</h2>
+      <h2 class="section-title">Cybersecurity Work Experience</h2>
       <p class="section-subtitle">A journey through security architecture and secure development</p>
       <div class="timeline" id="experience-container" data-stagger>
         <!-- Populated dynamically -->
@@ -271,9 +285,9 @@
   </section>
 
   <!-- Education Section -->
-  <section class="section fade-in-section" id="education">
+  <section class="section fade-in-section" id="education" aria-label="Education and Certifications">
     <div class="container">
-      <h2 class="section-title">Education & Certifications</h2>
+      <h2 class="section-title">Cybersecurity Education & Certifications</h2>
       <p class="section-subtitle">Academic foundations and professional verification</p>
       <div class="education-grid" id="education-container" data-stagger>
         <!-- Populated dynamically -->
@@ -282,10 +296,10 @@
   </section>
 
   <!-- Skills Section -->
-  <section class="section fade-in-section" id="skills">
+  <section class="section fade-in-section" id="skills" aria-label="Skills and Technical Expertise">
     <div class="container">
-      <h2 class="section-title">Skills & Expertise</h2>
-      <p class="section-subtitle">Technical proficiencies evaluated by industry standards</p>
+      <h2 class="section-title">Cybersecurity Skills & Technical Expertise</h2>
+      <p class="section-subtitle">Penetration testing, vulnerability assessment, SIEM/SOC, and secure development proficiencies</p>
       <div class="skills-categories" id="skills-container" data-stagger>
         <!-- Populated dynamically -->
       </div>
@@ -293,15 +307,15 @@
   </section>
 
   <!-- Projects Section -->
-  <section class="section fade-in-section" id="projects">
+  <section class="section fade-in-section" id="projects" aria-label="Security Projects and GitHub Repositories">
     <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <p class="section-subtitle">Showcasing security research, automated tools, and code repositories</p>
+      <h2 class="section-title">Cybersecurity Projects & Research</h2>
+      <p class="section-subtitle">Showcasing security research, automated penetration testing tools, and open-source code repositories</p>
       
       <!-- GitHub Heatmap -->
       <div class="glass glow" style="padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; text-align: center; overflow-x: auto;">
         <h3 style="margin-bottom: 1rem; color: var(--text-primary); font-size: 1.2rem;">GitHub Contribution Activity</h3>
-        <img id="github-heatmap" src="https://ghchart.rshah.org/00f0ff/Haider-Ali-05" alt="Haider Ali's Github chart" style="min-width: 700px; margin: 0 auto;">
+        <img id="github-heatmap" src="https://ghchart.rshah.org/00f0ff/Haider-Ali-05" alt="Haider Ali's GitHub contribution activity chart - open source cybersecurity projects" loading="lazy" width="722" height="112" style="min-width: 700px; margin: 0 auto;">
       </div>
 
       <div class="projects-grid" id="projects-container" data-stagger>
@@ -311,10 +325,10 @@
   </section>
 
   <!-- Blog / Writeups Section -->
-  <section class="section fade-in-section" id="blog">
+  <section class="section fade-in-section" id="blog" aria-label="Security Write-ups and CTF Solutions">
     <div class="container">
-      <h2 class="section-title">Security Write-ups</h2>
-      <p class="section-subtitle">CTF solutions, vulnerability research, and tutorials</p>
+      <h2 class="section-title">Cybersecurity Write-ups & CTF Solutions</h2>
+      <p class="section-subtitle">Penetration testing walkthroughs, vulnerability research, and ethical hacking tutorials</p>
       <div class="blog-grid" id="blog-container" data-stagger style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
         <!-- Populated dynamically -->
       </div>
@@ -322,10 +336,10 @@
   </section>
 
   <!-- Tools Section -->
-  <section class="section fade-in-section" id="tools">
+  <section class="section fade-in-section" id="tools" aria-label="Interactive Security Tools">
     <div class="container">
-      <h2 class="section-title">Security Tools</h2>
-      <p class="section-subtitle">Interactive utilities to check and secure inputs locally</p>
+      <h2 class="section-title">Interactive Cybersecurity Tools</h2>
+      <p class="section-subtitle">Browser-based security utilities for hash generation, encoding, and input validation</p>
       <div class="tools-grid" id="tools-container" data-stagger>
         <!-- Populated dynamically -->
       </div>
@@ -333,10 +347,10 @@
   </section>
 
   <!-- Contact Section -->
-  <section class="section fade-in-section" id="contact">
+  <section class="section fade-in-section" id="contact" aria-label="Contact Haider Ali">
     <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <p class="section-subtitle">Send an encrypted or standard message directly to my console</p>
+      <h2 class="section-title">Hire Me / Get In Touch</h2>
+      <p class="section-subtitle">Available for cybersecurity consulting, penetration testing engagements, and full-time opportunities</p>
       <form class="contact-form glass glow" id="contact-form">
         <!-- Web3Forms Config -->
         <input type="hidden" name="access_key" id="web3forms-access-key" value="">
@@ -362,16 +376,19 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-links">
         <a href="#hero">Home</a>
         <a href="#about">About</a>
+        <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
-        <a href="admin.html" target="_blank">Admin Control</a>
+        <a href="#blog">Write-ups</a>
+        <a href="#contact">Contact</a>
+        <a href="admin.html" target="_blank" rel="nofollow">Admin</a>
       </div>
-      <p class="footer-text">
-        &copy; <span id="year">2026</span> Haider Ali. All rights reserved. 
+      <p class="footer-text" itemscope itemtype="https://schema.org/Person">
+        &copy; <span id="year">2026</span> <span itemprop="name">Haider Ali</span> — <span itemprop="jobTitle">Cybersecurity Expert</span> from <span itemprop="nationality">Pakistan</span>. All rights reserved.
         Secured with a <span class="footer-heart">❤️</span> and modern web standards.
       </p>
     </div>

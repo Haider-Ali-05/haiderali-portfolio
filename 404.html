@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Target Missing | Error 404</title>
-  
+  <title>404 - Page Not Found | Haider Ali Portfolio</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Visit Haider Ali's cybersecurity portfolio at ihaiderali.dev.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://ihaiderali.dev/">
+  <link rel="icon" type="image/jpeg" href="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+  <link rel="apple-touch-icon" href="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+  <meta name="theme-color" content="#00f0ff">
+
+  <meta property="og:title" content="404 - Page Not Found | Haider Ali">
+  <meta property="og:description" content="The page you're looking for doesn't exist. Visit Haider Ali's cybersecurity portfolio.">
+  <meta property="og:url" content="https://ihaiderali.dev/">
+  <meta property="og:image" content="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+
   <link rel="stylesheet" href="css/themes.css">
   <link rel="stylesheet" href="css/main.css">
-  
+
   <style>
     body {
       display: flex;
@@ -41,19 +52,64 @@
       color: var(--text-secondary);
       font-size: 0.95rem;
       margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .err-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .err-links a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+    }
+    .err-links a:hover {
+      background: var(--bg-glass);
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-glow);
     }
   </style>
 </head>
 <body>
-  
+
   <div class="err-card glass glow">
     <div class="err-code">&gt;_404</div>
     <h1 class="err-title">TARGET_NOT_FOUND</h1>
     <p class="err-desc">
-      The requesting address is unrecognized, deleted, or protected behind a security protocol. Please return to the root console.
+      The requesting address is unrecognized, deleted, or protected behind a security protocol.
+      Return to Haider Ali's cybersecurity portfolio or explore other sections.
     </p>
-    <a class="tool-btn" href="index.html" style="padding: 0.8rem 2rem;">Return to Console</a>
+    <a class="tool-btn" href="/" style="padding: 0.8rem 2rem;">Return to Console</a>
+    <nav class="err-links" aria-label="Quick navigation">
+      <a href="/#about">About</a>
+      <a href="/#skills">Skills</a>
+      <a href="/#projects">Projects</a>
+      <a href="/#blog">Write-ups</a>
+      <a href="/#contact">Contact</a>
+    </nav>
   </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "404 - Page Not Found",
+    "description": "The page you're looking for doesn't exist on ihaiderali.dev.",
+    "url": "https://ihaiderali.dev/404",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Haider Ali Portfolio",
+      "url": "https://ihaiderali.dev/"
+    }
+  }
+  </script>
 
 </body>
 </html>

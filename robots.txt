@@ -1,31 +1,60 @@
-# Haider Ali Portfolio - robots.txt
+# ═══════════════════════════════════════════════════
+# Haider Ali | Cybersecurity Portfolio
 # https://ihaiderali.dev/
+# ═══════════════════════════════════════════════════
 
+# Default: allow all pages
 User-agent: *
 Allow: /
 Allow: /sitemap.xml
+Allow: /manifest.json
+Allow: /humans.txt
 Allow: /uploads/
+Allow: /.well-known/security.txt
 
-# Block sensitive files
+# Block sensitive admin & data files
 Disallow: /admin.html
 Disallow: /ai-admin.html
 Disallow: /data/settings.json
 Disallow: /data/
 Disallow: /backend/
-
-# Block common scanner paths
 Disallow: /.git/
 Disallow: /node_modules/
-Disallow: /*.json$
 
-# Allow major crawlers explicitly
+# ═══════════════════════════════════════════════════
+# Major Search Engine Crawlers
+# ═══════════════════════════════════════════════════
+
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
+User-agent: Googlebot-Image
+Allow: /uploads/
+Allow: /
+
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 2
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 3
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 3
+
+# ═══════════════════════════════════════════════════
+# Social Media / Link Preview Crawlers
+# ═══════════════════════════════════════════════════
 
 User-agent: LinkedInBot
 Allow: /
@@ -39,4 +68,18 @@ Allow: /
 User-agent: WhatsApp
 Allow: /
 
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# ═══════════════════════════════════════════════════
+# Sitemaps
+# ═══════════════════════════════════════════════════
+
 Sitemap: https://ihaiderali.dev/sitemap.xml
+Host: https://ihaiderali.dev

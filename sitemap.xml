@@ -4,52 +4,76 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- Homepage - Highest priority -->
+  <!-- Homepage - Main landing page -->
   <url>
     <loc>https://ihaiderali.dev/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Blog / Write-ups - Updated regularly -->
+  <!-- About Section - Bio and background -->
   <url>
-    <loc>https://ihaiderali.dev/#blog</loc>
-    <lastmod>2026-07-22</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://ihaiderali.dev/#about</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Projects section -->
+  <!-- Skills Section - Technical expertise -->
   <url>
-    <loc>https://ihaiderali.dev/#projects</loc>
-    <lastmod>2026-07-22</lastmod>
+    <loc>https://ihaiderali.dev/#skills</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Experience Section - Work history -->
+  <url>
+    <loc>https://ihaiderali.dev/#experience</loc>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Skills section -->
+  <!-- Education Section - Academic credentials -->
   <url>
-    <loc>https://ihaiderali.dev/#skills</loc>
-    <lastmod>2026-07-22</lastmod>
+    <loc>https://ihaiderali.dev/#education</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Projects Section - Security tools and code -->
+  <url>
+    <loc>https://ihaiderali.dev/#projects</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog / Write-ups - CTF solutions and research -->
+  <url>
+    <loc>https://ihaiderali.dev/#blog</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Security Tools - Interactive utilities -->
+  <url>
+    <loc>https://ihaiderali.dev/#tools</loc>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Experience section -->
-  <url>
-    <loc>https://ihaiderali.dev/#experience</loc>
-    <lastmod>2026-07-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Contact section -->
+  <!-- Contact Section - Hire / Get in touch -->
   <url>
     <loc>https://ihaiderali.dev/#contact</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
 
 </urlset>

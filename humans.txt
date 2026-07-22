@@ -1,0 +1,18 @@
+/* TEAM */
+Name: Haider Ali
+Role: Cybersecurity Expert, Ethical Hacker & Full Stack Developer
+Site: https://ihaiderali.dev
+Location: Pakistan
+GitHub: https://github.com/Haider-Ali-05
+LinkedIn: https://linkedin.com/in/haiderali
+
+/* SITE */
+Last update: 2026/07/23
+Language: English
+Doctype: HTML5
+IDE: VS Code, Kali Linux Terminal
+Standards: HTML5, CSS3, ES6+
+Components: Vanilla JS, Web3Forms, GitHub API
+Hosting: GitHub Pages
+Domain: ihaiderali.dev
+SSL: Cloudflare
