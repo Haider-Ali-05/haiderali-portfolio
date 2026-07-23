@@ -255,8 +255,18 @@ async function scanUsername(username, includeVariations) {
       results.push(result);
       updateLastScanLine(platform.name, platform.fullUrl, data.found ? 'found' : 'not-found', platform.username);
     } catch (err) {
-      results.push({ ...platform, found: false, status: 0, error: true });
-      updateLastScanLine(platform.name, platform.fullUrl, 'error', platform.username);
+      // Worker failed or is not deployed yet. Fallback to client-side no-cors mode.
+      // Warning: no-cors responses are opaque, so status is 0. This is a weak heuristic.
+      try {
+          const fbResponse = await fetch(platform.fullUrl, { mode: 'no-cors', signal: AbortSignal.timeout(5000) });
+          // If the fetch succeeds (even with status 0), we mark it as potentially found.
+          // This will have false positives for platforms that return 200 for 404 pages.
+          results.push({ ...platform, found: true, status: 0, error: false, note: 'Fallback check' });
+          updateLastScanLine(platform.name, platform.fullUrl, 'found', platform.username + ' (unverified)');
+      } catch (fbErr) {
+          results.push({ ...platform, found: false, status: 0, error: true });
+          updateLastScanLine(platform.name, platform.fullUrl, 'error', platform.username);
+      }
     }
 
     checked++;
