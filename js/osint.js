@@ -308,10 +308,35 @@ async function scanEmail(email) {
   // 3. XposedOrNot Breach Check
   try {
     appendScanLine('Breach Database', 'Querying XposedOrNot...', 'checking');
-    const response = await fetch(`${WORKER_URL}/check-email?email=${encodeURIComponent(email)}`, {
-      signal: AbortSignal.timeout(10000)
-    });
-    const data = await response.json();
+    let data;
+    try {
+      const response = await fetch(`${WORKER_URL}/check-email?email=${encodeURIComponent(email)}`, {
+        signal: AbortSignal.timeout(10000)
+      });
+      data = await response.json();
+    } catch (err) {
+      // Fallback: direct API call if worker isn't deployed (XposedOrNot supports CORS)
+      const directResponse = await fetch(`https://api.xposedornot.com/v1/check-email/${encodeURIComponent(email)}`, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(10000)
+      });
+      if (directResponse.status === 404) {
+        data = { breaches: [], found: false };
+      } else {
+        const directData = await directResponse.json();
+        let breaches = [];
+        if (directData.ExposedBreaches && directData.ExposedBreaches.breaches_details) {
+          breaches = directData.ExposedBreaches.breaches_details.map(b => ({
+            name: b.breach || b.name || 'Unknown',
+            domain: b.domain || '',
+            date: b.xposed_date || b.added_date || '',
+            dataTypes: b.xposed_data ? b.xposed_data.split(';').map(s => s.trim()) : [],
+            records: b.xposed_records || 0
+          }));
+        }
+        data = { breaches, found: breaches.length > 0 };
+      }
+    }
     if (data.breaches && data.breaches.length > 0) {
       results.breaches = data.breaches;
       updateLastScanLine('Breach Database', `${data.breaches.length} breach(es) found!`, 'found');
