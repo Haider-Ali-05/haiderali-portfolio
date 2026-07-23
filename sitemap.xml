@@ -75,5 +75,12 @@
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- OSINT Tool Page - ShadowTrace -->
+  <url>
+    <loc>https://ihaiderali.dev/osint.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
 </urlset>

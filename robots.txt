@@ -10,6 +10,7 @@ Allow: /sitemap.xml
 Allow: /manifest.json
 Allow: /humans.txt
 Allow: /uploads/
+Allow: /osint.html
 Allow: /.well-known/security.txt
 
 # Block sensitive admin & data files

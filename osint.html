@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyber">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>ShadowTrace — Free OSINT Reconnaissance Tool | Haider Ali</title>
+  <meta name="description" content="ShadowTrace is a free OSINT tool by Haider Ali. Search usernames across 100+ platforms, analyze image metadata, check email breaches, and perform domain reconnaissance — all from your browser.">
+  <meta name="keywords" content="OSINT tool, username search, username checker, email breach checker, EXIF analyzer, domain recon, Sherlock alternative, free OSINT, cybersecurity tool, Haider Ali, digital footprint, open source intelligence">
+  <meta name="author" content="Haider Ali">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00f0ff">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ihaiderali.dev/osint.html">
+  <meta property="og:title" content="ShadowTrace — Free OSINT Reconnaissance Tool">
+  <meta property="og:description" content="Search usernames across 100+ platforms, analyze image metadata, check email breaches, and perform domain recon. Free, browser-based, no installation.">
+  <meta property="og:image" content="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+  <meta property="og:site_name" content="Haider Ali | Cybersecurity Portfolio">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ShadowTrace — Free OSINT Reconnaissance Tool">
+  <meta name="twitter:description" content="Search usernames across 100+ platforms, check email breaches, extract image EXIF data, and perform domain reconnaissance.">
+  <meta name="twitter:image" content="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+
+  <link rel="canonical" href="https://ihaiderali.dev/osint.html">
+  <link rel="icon" type="image/jpeg" href="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+  <link rel="apple-touch-icon" href="https://ihaiderali.dev/uploads/profile/avatar.jpg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/themes.css?v=3">
+  <link rel="stylesheet" href="css/main.css?v=3">
+  <link rel="stylesheet" href="css/osint.css?v=1">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ShadowTrace",
+    "description": "Free browser-based OSINT reconnaissance tool. Search usernames across 100+ platforms, analyze image EXIF metadata, check email breaches, and perform domain reconnaissance.",
+    "url": "https://ihaiderali.dev/osint.html",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Haider Ali",
+      "url": "https://ihaiderali.dev/"
+    },
+    "featureList": [
+      "Username search across 100+ platforms",
+      "Email breach detection",
+      "Phone number intelligence",
+      "Image EXIF metadata extraction",
+      "Domain and IP reconnaissance",
+      "PDF/JSON/CSV report export"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a class="nav-logo" href="index.html" aria-label="Back to Portfolio">
+        <span>&gt; haider_ali</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Portfolio</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#blog">Write-ups</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="osint-page">
+    <div class="osint-container">
+
+      <!-- Header -->
+      <header class="osint-header">
+        <a href="index.html" class="osint-back-link">← Back to Portfolio</a>
+        <h1 class="osint-logo">
+          <span class="logo-icon">🕵️</span>
+          ShadowTrace
+        </h1>
+        <p class="osint-tagline">Open-Source Intelligence Reconnaissance — Search usernames, emails, phones & images across the internet.</p>
+      </header>
+
+      <!-- Search Panel -->
+      <section class="search-panel osint-glass" aria-label="OSINT Search Panel">
+
+        <!-- Input Tabs -->
+        <div class="input-tabs" role="tablist">
+          <button class="input-tab active" data-tab="username" role="tab" aria-selected="true">
+            <span class="tab-icon">👤</span> Username
+          </button>
+          <button class="input-tab" data-tab="email" role="tab" aria-selected="false">
+            <span class="tab-icon">📧</span> Email
+          </button>
+          <button class="input-tab" data-tab="phone" role="tab" aria-selected="false">
+            <span class="tab-icon">📱</span> Phone
+          </button>
+          <button class="input-tab" data-tab="image" role="tab" aria-selected="false">
+            <span class="tab-icon">📸</span> Image EXIF
+          </button>
+          <button class="input-tab" data-tab="domain" role="tab" aria-selected="false">
+            <span class="tab-icon">🌐</span> Domain
+          </button>
+        </div>
+
+        <!-- Username Input -->
+        <div class="input-area active" id="tab-username" role="tabpanel">
+          <div class="input-group">
+            <input type="text" class="input-field" id="username-input" placeholder="Enter username (e.g., haiderali)" autocomplete="off" spellcheck="false">
+            <button class="scan-btn" id="username-scan-btn">
+              <span class="btn-icon">🔍</span> Scan
+            </button>
+          </div>
+          <div style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.75rem;">
+            <label style="color: var(--text-muted); font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="checkbox" id="variation-check" checked style="accent-color: var(--accent-primary);">
+              Include username variations
+            </label>
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <div class="input-area" id="tab-email" role="tabpanel">
+          <div class="input-group">
+            <input type="email" class="input-field" id="email-input" placeholder="Enter email (e.g., user@example.com)" autocomplete="off" spellcheck="false">
+            <button class="scan-btn" id="email-scan-btn">
+              <span class="btn-icon">🔍</span> Investigate
+            </button>
+          </div>
+        </div>
+
+        <!-- Phone Input -->
+        <div class="input-area" id="tab-phone" role="tabpanel">
+          <div class="input-group">
+            <div class="phone-input-group">
+              <input type="text" class="input-field country-code-input" id="country-code-input" placeholder="+92" value="+92" autocomplete="off">
+              <input type="tel" class="input-field phone-input" id="phone-input" placeholder="3001234567" autocomplete="off">
+            </div>
+            <button class="scan-btn" id="phone-scan-btn">
+              <span class="btn-icon">🔍</span> Lookup
+            </button>
+          </div>
+        </div>
+
+        <!-- Image Input -->
+        <div class="input-area" id="tab-image" role="tabpanel">
+          <div class="image-drop-zone" id="image-drop-zone">
+            <div class="drop-icon">📸</div>
+            <div class="drop-text">Drag & drop an image here or click to browse</div>
+            <div class="drop-subtext">Supports JPG, PNG, TIFF — analyzed entirely in your browser (nothing uploaded)</div>
+            <input type="file" id="image-file-input" accept="image/*" style="display: none;">
+          </div>
+        </div>
+
+        <!-- Domain Input -->
+        <div class="input-area" id="tab-domain" role="tabpanel">
+          <div class="input-group">
+            <input type="text" class="input-field" id="domain-input" placeholder="Enter domain (e.g., example.com)" autocomplete="off" spellcheck="false">
+            <button class="scan-btn" id="domain-scan-btn">
+              <span class="btn-icon">🔍</span> Recon
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanning Output (Terminal) -->
+        <div class="scan-output" id="scan-output">
+          <div class="scan-progress">
+            <div class="progress-header">
+              <span id="scan-status-text">Initializing scan...</span>
+              <span id="scan-progress-count">0/0</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            </div>
+          </div>
+          <div class="scan-terminal" id="scan-terminal">
+            <!-- Lines appended dynamically -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Results Dashboard -->
+      <section class="results-dashboard" id="results-dashboard" aria-label="Scan Results">
+
+        <!-- Summary Cards -->
+        <div class="results-summary" id="results-summary">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Category Filters (username scan) -->
+        <div class="category-filters" id="category-filters" style="display: none;">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Results Grid -->
+        <div class="results-grid" id="results-grid">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- EXIF Results Container -->
+        <div id="exif-results-container" style="display: none;">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Breach Results Container -->
+        <div id="breach-results-container" style="display: none;">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Phone Results Container -->
+        <div id="phone-results-container" style="display: none;">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Domain Results Container -->
+        <div id="domain-results-container" style="display: none;">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section" id="export-section" style="display: none;">
+          <button class="export-btn" id="export-pdf-btn">
+            <span class="export-icon">📄</span> Export PDF
+          </button>
+          <button class="export-btn" id="export-json-btn">
+            <span class="export-icon">📋</span> Export JSON
+          </button>
+          <button class="export-btn" id="export-csv-btn">
+            <span class="export-icon">📊</span> Export CSV
+          </button>
+        </div>
+
+      </section>
+
+      <!-- Disclaimer -->
+      <div class="section-divider"></div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="osint-footer">
+    <div class="osint-container">
+      <p>Built by <a href="index.html">Haider Ali</a> — Cybersecurity Expert</p>
+      <p class="disclaimer">
+        ⚠️ ShadowTrace only queries publicly available data. It does not scrape private information, 
+        bypass authentication, or violate any platform's terms of service. 
+        Use responsibly and ethically. For educational and authorized security assessments only.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- OSINT Logic -->
+  <script src="js/osint.js?v=1"></script>
+
+</body>
+</html>
