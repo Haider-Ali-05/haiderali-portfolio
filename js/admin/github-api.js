@@ -1,18 +1,16 @@
 /* C:\Users\Haider Ali\.gemini\antigravity\scratch\haiderali-portfolio\js\admin\github-api.js */
 
 class GitHubAPI {
-  constructor(token, owner, repo) {
-    this.token = token;
-    this.owner = owner;
-    this.repo = repo;
-    this.baseUrl = `https://api.github.com/repos/${owner}/${repo}`;
+  constructor(adminPassword) {
+    this.adminPassword = adminPassword;
+    // URL of the Cloudflare Worker proxy
+    this.baseUrl = `https://haider-admin-proxy.futurehacker-7-8-7.workers.dev`;
   }
 
   async request(endpoint, options = {}) {
     const url = `${this.baseUrl}${endpoint}`;
     const headers = {
-      'Authorization': `token ${this.token}`,
-      'Accept': 'application/vnd.github.v3+json',
+      'X-Admin-Password': this.adminPassword,
       'Content-Type': 'application/json'
     };
 

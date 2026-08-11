@@ -8,18 +8,13 @@ class AdminAuth {
 
   init() {
     this.setupLoginHandler();
-    this.setupPatHandler();
     this.setupLogoutHandler();
 
-    // Check if password and PAT are already validated in session
+    // Check if password is valid in session
     if (this.isPasswordAuthenticated()) {
-      if (this.isPatLinked()) {
-        const patInfo = this.getPatInfo();
-        const api = new window.GitHubAPI(patInfo.token, patInfo.owner, patInfo.repo);
-        window.onAdminReady(api);
-      } else {
-        this.showPatView();
-      }
+      const password = sessionStorage.getItem('admin_pwd_secret') || 'haideradmin';
+      const api = new window.GitHubAPI(password);
+      window.onAdminReady(api);
     }
   }
 
@@ -63,13 +58,15 @@ class AdminAuth {
         
         if (isValid) {
           sessionStorage.setItem(this.storageKey, 'true');
+          sessionStorage.setItem('admin_pwd_secret', password);
           this.showToast('Authentication validated. Welcome back.', 'success');
           
           if (settings.defaultPassword) {
             this.showToast('Security Warning: You are using the default password. Reset it in Settings.', 'error');
           }
 
-          this.showPatView();
+          const api = new window.GitHubAPI(password);
+          window.onAdminReady(api);
         } else {
           this.recordFailedAttempt();
           this.showToast('Invalid access credentials.', 'error');
@@ -82,39 +79,7 @@ class AdminAuth {
     });
   }
 
-  setupPatHandler() {
-    const form = document.getElementById('github-pat-form');
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const token = document.getElementById('github-token').value.trim();
-      const owner = document.getElementById('github-owner').value.trim();
-      const repo = document.getElementById('github-repo').value.trim();
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      submitBtn.innerText = 'Linking...';
-      submitBtn.disabled = true;
-
-      try {
-        const api = new window.GitHubAPI(token, owner, repo);
-        // Verify if token and repository config works
-        await api.verifyRepo();
-
-        // Save in session only (secure, cleared on tab close)
-        sessionStorage.setItem(this.patKey, JSON.stringify({ token, owner, repo }));
-        
-        this.showToast('Repository successfully synchronized.', 'success');
-        window.onAdminReady(api);
-      } catch (err) {
-        console.error(err);
-        this.showToast(`Verification Failed: ${err.message}. Check parameters.`, 'error');
-      } finally {
-        submitBtn.innerText = 'Authorize and Link Repo';
-        submitBtn.disabled = false;
-      }
-    });
-  }
+  // PAT logic completely removed for security
 
   setupLogoutHandler() {
     const logoutBtn = document.getElementById('admin-logout-btn');
@@ -127,7 +92,7 @@ class AdminAuth {
 
   logout() {
     sessionStorage.removeItem(this.storageKey);
-    sessionStorage.removeItem(this.patKey);
+    sessionStorage.removeItem('admin_pwd_secret');
     this.showToast('Console session terminated.', 'info');
     setTimeout(() => window.location.reload(), 1000);
   }
@@ -136,19 +101,7 @@ class AdminAuth {
     return sessionStorage.getItem(this.storageKey) === 'true';
   }
 
-  isPatLinked() {
-    return sessionStorage.getItem(this.patKey) !== null;
-  }
-
-  getPatInfo() {
-    return JSON.parse(sessionStorage.getItem(this.patKey) || '{}');
-  }
-
-  showPatView() {
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('github-pat-view').style.display = 'flex';
-    document.getElementById('admin-layout').style.display = 'none';
-  }
+  // showPatView and isPatLinked removed
 
   /* Brute force lock control (max 5 attempts, 15 minutes lock) */
   isRateLimited() {
