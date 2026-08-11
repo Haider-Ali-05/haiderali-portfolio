@@ -520,8 +520,8 @@ function initScrollAnimations() {
     const applyStagger = () => {
       const children = container.children;
       Array.from(children).forEach((child, index) => {
-        child.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-        child.style.transitionDelay = `${index * 0.08}s`;
+        child.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        child.style.transitionDelay = `${index * 0.1}s`;
         if (!container.closest('.fade-in-section').classList.contains('visible')) {
           child.style.opacity = '0';
           child.style.transform = 'translateY(30px)';
@@ -549,7 +549,7 @@ function initScrollAnimations() {
         }
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.15 });
 
   sections.forEach(sec => observer.observe(sec));
 }
