@@ -4,8 +4,8 @@
  */
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*', // Allows requests from ihaiderali.dev
-  'Access-Control-Allow-Methods': 'GET, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Origin': 'https://ihaiderali.dev',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Password',
 };
 

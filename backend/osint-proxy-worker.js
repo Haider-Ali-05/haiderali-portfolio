@@ -32,9 +32,8 @@ function checkRateLimit(ip, endpoint, maxReqs = 10, windowMs = 60000) {
 }
 
 function corsHeaders(origin) {
-  const allowed = ALLOWED_ORIGINS.some(o => origin?.startsWith(o));
   return {
-    'Access-Control-Allow-Origin': allowed ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Origin': 'https://ihaiderali.dev',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',

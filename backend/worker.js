@@ -20,9 +20,9 @@ Here is the information you know about Haider Ali:
 If asked a question you don't know the answer to based on this context, politely state that you are still learning and direct the user to contact Haider directly via the Contact section.`;
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*', // In production, change this to 'https://ihaiderali.dev'
+  'Access-Control-Allow-Origin': 'https://ihaiderali.dev',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Password',
 };
 
 export default {

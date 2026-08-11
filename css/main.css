@@ -1429,6 +1429,33 @@ button {
 
 .chat-message p {
   margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.chat-message p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-message pre {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.8rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.chat-message code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+
+.chat-message ul, .chat-message ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
 }
 
 .ai-message {

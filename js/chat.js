@@ -42,10 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const msgDiv = document.createElement('div');
     msgDiv.className = `chat-message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
     
-    // Simple sanitization for basic text
-    const p = document.createElement('p');
-    p.textContent = text;
-    msgDiv.appendChild(p);
+    if (sender === 'ai' && typeof marked !== 'undefined') {
+      msgDiv.innerHTML = marked.parse(text);
+    } else {
+      const p = document.createElement('p');
+      p.textContent = text;
+      msgDiv.appendChild(p);
+    }
 
     messagesContainer.appendChild(msgDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -107,11 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let messageHistory = [];
+  try {
+    const stored = sessionStorage.getItem('ai_chat_history');
+    if (stored) {
+      messageHistory = JSON.parse(stored);
+      // Restore visible messages (skip system hidden messages if any)
+      messageHistory.forEach(msg => {
+        appendMessage(msg.role, msg.text);
+      });
+    }
+  } catch (e) { console.error('Error loading chat history', e); }
+
+  function saveHistory() {
+    sessionStorage.setItem('ai_chat_history', JSON.stringify(messageHistory));
+  }
 
   // Real API Integration (Phase 2)
   async function mockSendMessageToAI(message) {
     // Add user message to history
     messageHistory.push({ role: 'user', text: message });
+    saveHistory();
 
     try {
       const response = await fetch('https://haider-ai-backend.futurehacker-7-8-7.workers.dev', {
@@ -132,12 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Add AI response to history
       messageHistory.push({ role: 'ai', text: data.reply });
+      saveHistory();
       
       return data.reply;
     } catch (error) {
       console.error('Error talking to AI:', error);
       // Remove the last user message from history if the request failed
       messageHistory.pop(); 
+      saveHistory();
       throw error;
     }
   }
