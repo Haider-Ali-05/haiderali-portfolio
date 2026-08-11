@@ -71,9 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editor = new window.ContentEditor(api);
     dashboard = new window.AdminDashboard();
     settings = new window.AdminSettings(api, auth);
-
     document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('github-pat-view').style.display = 'none';
     document.getElementById('admin-layout').style.display = 'flex';
 
     navigateTo('dashboard');
