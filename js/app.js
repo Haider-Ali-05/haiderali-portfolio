@@ -662,3 +662,36 @@ export function showToast(message, type = 'info') {
   toast.querySelector('.toast-close').addEventListener('click', dismiss);
   setTimeout(dismiss, 5000);
 }
+
+// --- ANTI-INSPECTION SECURITY SCRIPT ---
+// Blocks basic attempts to inspect source code (F12, Right Click, Ctrl+U)
+
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+});
+
+document.addEventListener('keydown', (e) => {
+  // F12
+  if (e.key === 'F12' || e.keyCode === 123) {
+    e.preventDefault();
+    return false;
+  }
+  // Ctrl+Shift+I / J / C (Inspector/Console/Elements)
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'i' || e.key === 'j' || e.key === 'c')) {
+    e.preventDefault();
+    return false;
+  }
+  // Ctrl+U (View Source)
+  if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+    e.preventDefault();
+    return false;
+  }
+  // Cmd+Option+I / J / U (Mac)
+  if (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'J' || e.key === 'U' || e.key === 'i' || e.key === 'j' || e.key === 'u')) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+console.log("%cSTOP!", "color: red; font-family: monospace; font-size: 4rem; font-weight: bold; text-shadow: 2px 2px 0px #000;");
+console.log("%cThis is a restricted browser feature. If you are attempting to inspect the source code of this portfolio, note that security measures are in place.", "color: #00f0ff; font-family: monospace; font-size: 1.2rem;");
