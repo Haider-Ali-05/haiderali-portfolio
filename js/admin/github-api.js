@@ -26,7 +26,7 @@ class GitHubAPI {
     
     if (!response.ok) {
       const errData = await response.json().catch(() => ({}));
-      throw new Error(errData.message || `GitHub HTTP Error: ${response.status}`);
+      throw new Error(errData.error || errData.message || `GitHub HTTP Error: ${response.status}`);
     }
 
     if (response.status === 204) return null; // No content response (delete actions)
