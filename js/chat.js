@@ -11,32 +11,33 @@ document.addEventListener('DOMContentLoaded', () => {
   let isChatOpen = false;
   let isAiTyping = false;
 
-  // Toggle chat window
+  // Toggle chat window (floating mode only)
   function toggleChat() {
+    if (!chatWindow) return;
     isChatOpen = !isChatOpen;
     if (isChatOpen) {
       chatWindow.style.display = 'flex';
-      // Small delay to allow display:flex to apply before animating opacity/transform
       setTimeout(() => {
         chatWindow.classList.remove('chat-hidden');
-        inputField.focus();
+        if (inputField) inputField.focus();
       }, 10);
-      fab.style.transform = 'scale(0)';
+      if (fab) fab.style.transform = 'scale(0)';
     } else {
       chatWindow.classList.add('chat-hidden');
-      fab.style.transform = 'scale(1)';
-      // Wait for animation to finish before hiding
+      if (fab) fab.style.transform = 'scale(1)';
       setTimeout(() => {
         chatWindow.style.display = 'none';
       }, 300);
     }
   }
 
-  // Initial setup: ensure hidden class is applied
-  chatWindow.classList.add('chat-hidden');
+  // Initial setup: ensure hidden class is applied if floating
+  if (chatWindow) {
+    chatWindow.classList.add('chat-hidden');
+  }
 
-  fab.addEventListener('click', toggleChat);
-  closeBtn.addEventListener('click', toggleChat);
+  if (fab) fab.addEventListener('click', toggleChat);
+  if (closeBtn) closeBtn.addEventListener('click', toggleChat);
 
   function appendMessage(sender, text) {
     const msgDiv = document.createElement('div');

@@ -1,55 +1,59 @@
 /* C:\Users\Haider Ali\.gemini\antigravity\scratch\haiderali-portfolio\js\terminal.js */
 export function initTerminal(profile) {
   const terminal = document.getElementById('interactive-terminal');
-  if (!terminal) return;
-
   const output = document.getElementById('terminal-out');
   const input = document.getElementById('terminal-in');
+  if (!output || !input) return;
+
   const termClose = document.getElementById('terminal-close');
   const termHeader = document.getElementById('terminal-drag-handle');
 
   let isDragging = false;
   let offsetX, offsetY;
 
-  // Toggle with ~
-  document.addEventListener('keydown', (e) => {
-    if (e.key === '~' || e.key === '`') {
-      e.preventDefault();
-      toggleTerminal();
+  // Toggle with ~ (if floating terminal exists)
+  if (terminal) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '~' || e.key === '`') {
+        e.preventDefault();
+        toggleTerminal();
+      }
+    });
+
+    if (termClose) {
+      termClose.addEventListener('click', () => {
+        terminal.style.display = 'none';
+      });
     }
-  });
 
-  if (termClose) {
-    termClose.addEventListener('click', () => {
-      terminal.style.display = 'none';
-    });
+    const fab = document.getElementById('terminal-fab');
+    if (fab) {
+      fab.addEventListener('click', () => {
+        toggleTerminal();
+      });
+    }
+
+    // Draggable logic
+    if (termHeader) {
+      termHeader.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - terminal.getBoundingClientRect().left;
+        offsetY = e.clientY - terminal.getBoundingClientRect().top;
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        terminal.style.left = (e.clientX - offsetX) + 'px';
+        terminal.style.top = (e.clientY - offsetY) + 'px';
+        terminal.style.bottom = 'auto'; // Disable default bottom positioning
+        terminal.style.right = 'auto';
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+    }
   }
-
-  const fab = document.getElementById('terminal-fab');
-  if (fab) {
-    fab.addEventListener('click', () => {
-      toggleTerminal();
-    });
-  }
-
-  // Draggable logic
-  termHeader.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - terminal.getBoundingClientRect().left;
-    offsetY = e.clientY - terminal.getBoundingClientRect().top;
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    terminal.style.left = (e.clientX - offsetX) + 'px';
-    terminal.style.top = (e.clientY - offsetY) + 'px';
-    terminal.style.bottom = 'auto'; // Disable default bottom positioning
-    terminal.style.right = 'auto';
-  });
-
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
 
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -60,6 +64,7 @@ export function initTerminal(profile) {
   });
 
   function toggleTerminal() {
+    if (!terminal) return;
     if (terminal.style.display === 'none' || !terminal.style.display) {
       terminal.style.display = 'flex';
       input.focus();

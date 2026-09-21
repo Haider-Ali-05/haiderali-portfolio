@@ -279,13 +279,13 @@ function renderEducation(education) {
   container.innerHTML = '';
   education.forEach(item => {
     const div = document.createElement('div');
-    div.className = 'education-card glass glow';
+    div.className = 'education-item';
     div.innerHTML = `
       <h3 class="education-institution">${sanitizeHTML(item.institution)}</h3>
       <h4 class="education-degree">${sanitizeHTML(item.degree)}</h4>
       <p class="education-field">${sanitizeHTML(item.field)}</p>
       <span class="education-dates">${item.startDate} — ${item.endDate}</span>
-      ${item.description ? `<p class="timeline-description" style="margin-top: 1rem;">${sanitizeHTML(item.description)}</p>` : ''}
+      ${item.description ? `<p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">${sanitizeHTML(item.description)}</p>` : ''}
     `;
     container.appendChild(div);
   });
@@ -582,15 +582,12 @@ function renderBlog(blogPosts) {
   }
 
   container.innerHTML = blogPosts.map((post) => `
-    <div class="glass glow" style="padding: 1.5rem; border-radius: 10px; cursor: pointer; display: flex; flex-direction: column; height: 100%; transition: transform 0.3s ease;" 
-         onmouseover="this.style.transform='translateY(-5px)'" 
-         onmouseout="this.style.transform='translateY(0)'"
-         onclick="openBlogModal('${post.id}')">
-      <div style="color: var(--accent-primary); font-family: monospace; font-size: 0.85rem; margin-bottom: 0.5rem;">${post.date}</div>
-      <h3 style="color: var(--text-primary); font-size: 1.25rem; margin-bottom: 1rem;">${post.title}</h3>
-      <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; flex-grow: 1;">${post.summary}</p>
-      <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
-        ${(post.tags || []).map(tag => `<span style="background: var(--bg-tertiary); color: var(--accent-secondary); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--border-color);">#${tag}</span>`).join('')}
+    <div class="blog-item" onclick="openBlogModal('${post.id}')">
+      <div class="blog-item-date">${post.date}</div>
+      <div class="blog-item-title">${sanitizeHTML(post.title)}</div>
+      <div class="blog-item-summary">${sanitizeHTML(post.summary)}</div>
+      <div class="blog-tags">
+        ${(post.tags || []).map(tag => `<span>#${sanitizeHTML(tag)}</span>`).join('')}
       </div>
     </div>
   `).join('');

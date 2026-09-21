@@ -1,117 +1,111 @@
-/* C:\Users\Haider Ali\.gemini\antigravity\scratch\haiderali-portfolio\css\themes.css */
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — HAIDER ALI COMMAND CENTER
+   Professional Dark Slate + Semantic Accents
+   ═══════════════════════════════════════════ */
+
 :root {
   --company-color: #2563eb;
   --company-secondary: #1e40af;
 }
 
 [data-theme="cyber"] {
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #0f1629;
-  --bg-tertiary: #141b2d;
-  --bg-card: rgba(15, 22, 41, 0.7);
-  --bg-card-hover: rgba(15, 22, 41, 0.9);
-  --bg-glass: rgba(15, 22, 41, 0.4);
-  --text-primary: #e0e6ed;
-  --text-secondary: #8892a4;
-  --text-muted: #5a6478;
-  --accent-primary: #00f0ff;
-  --accent-secondary: #39ff14;
-  --accent-tertiary: #bf00ff;
-  --accent-warning: #ff6b35;
-  --accent-danger: #ff3860;
-  --border-color: rgba(0, 240, 255, 0.15);
-  --border-glow: rgba(0, 240, 255, 0.3);
-  --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.15);
-  --shadow-glow-strong: 0 0 40px rgba(0, 240, 255, 0.3);
-  --glass-blur: blur(20px);
-  --nav-bg: rgba(10, 14, 26, 0.85);
-  --scrollbar-thumb: rgba(0, 240, 255, 0.3);
-  --scrollbar-track: rgba(10, 14, 26, 0.5);
-  --gradient-hero: linear-gradient(135deg, #0a0e1a 0%, #0f1629 50%, #0d1420 100%);
-  --gradient-card: linear-gradient(135deg, rgba(0, 240, 255, 0.05) 0%, rgba(57, 255, 20, 0.02) 100%);
-  --gradient-accent: linear-gradient(135deg, #00f0ff, #39ff14);
-  --terminal-green: #39ff14;
-  --terminal-bg: rgba(0, 0, 0, 0.6);
+  /* ── Core Surfaces ── */
+  --bg-primary: #0B0F19;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1F2937;
+  --bg-card: rgba(17, 24, 39, 0.85);
+  --bg-card-hover: rgba(31, 41, 55, 0.95);
+  --bg-glass: rgba(17, 24, 39, 0.6);
+
+  /* ── Typography ── */
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+
+  /* ── Semantic Accents ── */
+  --accent-primary: #06B6D4;      /* Cyan-500 */
+  --accent-secondary: #22D3EE;    /* Cyan-400 */
+  --accent-tertiary: #8B5CF6;     /* Violet-500 */
+  --accent-success: #10B981;      /* Emerald-500 */
+  --accent-warning: #F59E0B;      /* Amber-500 */
+  --accent-danger: #EF4444;       /* Red-500 */
+
+  /* ── Borders & Elevation ── */
+  --border-color: rgba(6, 182, 212, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(6, 182, 212, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(6, 182, 212, 0.1);
+  --shadow-glow-strong: 0 0 40px rgba(6, 182, 212, 0.2);
+
+  /* ── Glass & Blur ── */
+  --glass-blur: blur(16px);
+
+  /* ── Navigation ── */
+  --nav-bg: rgba(11, 15, 25, 0.92);
+
+  /* ── Scrollbar ── */
+  --scrollbar-thumb: rgba(6, 182, 212, 0.25);
+  --scrollbar-track: rgba(11, 15, 25, 0.5);
+
+  /* ── Gradients ── */
+  --gradient-accent: linear-gradient(135deg, #06B6D4, #8B5CF6);
+  --gradient-card: linear-gradient(135deg, rgba(6, 182, 212, 0.04) 0%, rgba(139, 92, 246, 0.02) 100%);
+  --gradient-surface: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(11, 15, 25, 0.95) 100%);
+
+  /* ── Terminal ── */
+  --terminal-green: #22D3EE;
+  --terminal-bg: rgba(0, 0, 0, 0.4);
+
+  /* ── Status Indicators ── */
+  --status-online: #10B981;
+  --status-offline: #6B7280;
+  --status-warning: #F59E0B;
 }
 
 [data-theme="company"] {
-  --bg-primary: #f0f2f5;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #e8eaed;
-  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F1F5F9;
+  --bg-card: rgba(255, 255, 255, 0.92);
   --bg-card-hover: rgba(255, 255, 255, 1);
-  --bg-glass: rgba(255, 255, 255, 0.6);
-  --text-primary: #1a1a2e;
-  --text-secondary: #4a5568;
-  --text-muted: #a0aec0;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
   --accent-primary: var(--company-color, #2563eb);
   --accent-secondary: var(--company-secondary, #1e40af);
-  --accent-tertiary: #7c3aed;
-  --accent-warning: #dd6b20;
-  --accent-danger: #e53e3e;
-  --border-color: rgba(0, 0, 0, 0.1);
+  --accent-tertiary: #7C3AED;
+  --accent-success: #059669;
+  --accent-warning: #D97706;
+  --accent-danger: #DC2626;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.04);
   --border-glow: rgba(37, 99, 235, 0.2);
-  --shadow-glow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --shadow-glow-strong: 0 10px 30px rgba(0, 0, 0, 0.15);
-  --glass-blur: blur(20px);
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  --scrollbar-thumb: rgba(37, 99, 235, 0.3);
-  --scrollbar-track: rgba(255, 255, 255, 0.5);
-  --gradient-hero: linear-gradient(135deg, #f0f2f5 0%, #e8eaed 50%, #f0f2f5 100%);
-  --gradient-card: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(124, 58, 237, 0.01) 100%);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-glow-strong: 0 8px 40px rgba(0, 0, 0, 0.1);
+
+  --glass-blur: blur(16px);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --scrollbar-thumb: rgba(37, 99, 235, 0.25);
+  --scrollbar-track: rgba(241, 245, 249, 0.8);
+
   --gradient-accent: linear-gradient(135deg, var(--company-color, #2563eb), var(--company-secondary, #1e40af));
+  --gradient-card: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(124, 58, 237, 0.01) 100%);
+  --gradient-surface: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+
   --terminal-green: var(--company-color, #2563eb);
-  --terminal-bg: rgba(0, 0, 0, 0.05);
-}
+  --terminal-bg: rgba(0, 0, 0, 0.03);
 
-[data-theme="matrix"] {
-  --bg-primary: transparent;
-  --bg-secondary: rgba(0, 5, 0, 0.85);
-  --bg-tertiary: rgba(0, 10, 0, 0.9);
-  --bg-card: rgba(0, 15, 0, 0.8);
-  --bg-card-hover: rgba(0, 25, 0, 0.9);
-  --bg-glass: rgba(0, 10, 0, 0.6);
-  --text-primary: #e0ffe0;
-  --text-secondary: #00cc00;
-  --text-muted: #005500;
-  --accent-primary: #00ff00;
-  --accent-secondary: #00aa00;
-  --accent-tertiary: #008800;
-  --accent-warning: #ffcc00;
-  --accent-danger: #ff0000;
-  --border-color: rgba(0, 255, 0, 0.2);
-  --border-glow: rgba(0, 255, 0, 0.4);
-  --shadow-glow: 0 0 15px rgba(0, 255, 0, 0.2);
-  --shadow-glow-strong: 0 0 30px rgba(0, 255, 0, 0.4);
-  --glass-blur: blur(8px);
-  --nav-bg: rgba(0, 5, 0, 0.9);
-  --scrollbar-thumb: rgba(0, 255, 0, 0.4);
-  --scrollbar-track: rgba(0, 10, 0, 0.8);
-  --gradient-hero: linear-gradient(135deg, rgba(0,5,0,0.8) 0%, rgba(0,10,0,0.9) 100%);
-  --gradient-card: linear-gradient(135deg, rgba(0, 255, 0, 0.08) 0%, rgba(0, 150, 0, 0.02) 100%);
-  --gradient-accent: linear-gradient(135deg, #00ff00, #00aa00);
-  --terminal-green: #00ff00;
-  --terminal-bg: rgba(0, 0, 0, 0.8);
-}
-
-#matrix-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s ease-in-out;
-  background-color: #000;
-}
-
-[data-theme="matrix"] #matrix-canvas {
-  opacity: 1;
-}
-
-body {
-  position: relative;
-  z-index: 1;
+  --status-online: #059669;
+  --status-offline: #94A3B8;
+  --status-warning: #D97706;
 }
