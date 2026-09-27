@@ -1,6 +1,6 @@
 /* C:\Users\Haider Ali\.gemini\antigravity\scratch\haiderali-portfolio\js\app.js */
 
-import { initTheme } from './theme.js';
+
 import { initContact } from './contact.js';
 import { initTools } from './tools.js';
 import { trackVisit } from './analytics.js';
@@ -35,7 +35,7 @@ async function init() {
   }
 
   // 3. Initialize core systems
-  initTheme(siteData.settings);
+  
   initContact(siteData.settings.web3formsKey, showToast);
   initTools(showToast);
   trackVisit().catch(e => console.warn('Visitor tracking error:', e));
@@ -53,6 +53,7 @@ async function init() {
   renderProjects(siteData.projects);
   renderBlog(siteData.blog);
   loadGithubRepos(siteData.social.github);
+  init3DEffects();
 
   // 5. Setup UI listeners and animations
   initNavbar();
@@ -180,7 +181,7 @@ function renderHero(profile, social) {
   const picEl = document.getElementById('profile-pic');
   const contactEmailEl = document.getElementById('contact-email-display');
 
-  if (nameEl) nameEl.innerText = profile.name;
+  if (nameEl) scrambleText(nameEl, profile.name);
   if (titleEl) titleEl.innerText = profile.title;
   if (bioEl) bioEl.innerText = profile.bio;
   if (picEl && profile.profilePic) picEl.src = profile.profilePic;
@@ -383,7 +384,7 @@ function renderProjects(projects) {
     const hasScreenshot = proj.screenshots && proj.screenshots.length > 0;
     const imgHtml = hasScreenshot 
       ? `<img src="${proj.screenshots[0]}" alt="${proj.name}" loading="lazy">` 
-      : `<div class="project-screenshot-placeholder">[ NO IMAGE DATA ]</div>`;
+      : `<div class="project-screenshot-placeholder">SCREENSHOT COMING SOON</div>`;
 
     card.innerHTML = `
       <div class="project-screenshot">${imgHtml}</div>
@@ -676,3 +677,93 @@ window.showToast = function(message, type = 'info') {
     }
   }, 4000);
 };
+function init3DEffects() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  // Initialize Vanta.js NET
+  if (window.VANTA && window.VANTA.NET) {
+    window.VANTA.NET({
+      el: '#vanta-bg',
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x06B6D4,
+      backgroundColor: 0x05070d,
+      points: 12.00,
+      maxDistance: 22.00,
+      spacing: 18.00
+    });
+  }
+
+    // Smooth Scroll
+  if (window.Lenis) {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+
+  // Initialize Vanilla Tilt
+  if (window.VanillaTilt) {
+    VanillaTilt.init(document.querySelector('.hero-avatar-wrapper'), {
+      max: 8,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.2,
+    });
+    
+    VanillaTilt.init(document.querySelectorAll('.project-card, .tool-card'), {
+      max: 5,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.1,
+    });
+  }
+}
+
+function scrambleText(element, newText) {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    element.innerText = newText;
+    return;
+  }
+  
+  const chars = '!<>-_\\\\/[]{}?"+*^?#________';
+  let iteration = 0;
+  const originalText = newText;
+  
+  clearInterval(element.scrambleInterval);
+  
+  element.scrambleInterval = setInterval(() => {
+    element.innerText = originalText
+      .split('')
+      .map((letter, index) => {
+        if(index < iteration) {
+          return originalText[index];
+        }
+        return chars[Math.floor(Math.random() * 26)] || '#';
+      })
+      .join('');
+    
+    if(iteration >= originalText.length){
+      clearInterval(element.scrambleInterval);
+    }
+    
+    iteration += 1 / 3;
+  }, 30);
+}
+
+
+
+

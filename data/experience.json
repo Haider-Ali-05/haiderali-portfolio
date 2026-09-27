@@ -1,20 +1,16 @@
 [
   {
-    "id": "exp-42sh13vlp",
-    "company": "XSEC SOLUTIONS",
-    "position": "MD(Managing Director)",
-    "startDate": "2026-06",
-    "endDate": null,
-    "isCurrent": true,
-    "description": "Managing Director"
+    "company": "XSEC Solutions",
+    "role": "Managing Director (MD)",
+    "period": "2026-06 \u2013 Present",
+    "status": "Active",
+    "description": "Leading offensive security operations and penetration testing engagements. Responsible for architecting secure systems and directing a team of security researchers."
   },
   {
-    "id": "exp-vgnemeauy",
     "company": "X-Group",
-    "position": "Admin/Spoke-person",
-    "startDate": "2026-01",
-    "endDate": null,
-    "isCurrent": true,
-    "description": "Admin/Spoke-person"
+    "role": "Admin / Spokesperson",
+    "period": "2026-01 \u2013 Present",
+    "status": "Active",
+    "description": "Representing the collective in cybersecurity conferences and public vulnerability disclosures. Managing cross-functional communication and strategic operations."
   }
 ]

@@ -208,3 +208,4 @@ export function initTerminal(profile, fullData) {
     }
   }
 }
+

@@ -159,7 +159,7 @@
   <main>
 
     <!-- ── HERO SECTION ── -->
-    <section class="hero-section" id="hero">
+    <section class="hero-section" id="hero"><div id="vanta-bg" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -1;"></div>
       <div class="container">
         <div class="hero-grid">
           <div class="hero-content">
@@ -181,27 +181,93 @@
             <div class="hero-actions quick-access-row">
               <span class="action-label mono">QUICK ACCESS</span>
               <div class="action-buttons">
-                <a href="#projects" class="btn-compact">Projects ?</a>
-                <a href="#blog" class="btn-compact">Write-ups ?</a>
-                <a href="#tools" class="btn-compact">Tools ?</a>
+                <a href="#projects" class="btn-compact"><i class="ph ph-briefcase" style="margin-right:6px"></i> Projects</a>
+                <a href="#blog" class="btn-compact"><i class="ph ph-article" style="margin-right:6px"></i> Write-ups</a>
+                <a href="#tools" class="btn-compact"><i class="ph ph-wrench" style="margin-right:6px"></i> Tools</a>
               </div>
             </div>
           </div>
           <div class="hero-avatar-wrapper">
             <img id="profile-pic" class="hero-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%231F2937'%3E%3Ccircle cx='100' cy='80' r='40' fill='%236B7280'/%3E%3Cpath d='M100 130c-35 0-60 20-60 35h120c0-15-25-35-60-35z' fill='%236B7280'/%3E%3C/svg%3E" alt="Haider Ali" width="160" height="160">
           </div>
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── STATS STRIP ── -->
     <section class="stats-strip">
       <div class="container">
         <div class="stats-grid" id="stats-grid">
           <!-- Populated dynamically from data -->
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── SOCIAL LINKS ── -->
     <section class="social-section">
@@ -219,14 +285,47 @@
           <a class="social-btn email" href="#" aria-label="Email">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
           </a>
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── TERMINAL + NEXUS AI ── -->
     <section class="dual-section">
       <div class="container">
-        <div class="dual-grid">
+        <!-- dual grid removed -->
 
           <!-- Interactive Terminal -->
           <div class="section-card" id="terminal-widget-card">
@@ -285,9 +384,42 @@
             </div>
           </div>
 
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── EXPERIENCE ── -->
     <section class="content-section fade-in-section" id="experience">
@@ -297,9 +429,42 @@
         </div>
         <div class="timeline" id="experience-container">
           <!-- Populated dynamically -->
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── EDUCATION & CERTIFICATIONS ── -->
     <section class="content-section fade-in-section" id="education">
@@ -317,9 +482,42 @@
               <!-- Populated dynamically -->
             </div>
           </div>
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── SKILLS ── -->
     <section class="content-section fade-in-section" id="skills">
@@ -329,9 +527,42 @@
         </div>
         <div class="skills-grid" id="skills-container">
           <!-- Populated dynamically -->
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── PROJECTS & RESEARCH ── -->
     <section class="content-section fade-in-section" id="projects">
@@ -344,9 +575,42 @@
         </div>
         <div class="projects-grid" id="projects-container" data-stagger>
           <!-- Populated dynamically -->
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── TOOLS ── -->
     <section class="content-section fade-in-section" id="tools">
@@ -371,9 +635,42 @@
         <!-- Built-in Utility Tools Grid -->
         <div class="tools-grid" id="tools-container" data-stagger>
           <!-- Populated dynamically -->
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── GITHUB ACTIVITY ── -->
     <section class="content-section fade-in-section" id="github-section">
@@ -388,9 +685,42 @@
           <div class="github-repos" id="github-repos">
             <!-- Populated dynamically (GitHub API with graceful degradation) -->
           </div>
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── WRITE-UPS / BLOG ── -->
     <section class="content-section fade-in-section" id="blog">
@@ -400,9 +730,42 @@
         </div>
         <div id="blog-container">
           <!-- Populated dynamically -->
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
     <!-- ── CONTACT ── -->
     <section class="content-section fade-in-section" id="contact">
@@ -444,9 +807,42 @@
             <button class="btn-submit" type="submit" id="contact-submit-btn">Send Message</button>
             <div class="form-status" id="form-status"></div>
           </form>
+        </div></div></section>
+  <!-- Persistent Nexus AI Floating Bubble -->
+  <div id="nexus-floating-widget" class="nexus-floating">
+    <button id="nexus-bubble-btn" class="nexus-bubble">
+      <i class="ph ph-robot"></i>
+    </button>
+    <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">N</div>
+          <div>
+            <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+            <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+          </div>
+        </div>
+        <button id="nexus-close-btn" class="nexus-close"><i class="ph ph-x"></i></button>
+      </div>
+      <div id="ai-chat-messages" class="chat-messages">
+        <div class="chat-message ai-message">
+          <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
         </div>
       </div>
-    </section>
+      <div class="chat-suggestion-pills" id="chat-suggestions">
+        <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+        <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+        <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+        <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+        <button id="ai-chat-send" aria-label="Send message">
+          <i class="ph ph-paper-plane-right" style="font-size: 1.2rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
   </main>
 
@@ -522,8 +918,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js" integrity="sha512-DNI/FJdkfyeuPUal7lDkRVg0mFY2n4IZJJYqPbQWLL0COxLi6G6nmf5gr1vW1Bd4wYC09hOvZVsSclfXxUTU/w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/palette.js"></script>
   <script src="js/chat.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
 

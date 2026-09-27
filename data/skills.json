@@ -2,42 +2,42 @@
   {
     "category": "Security",
     "items": [
-      { "name": "Penetration Testing" },
-      { "name": "Vulnerability Assessment" },
-      { "name": "Network Security" },
-      { "name": "Incident Response" },
-      { "name": "SIEM / SOC" },
-      { "name": "Cryptography" }
+      { "name": "Penetration Testing", "proficiency": 5 },
+      { "name": "Vulnerability Assessment", "proficiency": 5 },
+      { "name": "Network Security", "proficiency": 4 },
+      { "name": "Incident Response", "proficiency": 4 },
+      { "name": "SIEM / SOC", "proficiency": 3 },
+      { "name": "Cryptography", "proficiency": 4 }
     ]
   },
   {
     "category": "Languages",
     "items": [
-      { "name": "Python" },
-      { "name": "JavaScript" },
-      { "name": "Bash / Shell" },
-      { "name": "C / C++" },
-      { "name": "SQL" }
+      { "name": "Python", "proficiency": 5 },
+      { "name": "JavaScript", "proficiency": 4 },
+      { "name": "Bash / Shell", "proficiency": 4 },
+      { "name": "C / C++", "proficiency": 3 },
+      { "name": "SQL", "proficiency": 4 }
     ]
   },
   {
     "category": "Tools",
     "items": [
-      { "name": "Burp Suite" },
-      { "name": "Metasploit" },
-      { "name": "Wireshark" },
-      { "name": "Nmap" },
-      { "name": "Kali Linux" },
-      { "name": "Docker" }
+      { "name": "Burp Suite", "proficiency": 5 },
+      { "name": "Metasploit", "proficiency": 4 },
+      { "name": "Wireshark", "proficiency": 4 },
+      { "name": "Nmap", "proficiency": 5 },
+      { "name": "Kali Linux", "proficiency": 5 },
+      { "name": "Docker", "proficiency": 4 }
     ]
   },
   {
     "category": "Frameworks",
     "items": [
-      { "name": "Django" },
-      { "name": "Node.js" },
-      { "name": "React" },
-      { "name": "Flask" }
+      { "name": "Django", "proficiency": 4 },
+      { "name": "Node.js", "proficiency": 4 },
+      { "name": "React", "proficiency": 3 },
+      { "name": "Flask", "proficiency": 4 }
     ]
   }
 ]

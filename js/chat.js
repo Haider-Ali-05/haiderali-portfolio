@@ -1,6 +1,11 @@
 /* C:\Users\Haider Ali\.gemini\antigravity\scratch\haiderali-portfolio\js\chat.js */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const bubbleBtn = document.getElementById('nexus-bubble-btn');
+  const closeBtn = document.getElementById('nexus-close-btn');
+  const popup = document.getElementById('nexus-chat-popup');
+  if(bubbleBtn) bubbleBtn.addEventListener('click', () => popup.classList.toggle('hidden'));
+  if(closeBtn) closeBtn.addEventListener('click', () => popup.classList.add('hidden'));
   const inputField = document.getElementById('ai-chat-input');
   const sendBtn = document.getElementById('ai-chat-send');
   const messagesContainer = document.getElementById('ai-chat-messages');
@@ -170,3 +175,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
