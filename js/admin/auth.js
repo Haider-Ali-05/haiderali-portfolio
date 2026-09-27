@@ -34,41 +34,66 @@ class AdminAuth {
         return;
       }
 
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerText : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Verifying...';
+      }
+
       try {
-        const res = await fetch('data/settings.json?t=' + Date.now());
-        const settings = await res.json();
-        
-        const hash = settings.adminPasswordHash;
-        
-        // Strictly verify via bcrypt hash
-        const bcrypt = window.bcrypt || (window.dcodeIO && window.dcodeIO.bcrypt);
-        let isValid = false;
-        
-        if (bcrypt && hash) {
-          isValid = bcrypt.compareSync(password, hash);
-        } else {
-          throw new Error('Security verification module failed to load.');
+        const api = new window.GitHubAPI(password);
+
+        // 1. Verify directly against Cloudflare Admin Proxy Worker
+        let workerValid = false;
+        let workerErr = null;
+        try {
+          await api.verifyRepo();
+          workerValid = true;
+        } catch (err) {
+          workerErr = err;
+          console.warn('Worker verification check:', err);
         }
-        
-        if (isValid) {
+
+        // 2. Fallback check against settings.json bcrypt hash
+        let hashValid = false;
+        try {
+          const res = await fetch('data/settings.json?t=' + Date.now());
+          const settings = await res.json();
+          const hash = settings.adminPasswordHash;
+          const bcrypt = window.bcrypt || (window.dcodeIO && window.dcodeIO.bcrypt);
+          if (bcrypt && hash) {
+            hashValid = bcrypt.compareSync(password, hash);
+          }
+        } catch (e) {
+          console.warn('Settings hash check:', e);
+        }
+
+        if (workerValid || hashValid) {
           sessionStorage.setItem(this.storageKey, 'true');
           sessionStorage.setItem('admin_pwd_secret', password);
+          localStorage.removeItem('admin_login_attempts');
           this.showToast('Authentication validated. Welcome back.', 'success');
-          
-          if (settings.defaultPassword) {
-            this.showToast('Security Warning: You are using the default password. Reset it in Settings.', 'error');
-          }
-
-          const api = new window.GitHubAPI(password);
           window.onAdminReady(api);
         } else {
           this.recordFailedAttempt();
-          this.showToast('Invalid access credentials.', 'error');
+          if (workerErr && workerErr.message && workerErr.message.includes('Invalid Admin Password')) {
+            this.showToast('Invalid access credentials. Check your Cloudflare ADMIN_PASSWORD.', 'error');
+          } else if (workerErr && workerErr.message) {
+            this.showToast(`Authentication failed: ${workerErr.message}`, 'error');
+          } else {
+            this.showToast('Invalid access credentials.', 'error');
+          }
           passInput.value = '';
         }
       } catch (err) {
         console.error(err);
         this.showToast(`Error: ${err.message}`, 'error');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalBtnText;
+        }
       }
     });
   }
