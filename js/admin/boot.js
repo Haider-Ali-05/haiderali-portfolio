@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let editor = null;
   let dashboard = null;
   let settings = null;
+  let aiTeacher = null;
 
   async function navigateTo(page) {
     const content = document.getElementById('admin-content');
@@ -43,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'tools':
           await editor.renderToolsEditor(content);
           break;
+        case 'ai-teach':
+          await aiTeacher.render(content);
+          break;
         case 'messages':
           await editor.renderMessagesView(content);
           break;
@@ -71,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editor = new window.ContentEditor(api);
     dashboard = new window.AdminDashboard();
     settings = new window.AdminSettings(api, auth);
+    aiTeacher = new window.AiTeacher(auth);
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-layout').style.display = 'flex';
 

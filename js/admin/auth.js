@@ -120,6 +120,10 @@ class AdminAuth {
     return sessionStorage.getItem(this.storageKey) === 'true';
   }
 
+  getPassword() {
+    return sessionStorage.getItem('admin_pwd_secret') || '';
+  }
+
   // showPatView and isPatLinked removed
 
   /* Brute force lock control (max 5 attempts, 15 minutes lock) */
