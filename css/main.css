@@ -333,3 +333,67 @@ pre, code, .modal-content pre, .modal-content code {
     scroll-behavior: auto !important;
   }
 }
+
+/* === HERO DENSITY UPDATE === */
+.hero-grid {
+  justify-content: center !important;
+  gap: 3rem !important;
+}
+
+.hero-focus-section {
+  margin-bottom: 2rem;
+}
+.focus-label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+.focus-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.focus-tag {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+.hero-actions.quick-access-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.action-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+.btn-compact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+.btn-compact:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  background: var(--bg-elevated);
+}
