@@ -54,11 +54,11 @@
   <link rel="dns-prefetch" href="https://ghchart.rshah.org">
 
   <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="css/themes.css?v=4">
-  <link rel="stylesheet" href="css/main.css?v=4">
+  <link rel="stylesheet" href="css/themes.css?v=5">
+  <link rel="stylesheet" href="css/main.css?v=5">
 
   <!-- CONTENT SECURITY POLICY -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://ghchart.rshah.org; connect-src 'self' https://api.web3forms.com https://ip-api.com https://haider-ai-backend.futurehacker-7-8-7.workers.dev">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://ghchart.rshah.org https://avatars.githubusercontent.com; connect-src 'self' https://api.web3forms.com https://ip-api.com https://haider-ai-backend.futurehacker-7-8-7.workers.dev https://api.github.com">
 
   <!-- JSON-LD STRUCTURED DATA -->
   <script type="application/ld+json">
@@ -96,7 +96,7 @@
 
   <!-- SEO: Noscript Fallback -->
   <noscript>
-    <div style="padding: 2rem; text-align: center; font-family: sans-serif; background: #0B0F19; color: #F3F4F6; min-height: 100vh;">
+    <div style="padding: 2rem; text-align: center; font-family: sans-serif; background: #070B14; color: #F1F5F9; min-height: 100vh;">
       <h1>Haider Ali — Cybersecurity Expert & Ethical Hacker</h1>
       <p>Welcome to the portfolio of <strong>Haider Ali</strong>, a <strong>cybersecurity specialist</strong>, <strong>penetration tester</strong>, and <strong>ethical hacker</strong> from Pakistan.</p>
       <p>Contact: <a href="mailto:haideralibcy253016@gmail.com" style="color: #06B6D4;">haideralibcy253016@gmail.com</a></p>
@@ -142,7 +142,6 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#tools">Tools</a></li>
         <li><a href="#blog">Write-ups</a></li>
-        <li><a href="osint.html" style="color: var(--accent-primary);">OSINT</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-right">
@@ -155,57 +154,47 @@
   </nav>
 
   <!-- ═══════════════════════════════════════════
-       BENTO GRID — COMMAND CENTER
+       MAIN CONTENT — Editorial Sections
   ═══════════════════════════════════════════ -->
-  <main class="container" id="hero">
-    <div class="bento-grid">
+  <main>
 
-      <!-- ── ROW 1: Identity + Terminal + Social ── -->
-
-      <!-- Identity Card (Primary) -->
-      <div class="bento-card span-5" id="identity-widget">
-        <div class="card-label"><span class="dot"></span> IDENTITY</div>
-        <div class="identity-card">
-          <img id="profile-pic" class="identity-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%231F2937'%3E%3Ccircle cx='100' cy='80' r='40' fill='%236B7280'/%3E%3Cpath d='M100 130c-35 0-60 20-60 35h120c0-15-25-35-60-35z' fill='%236B7280'/%3E%3C/svg%3E" alt="Haider Ali" width="80" height="80">
-          <div class="identity-info">
-            <h1 class="identity-name" id="hero-name" itemprop="name">Haider Ali</h1>
-            <p class="identity-title" id="title-text" itemprop="jobTitle">Cybersecurity Specialist</p>
-            <p class="identity-bio" id="bio-text">Loading...</p>
-            <div class="identity-status">
+    <!-- ── HERO SECTION ── -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-kicker mono">CYBERSECURITY • SECURITY RESEARCH • ENGINEERING</div>
+            <h1 class="hero-name" id="hero-name">Haider Ali</h1>
+            <p class="hero-role" id="title-text">Cybersecurity Specialist</p>
+            <p class="hero-bio" id="bio-text">Loading...</p>
+            <div class="hero-status">
               <span class="pulse-dot"></span>
-              Available for hire
+              Available for selected opportunities
+            </div>
+            <div class="hero-actions">
+              <a href="#projects" class="btn-primary">View Projects ↓</a>
+              <a href="#contact" class="btn-secondary">Contact Me →</a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Interactive Terminal -->
-      <div class="bento-card span-4 row-2" id="terminal-widget-card">
-        <div class="card-label"><span class="dot"></span> TERMINAL</div>
-        <div class="terminal-widget">
-          <div class="terminal-header">
-            <div class="terminal-dot red"></div>
-            <div class="terminal-dot yellow"></div>
-            <div class="terminal-dot green"></div>
-            <span class="terminal-title">bash — haider_ali</span>
-          </div>
-          <div class="terminal-body" id="terminal-out">
-            <div class="terminal-line" style="color: var(--text-muted); margin-bottom: 8px;">Welcome to HaiderOS v3.0. Type 'help' to see commands.</div>
-            <div class="terminal-line"><span class="terminal-prompt">></span> whoami</div>
-            <div class="terminal-line"><span class="terminal-output" id="name-text">haider_ali</span></div>
-            <div class="terminal-line"><span class="terminal-prompt">></span> cat skills.txt</div>
-            <div class="terminal-line"><span class="typing-text" id="typing-text"></span><span class="cursor"></span></div>
-          </div>
-          <div class="terminal-input-row">
-            <span>></span>
-            <input type="text" id="terminal-in" autocomplete="off" spellcheck="false" placeholder="type a command...">
+          <div class="hero-avatar-wrapper">
+            <img id="profile-pic" class="hero-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='%231F2937'%3E%3Ccircle cx='100' cy='80' r='40' fill='%236B7280'/%3E%3Cpath d='M100 130c-35 0-60 20-60 35h120c0-15-25-35-60-35z' fill='%236B7280'/%3E%3C/svg%3E" alt="Haider Ali" width="160" height="160">
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Social Links + Quick Stats -->
-      <div class="bento-card span-3">
-        <div class="card-label"><span class="dot"></span> CONNECT</div>
+    <!-- ── STATS STRIP ── -->
+    <section class="stats-strip">
+      <div class="container">
+        <div class="stats-grid" id="stats-grid">
+          <!-- Populated dynamically from data -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SOCIAL LINKS ── -->
+    <section class="social-section">
+      <div class="container">
         <div class="social-grid" id="social-links">
           <a class="social-btn linkedin" href="#" target="_blank" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -220,118 +209,208 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
           </a>
         </div>
-        <!-- OSINT Launcher -->
-        <div class="osint-launcher" style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
-          <div class="osint-info">
-            <div class="osint-title">ShadowTrace OSINT</div>
-            <div class="osint-desc">Username search, EXIF analysis, email breach check</div>
-            <a href="osint.html" class="osint-btn">Launch Tool</a>
+      </div>
+    </section>
+
+    <!-- ── TERMINAL + NEXUS AI ── -->
+    <section class="dual-section">
+      <div class="container">
+        <div class="dual-grid">
+
+          <!-- Interactive Terminal -->
+          <div class="section-card" id="terminal-widget-card">
+            <div class="card-label"><span class="dot"></span> TERMINAL</div>
+            <div class="terminal-widget">
+              <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+                <span class="terminal-title">bash — haider_ali</span>
+              </div>
+              <div class="terminal-body" id="terminal-out">
+                <div class="terminal-line" style="color: var(--text-muted); margin-bottom: 8px;">Welcome to HaiderOS v3.0. Type 'help' to see commands.</div>
+                <div class="terminal-line"><span class="terminal-prompt">></span> whoami</div>
+                <div class="terminal-line"><span class="terminal-output" id="name-text">haider_ali</span></div>
+                <div class="terminal-line"><span class="terminal-prompt">></span> cat skills.txt</div>
+                <div class="terminal-line"><span class="typing-text" id="typing-text"></span><span class="cursor"></span></div>
+              </div>
+              <div class="terminal-input-row">
+                <span>></span>
+                <input type="text" id="terminal-in" autocomplete="off" spellcheck="false" placeholder="type a command...">
+              </div>
+            </div>
           </div>
+
+          <!-- AI Chat (Docked) -->
+          <div class="section-card" id="ai-chat-widget" style="padding: 0; overflow: hidden;">
+            <div class="ai-chat-docked">
+              <div class="chat-header">
+                <div class="chat-header-info">
+                  <div class="chat-avatar">N</div>
+                  <div>
+                    <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
+                    <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>
+                  </div>
+                </div>
+                <div></div>
+              </div>
+              <div id="ai-chat-messages" class="chat-messages">
+                <div class="chat-message ai-message">
+                  <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
+                </div>
+              </div>
+              <div class="chat-suggestion-pills" id="chat-suggestions">
+                <button class="suggestion-pill" data-query="Who is Haider Ali?">Who is Haider?</button>
+                <button class="suggestion-pill" data-query="What security projects has he built?">His projects</button>
+                <button class="suggestion-pill" data-query="What tools does he use?">Tools used</button>
+                <button class="suggestion-pill" data-query="Tell me about his cybersecurity experience">Experience</button>
+              </div>
+              <div class="chat-input-area">
+                <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
+                <button id="ai-chat-send" aria-label="Send message">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
+    </section>
 
-      <!-- ── ROW 2: Experience + Education + AI Chat ── -->
-
-      <!-- Experience Timeline -->
-      <div class="bento-card span-4 fade-in-section" id="experience">
-        <div class="card-label"><span class="dot"></span> EXPERIENCE</div>
+    <!-- ── EXPERIENCE ── -->
+    <section class="content-section fade-in-section" id="experience">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> Experience</h2>
+        </div>
         <div class="timeline" id="experience-container">
           <!-- Populated dynamically -->
         </div>
       </div>
+    </section>
 
-      <!-- Education -->
-      <div class="bento-card span-4 fade-in-section" id="education">
-        <div class="card-label"><span class="dot"></span> EDUCATION</div>
-        <div id="education-container">
+    <!-- ── EDUCATION & CERTIFICATIONS ── -->
+    <section class="content-section fade-in-section" id="education">
+      <div class="container">
+        <div class="edu-cert-grid">
+          <div>
+            <h2 class="section-title"><span class="dot"></span> Education</h2>
+            <div id="education-container">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+          <div>
+            <h2 class="section-title"><span class="dot"></span> Certifications</h2>
+            <div id="certifications-container">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section class="content-section fade-in-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> Skills & Expertise</h2>
+        </div>
+        <div class="skills-grid" id="skills-container">
           <!-- Populated dynamically -->
         </div>
       </div>
+    </section>
 
-      <!-- AI Chat (Docked) -->
-      <div class="bento-card span-4 row-2 fade-in-section" id="ai-chat-widget" style="padding: 0; overflow: hidden;">
-        <div class="ai-chat-docked">
-          <div class="chat-header">
-            <div class="chat-header-info">
-              <div class="chat-avatar">N</div>
-              <div>
-                <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI</h4>
-                <span style="font-size: 0.65rem; color: var(--accent-success);">online</span>
-              </div>
-            </div>
-            <div></div>
-          </div>
-          <div id="ai-chat-messages" class="chat-messages">
-            <div class="chat-message ai-message">
-              <p>Hi! I'm Nexus, Haider's AI assistant. Ask me anything about his skills, projects, or experience.</p>
-            </div>
-          </div>
-          <div class="chat-input-area">
-            <textarea id="ai-chat-input" placeholder="Ask about Haider..." rows="1"></textarea>
-            <button id="ai-chat-send" aria-label="Send message">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
-            </button>
-          </div>
+    <!-- ── PROJECTS & RESEARCH ── -->
+    <section class="content-section fade-in-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> Projects & Research</h2>
         </div>
-      </div>
-
-      <!-- ── ROW 3: Skills ── -->
-      <div class="bento-card span-8 fade-in-section" id="skills">
-        <div class="card-label"><span class="dot"></span> SKILLS & EXPERTISE</div>
-        <div class="skills-categories" id="skills-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem;">
-          <!-- Populated dynamically -->
+        <div class="project-filters" id="project-filters">
+          <!-- Populated dynamically from project tags -->
         </div>
-      </div>
-
-      <!-- ── ROW 4: GitHub Activity ── -->
-      <div class="bento-card span-12 fade-in-section" id="github-section">
-        <div class="card-label"><span class="dot"></span> GITHUB ACTIVITY</div>
-        <div class="github-heatmap-wrapper">
-          <img id="github-heatmap" src="https://ghchart.rshah.org/06B6D4/Haider-Ali-05" alt="Haider Ali's GitHub contribution activity chart" loading="lazy" decoding="async" width="722" height="112">
-        </div>
-      </div>
-
-      <!-- ── ROW 5: Projects ── -->
-      <section class="bento-card span-12 fade-in-section" id="projects">
-        <div class="card-label"><span class="dot"></span> PROJECTS & RESEARCH</div>
         <div class="projects-grid" id="projects-container" data-stagger>
           <!-- Populated dynamically -->
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ── ROW 6: Blog + Tools ── -->
+    <!-- ── TOOLS ── -->
+    <section class="content-section fade-in-section" id="tools">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> Security Tools</h2>
+        </div>
 
-      <!-- Blog / Write-ups -->
-      <div class="bento-card span-5 fade-in-section" id="blog">
-        <div class="card-label"><span class="dot"></span> WRITE-UPS & CTF</div>
+        <!-- Featured OSINT Tool -->
+        <div class="featured-tool-card" id="osint-feature">
+          <div class="featured-tool-info">
+            <div class="featured-tool-badge mono">OSINT PLATFORM</div>
+            <h3 class="featured-tool-name">ShadowTrace</h3>
+            <p class="featured-tool-desc">Username search, EXIF analysis, and email breach checking toolkit for reconnaissance and open-source intelligence.</p>
+            <div class="featured-tool-status">
+              <span style="color: var(--text-muted);">STATUS: AVAILABLE</span>
+            </div>
+            <a href="osint.html" class="btn-primary" style="margin-top: 1rem;">Launch Tool ↗</a>
+          </div>
+        </div>
+
+        <!-- Built-in Utility Tools Grid -->
+        <div class="tools-grid" id="tools-container" data-stagger>
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GITHUB ACTIVITY ── -->
+    <section class="content-section fade-in-section" id="github-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> GitHub Activity</h2>
+        </div>
+        <div class="github-content">
+          <div class="github-heatmap-wrapper">
+            <img id="github-heatmap" src="https://ghchart.rshah.org/06B6D4/Haider-Ali-05" alt="Haider Ali's GitHub contribution activity chart" loading="lazy" decoding="async" width="722" height="112">
+          </div>
+          <div class="github-repos" id="github-repos">
+            <!-- Populated dynamically (GitHub API with graceful degradation) -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WRITE-UPS / BLOG ── -->
+    <section class="content-section fade-in-section" id="blog">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> Write-ups & CTF</h2>
+        </div>
         <div id="blog-container">
           <!-- Populated dynamically -->
         </div>
       </div>
+    </section>
 
-      <!-- Security Tools -->
-      <section class="bento-card span-7 fade-in-section" id="tools">
-        <div class="card-label"><span class="dot"></span> SECURITY TOOLS</div>
-        <div class="tools-grid" id="tools-container" data-stagger>
-          <!-- Populated dynamically -->
+    <!-- ── CONTACT ── -->
+    <section class="content-section fade-in-section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><span class="dot"></span> Get In Touch</h2>
+          <p class="section-subtitle">Let's build something secure</p>
         </div>
-      </section>
-
-      <!-- ── ROW 7: Contact ── -->
-      <section class="bento-card span-12 fade-in-section" id="contact">
-        <div class="card-label"><span class="dot"></span> GET IN TOUCH</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
-          <div>
-            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Hire Me</h3>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <p class="contact-description">
               Available for cybersecurity consulting, penetration testing engagements, bug bounty collaborations, and full-time opportunities.
             </p>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted);">
-              <div style="margin-bottom: 0.5rem;">
-                <span style="color: var(--accent-primary);">email:</span> <span id="contact-email-display">haideralibcy253016@gmail.com</span>
+            <div class="contact-details mono">
+              <div>
+                <span class="text-accent">email:</span> <span id="contact-email-display">haideralibcy253016@gmail.com</span>
               </div>
               <div>
-                <span style="color: var(--accent-primary);">location:</span> Pakistan
+                <span class="text-accent">location:</span> Pakistan
               </div>
             </div>
           </div>
@@ -355,14 +434,16 @@
             <div class="form-status" id="form-status"></div>
           </form>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div><!-- /.bento-grid -->
   </main>
 
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
     <div class="container">
+      <div class="footer-brand mono">> haider_ali</div>
+      <p class="footer-tagline">Cybersecurity • Security Research • Engineering</p>
       <div class="footer-links">
         <a href="#hero">Home</a>
         <a href="#skills">Skills</a>
