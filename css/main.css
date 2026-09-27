@@ -21,32 +21,51 @@ body {
 
 ::selection { background-color: var(--accent-primary); color: #000; }
 
-/* ── Prevent Caret Placement & Text Selection on UI Components ── */
-.bento-card,
-.identity-card,
-.identity-card *,
-.card-label,
-.navbar,
-.section-header,
-.filter-btn,
-.nav-link {
+/* ── Global Cursor & Selection Management ── */
+body,
+body * {
+  cursor: default;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  cursor: default;
 }
 
 /* Ensure interactive elements keep pointer cursors */
-a, button, .social-btn, .filter-btn, .nav-link, .modal-close {
+a, a *,
+button, button *,
+[role="button"],
+.btn,
+.social-btn,
+.filter-btn,
+.nav-link,
+.modal-close,
+.terminal-dot,
+.toggle-switch,
+.project-card,
+.blog-card,
+.tool-card {
   cursor: pointer;
 }
 
-/* Ensure inputs and terminal remain interactable */
-input, textarea, #terminal-in {
+/* ONLY actual input fields and terminal prompt show the text input cursor */
+input,
+textarea,
+[contenteditable="true"],
+#terminal-in {
+  cursor: text !important;
   user-select: text !important;
   -webkit-user-select: text !important;
-  cursor: text !important;
+}
+
+/* Allow copying code blocks */
+pre,
+code,
+.modal-body pre,
+.modal-body code {
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
 }
 
 /* ── Scrollbar ── */
