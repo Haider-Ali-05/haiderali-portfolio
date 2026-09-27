@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
     msgDiv.className = `chat-message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
     
     if (sender === 'ai' && typeof marked !== 'undefined') {
-      msgDiv.innerHTML = marked.parse(text);
+      const rawHtml = marked.parse(text);
+      msgDiv.innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(rawHtml) : rawHtml;
     } else {
       const p = document.createElement('p');
       p.textContent = text;

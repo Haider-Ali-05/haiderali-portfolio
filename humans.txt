@@ -13,6 +13,6 @@ Doctype: HTML5
 IDE: VS Code, Kali Linux Terminal
 Standards: HTML5, CSS3, ES6+
 Components: Vanilla JS, Web3Forms, GitHub API
-Hosting: GitHub Pages
+Hosting: Cloudflare Pages
 Domain: ihaiderali.dev
 SSL: Cloudflare

@@ -306,7 +306,7 @@ async function handleRequest(request) {
     const aRecords = results.dns['A'] || [];
     if (aRecords.length > 0) {
       try {
-        const res = await fetch(`http://ip-api.com/json/${aRecords[0].data}`);
+        const res = await fetch(`https://ip-api.com/json/${aRecords[0].data}`);
         results.geo = await res.json();
       } catch {}
     }

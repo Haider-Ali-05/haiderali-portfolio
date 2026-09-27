@@ -608,7 +608,7 @@ function renderBlog(blogPosts) {
       .replace(/`(.*?)`/gim, '<code style="background:var(--bg-tertiary);padding:2px 4px;border-radius:3px;">$1</code>')
       .replace(/\n\n/gim, '<br><br>');
       
-    modalBody.innerHTML = html;
+    modalBody.innerHTML = (window.DOMPurify ? window.DOMPurify.sanitize(html) : html);
     
     modal.classList.add('visible');
     document.body.style.overflow = 'hidden'; // Prevent background scroll

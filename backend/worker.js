@@ -23,6 +23,24 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Password',
 };
 
+// In-memory IP rate limiter (max 20 requests per minute per IP)
+const rateLimits = new Map();
+
+function checkRateLimit(ip, maxReqs = 20, windowMs = 60000) {
+  const now = Date.now();
+  const entry = rateLimits.get(ip) || { count: 0, resetAt: now + windowMs };
+
+  if (now > entry.resetAt) {
+    entry.count = 0;
+    entry.resetAt = now + windowMs;
+  }
+
+  entry.count++;
+  rateLimits.set(ip, entry);
+
+  return entry.count <= maxReqs;
+}
+
 export default {
   async fetch(request, env, ctx) {
     // Handle CORS preflight requests
@@ -32,6 +50,14 @@ export default {
 
     if (request.method !== 'POST') {
       return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
+    }
+
+    const clientIp = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (!checkRateLimit(clientIp, 20, 60000)) {
+      return new Response(JSON.stringify({ error: 'Rate limit exceeded. Please wait a minute.' }), {
+        status: 429,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
     }
 
     try {
@@ -127,14 +153,8 @@ export default {
           contents: geminiContents,
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 800, // Restored to 800 so it can finish its sentences
-          },
-          safetySettings: [
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-          ]
+            maxOutputTokens: 800
+          }
         })
       });
 
