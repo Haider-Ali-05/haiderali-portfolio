@@ -10,3 +10,9 @@
 
 /data/*
   X-Robots-Tag: noindex, nofollow
+
+/nqzva*
+  X-Robots-Tag: noindex, nofollow
+
+/ai-admin*
+  X-Robots-Tag: noindex, nofollow
