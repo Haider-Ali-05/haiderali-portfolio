@@ -21,6 +21,34 @@ body {
 
 ::selection { background-color: var(--accent-primary); color: #000; }
 
+/* ── Prevent Caret Placement & Text Selection on UI Components ── */
+.bento-card,
+.identity-card,
+.identity-card *,
+.card-label,
+.navbar,
+.section-header,
+.filter-btn,
+.nav-link {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+}
+
+/* Ensure interactive elements keep pointer cursors */
+a, button, .social-btn, .filter-btn, .nav-link, .modal-close {
+  cursor: pointer;
+}
+
+/* Ensure inputs and terminal remain interactable */
+input, textarea, #terminal-in {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  cursor: text !important;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
@@ -182,15 +210,18 @@ body {
    ═══════════════════════════════════════════ */
 .identity-card {
   display: flex; align-items: center; gap: 1.5rem;
+  user-select: none; -webkit-user-select: none; -moz-user-select: none; cursor: default;
 }
 .identity-avatar {
   width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
   border: 2px solid var(--accent-primary); flex-shrink: 0;
+  user-select: none; -webkit-user-select: none;
 }
-.identity-info { flex: 1; }
+.identity-info { flex: 1; user-select: none; -webkit-user-select: none; }
 .identity-name {
   font-size: 1.5rem; font-weight: 700; color: var(--text-primary);
   line-height: 1.2; margin-bottom: 0.25rem;
+  user-select: none; -webkit-user-select: none; cursor: default;
 }
 .identity-title {
   font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
