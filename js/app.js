@@ -118,9 +118,7 @@ function showSiteLoginOverlay() {
     let isValid = false;
     
     if (bcrypt && hash) {
-      isValid = (password === 'haideradmin') || bcrypt.compareSync(password, hash);
-    } else {
-      isValid = (password === 'haideradmin');
+      isValid = bcrypt.compareSync(password, hash);
     }
     
     if (isValid) {

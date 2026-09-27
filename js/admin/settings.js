@@ -64,7 +64,7 @@ class AdminSettings {
           <form id="form-ai-password" class="admin-form-grid">
             <div class="form-group">
               <label class="form-label" for="sett-ai-curr-pass">Current AI Chat Password:</label>
-              <input class="form-input" type="password" id="sett-ai-curr-pass" required placeholder="Default: haideradmin">
+              <input class="form-input" type="password" id="sett-ai-curr-pass" required placeholder="Enter current password">
             </div>
             <div class="form-group">
               <label class="form-label" for="sett-ai-new-pass">New AI Chat Password:</label>
@@ -210,9 +210,7 @@ class AdminSettings {
         const bcrypt = window.bcrypt || (window.dcodeIO && window.dcodeIO.bcrypt);
         let isValid = false;
 
-        if (settings.defaultPassword && curr === 'admin123') {
-          isValid = true;
-        } else if (bcrypt && bcrypt.compareSync(curr, settings.adminPasswordHash)) {
+        if (bcrypt && bcrypt.compareSync(curr, settings.adminPasswordHash)) {
           isValid = true;
         }
 

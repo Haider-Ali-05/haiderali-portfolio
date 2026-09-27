@@ -46,15 +46,15 @@ export default {
         return new Response('API key not configured in backend', { status: 500, headers: corsHeaders });
       }
 
-      // Check dynamic admin password from KV
-      let ADMIN_PASSWORD = env.ADMIN_PASSWORD || "haideradmin";
+      // Check dynamic admin password from KV or environment
+      let ADMIN_PASSWORD = env.ADMIN_PASSWORD;
       if (env.AI_MEMORY) {
         const customPassword = await env.AI_MEMORY.get("admin_password");
         if (customPassword) {
           ADMIN_PASSWORD = customPassword;
         }
       }
-      const isAdmin = adminPassword === ADMIN_PASSWORD;
+      const isAdmin = Boolean(ADMIN_PASSWORD && adminPassword && adminPassword === ADMIN_PASSWORD);
 
       // Handle Change Password action
       if (action === 'change_password') {

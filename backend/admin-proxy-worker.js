@@ -19,8 +19,15 @@ export default {
     try {
       // 1. Authenticate Request
       const adminPassword = request.headers.get('X-Admin-Password');
-      const ADMIN_PASSWORD_SECRET = env.ADMIN_PASSWORD || "haideradmin";
+      const ADMIN_PASSWORD_SECRET = env.ADMIN_PASSWORD;
       
+      if (!ADMIN_PASSWORD_SECRET) {
+        return new Response(JSON.stringify({ error: 'Server Error: ADMIN_PASSWORD not configured in worker environment variables' }), { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        });
+      }
+
       if (!adminPassword || adminPassword !== ADMIN_PASSWORD_SECRET) {
         return new Response(JSON.stringify({ error: 'Unauthorized: Invalid Admin Password' }), { 
           status: 401, 

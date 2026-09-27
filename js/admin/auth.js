@@ -12,9 +12,11 @@ class AdminAuth {
 
     // Check if password is valid in session
     if (this.isPasswordAuthenticated()) {
-      const password = sessionStorage.getItem('admin_pwd_secret') || 'haideradmin';
-      const api = new window.GitHubAPI(password);
-      window.onAdminReady(api);
+      const password = sessionStorage.getItem('admin_pwd_secret');
+      if (password) {
+        const api = new window.GitHubAPI(password);
+        window.onAdminReady(api);
+      }
     }
   }
 
@@ -33,27 +35,19 @@ class AdminAuth {
       }
 
       try {
-        console.log("Fetching settings.json...");
         const res = await fetch('data/settings.json?t=' + Date.now());
         const settings = await res.json();
         
         const hash = settings.adminPasswordHash;
-        console.log("Fetched Hash from settings.json:", hash);
-        console.log("Entered Password:", password);
         
-        // Verify via bcrypt or default fallback
+        // Strictly verify via bcrypt hash
         const bcrypt = window.bcrypt || (window.dcodeIO && window.dcodeIO.bcrypt);
         let isValid = false;
         
-        if (settings.defaultPassword && password === 'admin123') {
-          console.log("Default credentials bypass matched.");
-          isValid = true;
-        } else if (bcrypt) {
-          console.log("Bcrypt library found. Comparing...");
-          isValid = (password === 'haideradmin') || bcrypt.compareSync(password, hash);
-          console.log("Bcrypt compare sync result:", isValid);
+        if (bcrypt && hash) {
+          isValid = bcrypt.compareSync(password, hash);
         } else {
-          throw new Error('Bcrypt security module failed to load.');
+          throw new Error('Security verification module failed to load.');
         }
         
         if (isValid) {
