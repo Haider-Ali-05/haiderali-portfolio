@@ -28,8 +28,8 @@ export function setTheme(theme) {
   
   const toggleBtn = document.getElementById('theme-toggle');
   if (toggleBtn) {
-    if (theme === 'cyber') toggleBtn.innerText = '⌘';
-    else toggleBtn.innerText = '✦';
+    if (theme === 'cyber') toggleBtn.innerHTML = '<i class="ph-fill ph-sun" style="font-size: 1.2rem;"></i>';
+    else toggleBtn.innerHTML = '<i class="ph-fill ph-moon" style="font-size: 1.2rem;"></i>';
   }
 }
 
