@@ -706,7 +706,7 @@ function init3DEffects() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
-  // Initialize Vanta.js NET
+  // Initialize Vanta.js NET - optimized for performance
   if (window.VANTA && window.VANTA.NET) {
     window.VANTA.NET({
       el: '#vanta-bg',
@@ -719,18 +719,24 @@ function init3DEffects() {
       scaleMobile: 1.00,
       color: 0x06B6D4,
       backgroundColor: 0x05070d,
-      points: 12.00,
-      maxDistance: 22.00,
-      spacing: 18.00
+      points: 10.00,
+      maxDistance: 18.00,
+      spacing: 20.00,
+      showDots: true
     });
   }
 
-    // Smooth Scroll
+  // Smooth Scroll - optimized config
   if (window.Lenis) {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2
     });
     function raf(time) {
       lenis.raf(time);
@@ -739,7 +745,7 @@ function init3DEffects() {
     requestAnimationFrame(raf);
   }
 
-  // Initialize Vanilla Tilt
+  // Initialize Vanilla Tilt - Disable glare on lists for performance
   if (window.VanillaTilt) {
     const avatarEl = document.querySelector('.hero-avatar-wrapper');
     if (avatarEl) {
@@ -754,10 +760,9 @@ function init3DEffects() {
     const tiltCards = document.querySelectorAll('.project-card, .tool-card');
     if (tiltCards.length > 0) {
       VanillaTilt.init(tiltCards, {
-        max: 5,
+        max: 3,
         speed: 400,
-        glare: true,
-        'max-glare': 0.1,
+        glare: false // Glare on multiple elements causes severe paint lag
       });
     }
   }
