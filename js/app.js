@@ -729,14 +729,9 @@ function init3DEffects() {
   // Smooth Scroll - optimized config
   if (window.Lenis) {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      lerp: 0.1,
       smoothWheel: true,
-      wheelMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2
+      wheelMultiplier: 0.8 // Slightly reduced wheel multiplier to prevent trackpad fling
     });
     function raf(time) {
       lenis.raf(time);
