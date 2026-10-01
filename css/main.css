@@ -440,10 +440,12 @@ pre, code, .modal-content pre, .modal-content code {
 
 /* === FLOATING NEXUS WIDGET === */
 .nexus-floating {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 9999 !important;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
