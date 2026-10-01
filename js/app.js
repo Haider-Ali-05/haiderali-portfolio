@@ -716,19 +716,25 @@ function init3DEffects() {
 
   // Initialize Vanilla Tilt
   if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelector('.hero-avatar-wrapper'), {
-      max: 8,
-      speed: 400,
-      glare: true,
-      'max-glare': 0.2,
-    });
+    const avatarEl = document.querySelector('.hero-avatar-wrapper');
+    if (avatarEl) {
+      VanillaTilt.init(avatarEl, {
+        max: 8,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.2,
+      });
+    }
     
-    VanillaTilt.init(document.querySelectorAll('.project-card, .tool-card'), {
-      max: 5,
-      speed: 400,
-      glare: true,
-      'max-glare': 0.1,
-    });
+    const tiltCards = document.querySelectorAll('.project-card, .tool-card');
+    if (tiltCards.length > 0) {
+      VanillaTilt.init(tiltCards, {
+        max: 5,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.1,
+      });
+    }
   }
 }
 
