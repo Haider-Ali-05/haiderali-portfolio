@@ -231,10 +231,19 @@ function renderStatsStrip(data) {
   const container = document.getElementById('stats-grid');
   if (!container) return;
 
-  const orgCount = data.experience ? data.experience.length : 0;
-  const projCount = data.projects ? data.projects.length : 0;
-  const toolCount = data.tools ? data.tools.length : 0;
-  const certCount = data.education ? data.education.filter(e => e.degree === 'Certification').length : 0;
+  const orgCount = data.experience ? (Array.isArray(data.experience) ? data.experience.length : 0) : 0;
+  const projCount = data.projects ? (Array.isArray(data.projects) ? data.projects.length : 0) : 0;
+  const toolCount = data.tools ? (Array.isArray(data.tools) ? data.tools.length : 0) : 0;
+  
+  // Handle education.json being either an array or an object with {education:[], certifications:[]}
+  let certCount = 0;
+  if (data.education) {
+    if (Array.isArray(data.education)) {
+      certCount = data.education.filter(e => e.degree === 'Certification').length;
+    } else if (data.education.certifications && Array.isArray(data.education.certifications)) {
+      certCount = data.education.certifications.length;
+    }
+  }
 
   const statsHTML = [];
   if (orgCount > 0) {
@@ -255,17 +264,19 @@ function renderStatsStrip(data) {
 
 function renderExperience(experience) {
   const container = document.getElementById('experience-container');
-  if (!container || !experience) return;
-  experience.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+  if (!container || !experience || !Array.isArray(experience)) return;
   container.innerHTML = '';
   experience.forEach(exp => {
-    const end = exp.isCurrent ? 'Present' : exp.endDate;
+    const isCurrent = exp.isCurrent || (exp.status && exp.status.toLowerCase() === 'active') || (exp.period && exp.period.includes('Present'));
+    const position = exp.position || exp.role || '';
+    const dateRange = exp.period || `${exp.startDate || ''} — ${exp.isCurrent ? 'Present' : (exp.endDate || '')}`;
+    
     const item = document.createElement('div');
-    item.className = `timeline-item ${exp.isCurrent ? 'current' : ''}`;
+    item.className = `timeline-item ${isCurrent ? 'current' : ''}`;
     item.innerHTML = `
-      <div class="timeline-date">${exp.startDate} — ${end}</div>
-      <h3 class="timeline-company">${exp.company} ${exp.isCurrent ? '<span class="current-badge">ACTIVE</span>' : ''}</h3>
-      <div class="timeline-position">${exp.position}</div>
+      <div class="timeline-date">${dateRange}</div>
+      <h3 class="timeline-company">${exp.company} ${isCurrent ? '<span class="current-badge">ACTIVE</span>' : ''}</h3>
+      <div class="timeline-position">${position}</div>
       <p class="timeline-description">${exp.description}</p>
     `;
     container.appendChild(item);
@@ -280,17 +291,28 @@ function renderEducation(educationData) {
   eduContainer.innerHTML = '';
   certContainer.innerHTML = '';
 
-  const degrees = educationData.filter(e => e.degree !== 'Certification');
-  const certs = educationData.filter(e => e.degree === 'Certification');
+  // Handle both formats: flat array or object with {education:[], certifications:[]}
+  let degrees = [];
+  let certs = [];
+
+  if (Array.isArray(educationData)) {
+    degrees = educationData.filter(e => e.degree !== 'Certification');
+    certs = educationData.filter(e => e.degree === 'Certification');
+  } else {
+    degrees = educationData.education || [];
+    certs = educationData.certifications || [];
+  }
 
   if (degrees.length === 0) eduContainer.innerHTML = '<p class="text-muted">No education records found.</p>';
   degrees.forEach(edu => {
     const item = document.createElement('div');
     item.className = 'education-item';
+    const dateStr = edu.period || `${edu.startDate || ''} - ${edu.endDate || ''}`;
+    const degreeStr = edu.field ? `${edu.degree} in ${edu.field}` : edu.degree;
     item.innerHTML = `
       <h3 class="education-institution">${edu.institution}</h3>
-      <div class="education-degree">${edu.degree} in ${edu.field}</div>
-      <div class="education-dates">${edu.startDate} - ${edu.endDate}</div>
+      <div class="education-degree">${degreeStr}</div>
+      <div class="education-dates">${dateStr}</div>
       ${edu.description ? `<p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">${edu.description}</p>` : ''}
     `;
     eduContainer.appendChild(item);
@@ -300,10 +322,13 @@ function renderEducation(educationData) {
   certs.forEach(cert => {
     const item = document.createElement('div');
     item.className = 'education-item';
+    const institution = cert.institution || cert.issuer || '';
+    const title = cert.field || cert.name || cert.degree || '';
+    const dateStr = cert.period || cert.year || `${cert.startDate || ''} - ${cert.endDate || ''}`;
     item.innerHTML = `
-      <h3 class="education-institution">${cert.institution}</h3>
-      <div class="education-degree">${cert.field}</div>
-      <div class="education-dates">${cert.startDate} - ${cert.endDate}</div>
+      <h3 class="education-institution">${institution}</h3>
+      <div class="education-degree">${title}</div>
+      <div class="education-dates">${dateStr}</div>
       ${cert.description ? `<p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">${cert.description}</p>` : ''}
     `;
     certContainer.appendChild(item);

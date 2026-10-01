@@ -128,8 +128,9 @@ export function initTerminal(profile, fullData) {
       case 'experience':
         if (fullData && fullData.experience && fullData.experience.length > 0) {
           fullData.experience.forEach(exp => {
-            const end = exp.isCurrent ? 'Present' : exp.endDate;
-            printOut(`[${exp.startDate} - ${end}] ${exp.company} - ${exp.position}`);
+            const position = exp.position || exp.role || 'N/A';
+            const dateRange = exp.period || `${exp.startDate || '?'} - ${exp.isCurrent ? 'Present' : (exp.endDate || '?')}`;
+            printOut(`[${dateRange}] ${exp.company} - ${position}`);
           });
         } else {
           printOut('No experience data found.', true);
@@ -159,10 +160,22 @@ export function initTerminal(profile, fullData) {
         break;
 
       case 'education':
-        if (fullData && fullData.education && fullData.education.length > 0) {
-          fullData.education.forEach(edu => {
-            printOut(`- ${edu.institution}: ${edu.degree} (${edu.field})`);
-          });
+        if (fullData && fullData.education) {
+          const eduData = fullData.education;
+          const degrees = Array.isArray(eduData) ? eduData : (eduData.education || []);
+          const certs = Array.isArray(eduData) ? [] : (eduData.certifications || []);
+          if (degrees.length === 0 && certs.length === 0) {
+            printOut('No education data found.', true);
+          } else {
+            degrees.forEach(edu => {
+              const degreeStr = edu.field ? `${edu.degree} (${edu.field})` : edu.degree;
+              const dateStr = edu.period || `${edu.startDate || '?'} - ${edu.endDate || '?'}`;
+              printOut(`- ${edu.institution}: ${degreeStr} [${dateStr}]`);
+            });
+            certs.forEach(cert => {
+              printOut(`- ${cert.name || cert.field || 'Certification'} — ${cert.issuer || cert.institution || 'N/A'} [${cert.year || cert.period || ''}]`);
+            });
+          }
         } else {
           printOut('No education data found.', true);
         }
