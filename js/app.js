@@ -726,19 +726,7 @@ function init3DEffects() {
     });
   }
 
-  // Smooth Scroll - optimized config
-  if (window.Lenis) {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-      wheelMultiplier: 0.8 // Slightly reduced wheel multiplier to prevent trackpad fling
-    });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
+  // Removed Lenis smooth scroll for better trackpad compatibility
 
   // Initialize Vanilla Tilt - Disable glare on lists for performance
   if (window.VanillaTilt) {
