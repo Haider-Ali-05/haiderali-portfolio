@@ -729,8 +729,8 @@ function init3DEffects() {
   // Removed Lenis smooth scroll for better trackpad compatibility
 
   // Initialize Vanilla Tilt - Disable glare on lists for performance
-  if (window.VanillaTilt) {
-    const avatarEl = document.querySelector('.hero-avatar-wrapper');
+  if (window.VanillaTilt && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const avatarEl = document.querySelector('.hero-avatar-frame');
     if (avatarEl) {
       VanillaTilt.init(avatarEl, {
         max: 8,

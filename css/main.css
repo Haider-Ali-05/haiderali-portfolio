@@ -216,7 +216,26 @@ pre, code, .modal-content pre, .modal-content code {
   flex: 0 0 45%; 
   display: flex; 
   justify-content: flex-end; 
-  position: relative; 
+  position: relative;
+  z-index: 1;
+}
+
+.hero-avatar-frame {
+  position: relative;
+  border-radius: 50%;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.hero-avatar-frame::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.25) 0%, transparent 70%);
+  filter: blur(40px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .hero-avatar { 
@@ -227,23 +246,22 @@ pre, code, .modal-content pre, .modal-content code {
   width: 280px;
   height: 280px; 
   object-fit: cover; 
+  position: relative;
+  z-index: 2;
 }
 
-.hero-avatar-wrapper::after { 
+.hero-avatar-frame::after { 
   content: ''; 
   position: absolute; 
-  width: 288px;
-  height: 288px;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  inset: -4px;
   border-radius: 50%; 
   border: 1px dashed var(--accent-primary); 
   opacity: 0.3; 
   animation: rotate 20s linear infinite; 
-  pointer-events: none; 
+  pointer-events: none;
+  z-index: 3;
 }
-@keyframes rotate { 100% { transform: translateY(-50%) rotate(360deg); } }
+@keyframes rotate { 100% { transform: rotate(360deg); } } }
 
 
 /* ── Stats Strip ── */
