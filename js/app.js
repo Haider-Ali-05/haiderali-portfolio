@@ -1,6 +1,7 @@
 /* C:\Users\Haider Ali\.gemini\antigravity\scratch\haiderali-portfolio\js\app.js */
 
 
+import { initTheme } from './theme.js';
 import { initContact } from './contact.js';
 import { initTools } from './tools.js';
 import { trackVisit } from './analytics.js';
@@ -36,6 +37,7 @@ async function init() {
 
   // 3. Initialize core systems
   
+  initTheme(siteData.settings);
   initContact(siteData.settings.web3formsKey, showToast);
   initTools(showToast);
   trackVisit().catch(e => console.warn('Visitor tracking error:', e));
