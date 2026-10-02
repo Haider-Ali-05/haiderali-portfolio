@@ -471,7 +471,7 @@
   </div>
 
   <!-- Back to Top -->
-  <button class="back-to-top" id="back-to-top" aria-label="Scroll to top">↑</button>
+  
 
   <!-- Toast Container -->
   <div id="toast-container"></div>
@@ -492,14 +492,20 @@
   <script type="module" src="js/app.js"></script>
 
   <!-- Persistent Nexus AI Floating Bubble -->
-  <div id="nexus-floating-widget" class="nexus-floating">
+  <div class="fab-stack">
+    <button class="back-to-top" id="back-to-top" aria-label="Scroll to top">
+      <i class="ph ph-arrow-up"></i>
+    </button>
+    <div id="nexus-floating-widget" class="nexus-floating">
+
     <button id="nexus-bubble-btn" class="nexus-bubble">
       <i class="ph ph-brain"></i>
     </button>
     <div id="nexus-chat-popup" class="nexus-chat-popup hidden">
       <div class="chat-header" style="justify-content: space-between;">
         <div class="chat-header-info" style="display: flex; align-items: center;">
-          <div class="chat-avatar"><i class="ph ph-brain"></i></div>
+          <div class="chat-avatar"><i class="ph ph-brain"></i>    </div>
+  </div>
           <div>
             <h4 style="margin: 0; font-size: 0.85rem; color: var(--accent-primary); font-weight: 600;">Nexus AI Assistant</h4>
             <span class="nexus-status" id="nexus-status" style="font-size: 0.65rem; color: var(--accent-success);">online</span>

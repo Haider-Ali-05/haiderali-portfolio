@@ -430,9 +430,59 @@ pre, code, .modal-content pre, .modal-content code {
 .footer-text { font-size: 0.8rem; color: var(--text-muted); }
 
 /* ── Utils ── */
-.back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 900; }
-.back-to-top.visible { opacity: 1; visibility: visible; }
-.back-to-top:hover { border-color: var(--accent-primary); transform: translateY(-3px); }
+.fab-stack {
+  position: fixed;
+  right: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 2147483647;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+.fab-stack > * {
+  pointer-events: auto;
+}
+.back-to-top {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--accent-primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  visibility: hidden;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+.back-to-top:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transition: none;
+  }
+}
 
 #toast-container { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 3000; display: flex; flex-direction: column; gap: 0.5rem; }
 .toast { background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 1rem 1.5rem; border-radius: 8px; font-size: 0.9rem; color: var(--text-primary); box-shadow: var(--shadow-md); animation: slideIn 0.3s ease; display: flex; align-items: center; gap: 0.75rem; }
