@@ -226,7 +226,7 @@ pre, code, .modal-content pre, .modal-content code {
 
 .hero-avatar-frame {
   position: relative;
-  width: clamp(300px, 32vw, 500px);
+  width: clamp(260px, 28vw, 420px);
   aspect-ratio: 4 / 5;
   background: transparent;
   clip-path: polygon(10% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%);
@@ -250,12 +250,12 @@ pre, code, .modal-content pre, .modal-content code {
   position: relative;
   z-index: 2;
   /* Duotone effect using CSS filters */
-  filter: grayscale(100%) sepia(100%) hue-rotate(180deg) saturate(300%) brightness(0.8) contrast(1.2);
+  filter: grayscale(0%) sepia(0%) hue-rotate(0deg) saturate(100%) brightness(1) contrast(1);
   transition: filter 0.4s ease;
 }
 
 .hero-avatar-frame:hover .hero-avatar {
-  filter: grayscale(0%) sepia(0%) hue-rotate(0deg) saturate(100%) brightness(1) contrast(1);
+  filter: grayscale(100%) sepia(100%) hue-rotate(180deg) saturate(300%) brightness(0.8) contrast(1.2);
 }
 
 /* Glitch effect on hover */
