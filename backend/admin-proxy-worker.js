@@ -9,6 +9,17 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Password',
 };
 
+// SECURITY FIX (L7): Constant-time string comparison to prevent timing attacks
+function timingSafeCompare(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 export default {
   async fetch(request, env, ctx) {
     // Handle CORS preflight requests
@@ -28,7 +39,7 @@ export default {
         });
       }
 
-      if (!adminPassword || adminPassword !== ADMIN_PASSWORD_SECRET) {
+      if (!adminPassword || !timingSafeCompare(adminPassword, ADMIN_PASSWORD_SECRET)) {
         return new Response(JSON.stringify({ error: 'Unauthorized: Invalid Admin Password' }), { 
           status: 401, 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 

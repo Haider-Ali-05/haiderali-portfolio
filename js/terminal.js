@@ -79,7 +79,18 @@ export function initTerminal(profile, fullData) {
       return;
     }
 
-    printOut(`<span class="terminal-prompt">></span> ${cmd}`, false, true);
+    // SECURITY FIX (C1): Render user command safely via textContent to prevent XSS
+    const echoLine = document.createElement('div');
+    echoLine.className = 'terminal-line';
+    const promptEl = document.createElement('span');
+    promptEl.className = 'terminal-prompt';
+    promptEl.textContent = '>';
+    const cmdEl = document.createElement('span');
+    cmdEl.textContent = ' ' + cmd;
+    echoLine.appendChild(promptEl);
+    echoLine.appendChild(cmdEl);
+    output.appendChild(echoLine);
+    output.scrollTop = output.scrollHeight;
     
     const args = cmd.split(' ');
     const base = args[0].toLowerCase();

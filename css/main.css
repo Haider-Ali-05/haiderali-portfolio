@@ -21,10 +21,10 @@ body {
 /* ── Global Cursor & Selection Management ── */
 body, body * {
   cursor: default;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  /* SECURITY FIX (I2): Removed user-select:none for accessibility */ user-select: auto;
+  -webkit-/* SECURITY FIX (I2): Removed user-select:none for accessibility */ user-select: auto;
+  -moz-/* SECURITY FIX (I2): Removed user-select:none for accessibility */ user-select: auto;
+  -ms-/* SECURITY FIX (I2): Removed user-select:none for accessibility */ user-select: auto;
 }
 ::selection { background-color: var(--accent-primary); color: #000; }
 a, a *, button, button *, [role="button"], .btn-primary, .btn-secondary, .btn-submit, .social-btn, .modal-close, .suggestion-pill, .project-card, .blog-item, .tool-card, .theme-toggle, .filter-btn {

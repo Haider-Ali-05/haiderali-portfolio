@@ -12,11 +12,12 @@ export async function trackVisit() {
 
     // Fetch IP and Location via free IP API
     try {
-      const res = await fetch('https://ip-api.com/json/', { signal: AbortSignal.timeout(3000) });
+      // SECURITY FIX (L2): Use HTTPS-compliant geolocation API
+      const res = await fetch('https://ipwho.is/', { signal: AbortSignal.timeout(3000) });
       const data = await res.json();
-      if (data && data.status === 'success') {
-        ip = data.query;
-        location = `${data.city}, ${data.country}`;
+      if (data && data.success !== false) {
+        ip = data.ip || 'Unknown';
+        location = `${data.city || 'Unknown'}, ${data.country || 'Unknown'}`;
       }
     } catch (e) {
       console.warn('Geolocation lookup failed or timed out:', e);

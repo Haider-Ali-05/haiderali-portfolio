@@ -24,7 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'nav-proj', icon: 'ph-code', title: 'Go to Projects', action: () => window.location.hash = 'projects' },
     { id: 'nav-tools', icon: 'ph-wrench', title: 'Go to Tools', action: () => window.location.hash = 'tools' },
     { id: 'nav-blog', icon: 'ph-article', title: 'Go to Write-ups', action: () => window.location.hash = 'blog' },
-    { id: 'act-email', icon: 'ph-envelope-simple', title: 'Copy Email Address', action: () => { navigator.clipboard.writeText('haideralibcy253016@gmail.com'); showToast('Email copied to clipboard'); } },
+    { id: 'act-email', icon: 'ph-envelope-simple', title: 'Copy Email Address', action: () => { // SECURITY FIX (L1): Dynamically read email from DOM instead of hardcoding
+    const emailLink = document.querySelector('.social-btn.email');
+    const email = emailLink ? emailLink.getAttribute('href').replace('mailto:', '') : '';
+    navigator.clipboard.writeText(email); showToast('Email copied to clipboard'); } },
     { id: 'easter-flag', icon: 'ph-flag', title: 'Submit Flag', action: () => { showToast('Use the terminal for this.', 'info'); } }
   ];
 

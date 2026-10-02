@@ -41,6 +41,17 @@ function checkRateLimit(ip, maxReqs = 20, windowMs = 60000) {
   return entry.count <= maxReqs;
 }
 
+// SECURITY FIX (L7): Constant-time string comparison to prevent timing attacks
+function timingSafeCompare(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 export default {
   async fetch(request, env, ctx) {
     // Handle CORS preflight requests

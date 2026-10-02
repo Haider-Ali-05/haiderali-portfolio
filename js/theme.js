@@ -2,7 +2,10 @@
 
 export function initTheme(settings = null) {
   const toggleBtn = document.getElementById('theme-toggle');
-  let currentTheme = localStorage.getItem('theme') || 'cyber';
+  // SECURITY FIX (L6): Whitelist theme values to prevent attribute injection
+  const ALLOWED_THEMES = ['cyber', 'company'];
+  const storedTheme = localStorage.getItem('theme');
+  let currentTheme = ALLOWED_THEMES.includes(storedTheme) ? storedTheme : 'cyber';
 
   setTheme(currentTheme);
   
@@ -23,6 +26,9 @@ export function initTheme(settings = null) {
 }
 
 export function setTheme(theme) {
+  // SECURITY FIX (L6): Validate theme name
+  const VALID = ['cyber', 'company'];
+  if (!VALID.includes(theme)) theme = 'cyber';
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
   
@@ -38,10 +44,12 @@ export function getTheme() {
 }
 
 function applyCompanyColors(company) {
-  if (company.primaryColor) {
+  const HEX_REGEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  // SECURITY FIX: Validate hex colors before applying
+  if (company.primaryColor && HEX_REGEX.test(company.primaryColor)) {
     document.documentElement.style.setProperty('--company-color', company.primaryColor);
   }
-  if (company.secondaryColor) {
+  if (company.secondaryColor && HEX_REGEX.test(company.secondaryColor)) {
     document.documentElement.style.setProperty('--company-secondary', company.secondaryColor);
   }
 }

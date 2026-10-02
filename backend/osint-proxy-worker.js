@@ -90,14 +90,31 @@ const COUNTRY_CODES = {
 };
 
 // ── Private IP check (SSRF prevention) ────────────────────────
-function isPrivateUrl(url) {
+function isPrivateUrl(urlStr) {
+  // SECURITY FIX (M1): Use a strict domain whitelist instead of a flawed IP blacklist
+  const ALLOWED_DOMAINS = [
+    'github.com', 'api.github.com',
+    'twitter.com', 'x.com',
+    'instagram.com',
+    'linkedin.com',
+    'facebook.com',
+    'haveibeenpwned.com',
+    'shodan.io',
+    'censys.io',
+    'virustotal.com'
+  ];
   try {
-    const hostname = new URL(url).hostname;
-    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0') return true;
-    if (hostname.startsWith('10.') || hostname.startsWith('192.168.') || hostname.startsWith('172.')) return true;
-    if (hostname.endsWith('.local') || hostname.endsWith('.internal')) return true;
-    return false;
+    const parsed = new URL(urlStr);
+    // Block non-HTTPS
+    if (parsed.protocol !== 'https:') return true;
+    // Check if hostname matches whitelist
+    const hostname = parsed.hostname.toLowerCase();
+    const isAllowed = ALLOWED_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d));
+    return !isAllowed; // Return true (is private / blocked) if NOT in whitelist
   } catch {
+    return true; // Block malformed URLs
+  }
+} catch {
     return true;
   }
 }

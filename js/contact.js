@@ -58,17 +58,7 @@ export function initContact(web3formsKey, showToast) {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
 
-      // Save a local copy in localStorage for the Admin messages panel
-      const localMessages = JSON.parse(localStorage.getItem('messages_log') || '[]');
-      localMessages.push({
-        id: 'msg-' + Math.random().toString(36).substr(2, 9),
-        name: payload.name,
-        email: payload.email,
-        message: payload.message,
-        timestamp: new Date().toISOString(),
-        unread: true
-      });
-      localStorage.setItem('messages_log', JSON.stringify(localMessages));
+      // SECURITY FIX (M3): Removed localStorage message persistence — PII should not be stored client-side
 
       // Post to Web3Forms API
       const response = await fetch('https://api.web3forms.com/submit', {

@@ -89,8 +89,8 @@ function renderHashGenerator(container, showToast) {
         <select class="tool-select" id="hash-algo">
           <option value="SHA-256">SHA-256</option>
           <option value="SHA-512">SHA-512</option>
-          <option value="SHA-1">SHA-1</option>
-          <option value="MD5">MD5</option>
+          <option value="SHA-1">SHA-1 ⚠️ (Legacy)</option>
+          <option value="MD5">MD5 ⚠️ (Legacy)</option>
         </select>
       </div>
       <button class="tool-btn" id="btn-calc-hash">Generate Hash</button>
@@ -166,7 +166,10 @@ function renderBase64Codec(container, showToast) {
 
   container.querySelector('#btn-b64-enc').addEventListener('click', () => {
     try {
-      output.innerText = btoa(unescape(encodeURIComponent(input.value)));
+      // SECURITY FIX (L8): Use TextEncoder instead of deprecated escape/unescape
+      const bytes = new TextEncoder().encode(input.value);
+      const binString = Array.from(bytes, b => String.fromCodePoint(b)).join('');
+      output.innerText = btoa(binString);
     } catch (e) {
       output.innerText = `Encoding failed: ${e.message}`;
     }
@@ -174,7 +177,10 @@ function renderBase64Codec(container, showToast) {
 
   container.querySelector('#btn-b64-dec').addEventListener('click', () => {
     try {
-      output.innerText = decodeURIComponent(escape(atob(input.value)));
+      // SECURITY FIX (L8): Use TextDecoder instead of deprecated escape/unescape
+      const binStr = atob(input.value);
+      const bytesArr = Uint8Array.from(binStr, c => c.charCodeAt(0));
+      output.innerText = new TextDecoder().decode(bytesArr);
     } catch (e) {
       output.innerText = `Invalid Base64 payload: ${e.message}`;
     }
@@ -304,6 +310,7 @@ function renderJwtDecoder(container, showToast) {
     <div class="tool-ui">
       <div class="tool-input-group">
         <label for="jwt-src">JWT Token:</label>
+        <div style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 6px; padding: 8px 12px; margin-bottom: 8px; font-size: 0.8rem; color: #eab308;">⚠️ Warning: Token signature is NOT verified. Do not trust these claims without cryptographic validation.</div>
         <textarea class="tool-textarea" id="jwt-src" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."></textarea>
       </div>
       <button class="tool-btn" id="btn-dec-jwt">Decode Token</button>

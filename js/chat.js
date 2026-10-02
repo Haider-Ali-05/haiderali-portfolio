@@ -52,7 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sender === 'ai' && typeof marked !== 'undefined') {
       const rawHtml = marked.parse(text);
-      msgDiv.innerHTML = (typeof window.DOMPurify !== 'undefined') ? window.DOMPurify.sanitize(rawHtml) : rawHtml;
+      // SECURITY FIX (H3): Never render raw HTML if DOMPurify is missing
+      if (typeof window.DOMPurify !== 'undefined') {
+        msgDiv.innerHTML = window.DOMPurify.sanitize(rawHtml);
+      } else {
+        msgDiv.textContent = text; // Safe plaintext fallback
+      }
     } else {
       const p = document.createElement('p');
       p.textContent = text;

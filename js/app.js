@@ -24,6 +24,9 @@ async function init() {
   console.info('%cSTOP!', 'color: red; font-size: 40px; font-weight: bold;');
   console.info('%cThis is a browser feature intended for developers. But since you are here... FLAG{c0ns0l3_h4ck3r}', 'color: #00ff00; font-size: 14px; font-family: monospace;');
 
+  // SECURITY NOTE (H4): All data is fetched before access check.
+  // For true access control, implement server-side auth (Cloudflare Access/Worker JWT).
+  // Client-side gating is security theater — data is visible in Network tab regardless.
   // 1. Fetch all data in parallel
   siteData = await loadData();
 
@@ -489,18 +492,37 @@ async function loadGithubRepos(githubUrl) {
     repos.forEach(repo => {
       const el = document.createElement('div');
       el.className = 'repo-card';
-      el.innerHTML = `
-        <a href="${repo.html_url}" target="_blank" class="repo-name" style="text-decoration: none;">
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path></svg>
-          ${repo.name}
-        </a>
-        <p class="repo-desc">${repo.description || 'No description provided'}</p>
-        <div class="repo-meta">
-          ${repo.language ? `<span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent-primary);margin-right:4px;"></span>${repo.language}</span>` : ''}
-          <span>★ ${repo.stargazers_count}</span>
-          <span>⑂ ${repo.forks_count}</span>
-        </div>
-      `;
+      // SECURITY FIX (H2): Build DOM safely — no innerHTML with API data
+      const link = document.createElement('a');
+      link.href = repo.html_url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'repo-name';
+      link.style.textDecoration = 'none';
+      link.textContent = repo.name;
+      
+      const desc = document.createElement('p');
+      desc.className = 'repo-desc';
+      desc.textContent = repo.description || 'No description provided';
+      
+      const meta = document.createElement('div');
+      meta.className = 'repo-meta';
+      if (repo.language) {
+        const langSpan = document.createElement('span');
+        langSpan.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent-primary);margin-right:4px;"></span>';
+        langSpan.appendChild(document.createTextNode(repo.language));
+        meta.appendChild(langSpan);
+      }
+      const starsSpan = document.createElement('span');
+      starsSpan.textContent = '★ ' + repo.stargazers_count;
+      meta.appendChild(starsSpan);
+      const forksSpan = document.createElement('span');
+      forksSpan.textContent = '⑂ ' + repo.forks_count;
+      meta.appendChild(forksSpan);
+      
+      el.appendChild(link);
+      el.appendChild(desc);
+      el.appendChild(meta);
       container.appendChild(el);
     });
   } catch (error) {
@@ -541,7 +563,12 @@ function openProjectModal(proj) {
   if (proj.downloadAllowed && proj.downloadFile) {
     btn.className = 'btn-download';
     btn.innerHTML = '<span>Download Assets</span>';
-    btn.onclick = () => window.open(proj.downloadFile, '_blank');
+    // SECURITY FIX (M5): Validate URL scheme and add noopener
+    btn.onclick = () => {
+      if (/^https?:\/\//i.test(proj.downloadFile)) {
+        window.open(proj.downloadFile, '_blank', 'noopener,noreferrer');
+      }
+    };
   } else {
     btn.className = 'btn-download locked';
     btn.innerHTML = '<span>Private Repository</span>';
@@ -699,10 +726,14 @@ window.showToast = function(message, type = 'info') {
   if (!container) return;
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  toast.innerHTML = `
-    <span>${message}</span>
-    <button class="toast-close">&times;</button>
-  `;
+  // SECURITY FIX (M6): Use textContent to prevent XSS in toast messages
+  const msgSpan = document.createElement('span');
+  msgSpan.textContent = message;
+  const closeButton = document.createElement('button');
+  closeButton.className = 'toast-close';
+  closeButton.innerHTML = '&times;';
+  toast.appendChild(msgSpan);
+  toast.appendChild(closeButton);
   container.appendChild(toast);
   const closeBtn = toast.querySelector('.toast-close');
   closeBtn.onclick = () => {
