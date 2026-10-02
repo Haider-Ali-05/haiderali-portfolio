@@ -471,9 +471,10 @@ pre, code, .modal-content pre, .modal-content code {
   box-shadow: var(--shadow-glow-strong);
 }
 .nexus-chat-popup {
-  position: absolute;
-  bottom: 70px;
-  right: 0;
+  position: fixed;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%) scale(1);
   width: 350px;
   max-width: calc(100vw - 2rem);
   background: var(--bg-card);
@@ -484,12 +485,13 @@ pre, code, .modal-content pre, .modal-content code {
   display: flex;
   flex-direction: column;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform-origin: bottom right;
+  transform-origin: center right;
   overflow: hidden;
+  z-index: 2147483647;
 }
 .nexus-chat-popup.hidden {
   opacity: 0;
-  transform: scale(0.8);
+  transform: translateY(-50%) scale(0.8);
   pointer-events: none;
 }
 .nexus-close {
