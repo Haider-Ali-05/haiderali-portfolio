@@ -622,13 +622,23 @@ class ContentEditor {
     renderList();
   }
 
-  // ====== EDUCATION CRUD ======
+  // ====== EDUCATION & CERTIFICATES CRUD ======
   async renderEducationEditor(container) {
     container.innerHTML = '<div class="loading-spinner" style="margin: 5rem auto;"></div>';
-    const education = await this.loadData('education.json');
+    
+    // The new education.json is an object containing two arrays: education and certifications
+    let dataObj = await this.loadData('education.json');
+    
+    // Normalize data in case it's in the old array format or missing keys
+    if (Array.isArray(dataObj)) {
+      dataObj = { education: dataObj, certifications: [] };
+    }
+    if (!dataObj.education) dataObj.education = [];
+    if (!dataObj.certifications) dataObj.certifications = [];
 
     container.innerHTML = `
-      <div class="admin-card glass glow">
+      <!-- EDUCATION SECTION -->
+      <div class="admin-card glass glow" style="margin-bottom: 2rem;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
           <h2 class="admin-card-title" style="margin:0;">education_catalog_crud</h2>
           <button class="admin-btn admin-btn-primary admin-btn-sm" id="btn-new-edu">+ Add Education</button>
@@ -640,97 +650,110 @@ class ContentEditor {
             <thead>
               <tr>
                 <th>Institution</th>
-                <th>Degree / Cert</th>
-                <th>Field</th>
+                <th>Degree / Field</th>
                 <th>Dates</th>
                 <th style="text-align:right;">Actions</th>
               </tr>
             </thead>
-            <tbody id="edu-table-body">
-              <!-- Render list -->
-            </tbody>
+            <tbody id="edu-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CERTIFICATIONS SECTION -->
+      <div class="admin-card glass glow">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+          <h2 class="admin-card-title" style="margin:0;">certifications_catalog_crud</h2>
+          <button class="admin-btn admin-btn-primary admin-btn-sm" id="btn-new-cert">+ Add Certification</button>
+        </div>
+        <div id="cert-form-container" style="display:none; margin-bottom: 2rem;"></div>
+        
+        <div class="table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Certificate Name</th>
+                <th>Issuer</th>
+                <th>Year</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="cert-table-body"></tbody>
           </table>
         </div>
       </div>
     `;
 
-    const tableBody = container.querySelector('#edu-table-body');
-    const formContainer = container.querySelector('#edu-form-container');
+    // --- EDUCATION LOGIC ---
+    const eduTableBody = container.querySelector('#edu-table-body');
+    const eduFormContainer = container.querySelector('#edu-form-container');
 
-    const renderList = () => {
-      tableBody.innerHTML = '';
-      if (education.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No education details entered.</td></tr>';
+    const renderEduList = () => {
+      eduTableBody.innerHTML = '';
+      if (dataObj.education.length === 0) {
+        eduTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No education details entered.</td></tr>';
         return;
       }
 
-      education.forEach(item => {
+      dataObj.education.forEach((item, index) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td style="font-weight:600;">${sanitizeHTML(item.institution)}</td>
-          <td>${sanitizeHTML(item.degree)}</td>
-          <td>${sanitizeHTML(item.field)}</td>
-          <td style="font-family:monospace;">${item.startDate} — ${item.endDate}</td>
+          <td>${sanitizeHTML(item.degree)}<br><small style="color:var(--text-muted)">${sanitizeHTML(item.field || '')}</small></td>
+          <td style="font-family:monospace;">${item.period || (item.startDate + ' - ' + item.endDate)}</td>
           <td style="text-align:right;">
-            <button class="admin-btn admin-btn-secondary admin-btn-sm btn-edit-edu" data-id="${item.id}">Edit</button>
-            <button class="admin-btn admin-btn-danger admin-btn-sm btn-del-edu" data-id="${item.id}">Delete</button>
+            <button class="admin-btn admin-btn-secondary admin-btn-sm btn-edit-edu" data-idx="${index}">Edit</button>
+            <button class="admin-btn admin-btn-danger admin-btn-sm btn-del-edu" data-idx="${index}">Delete</button>
           </td>
         `;
-        tableBody.appendChild(tr);
+        eduTableBody.appendChild(tr);
       });
 
       // Bind actions
-      tableBody.querySelectorAll('.btn-edit-edu').forEach(btn => {
+      eduTableBody.querySelectorAll('.btn-edit-edu').forEach(btn => {
         btn.addEventListener('click', () => {
-          showForm(education.find(e => e.id === btn.dataset.id));
+          showEduForm(dataObj.education[parseInt(btn.dataset.idx)], parseInt(btn.dataset.idx));
         });
       });
 
-      tableBody.querySelectorAll('.btn-del-edu').forEach(btn => {
+      eduTableBody.querySelectorAll('.btn-del-edu').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (confirm('Delete this education entry?')) {
-            const idx = education.findIndex(e => e.id === btn.dataset.id);
-            if (idx !== -1) {
-              education.splice(idx, 1);
-              const success = await this.saveData('education.json', education, 'Delete education entry');
-              if (success) renderList();
-            }
+            dataObj.education.splice(parseInt(btn.dataset.idx), 1);
+            const success = await this.saveData('education.json', dataObj, 'Delete education entry');
+            if (success) renderEduList();
           }
         });
       });
     };
 
-    const showForm = (item = null) => {
-      formContainer.style.display = 'block';
-      formContainer.innerHTML = `
+    const showEduForm = (item = null, index = -1) => {
+      eduFormContainer.style.display = 'block';
+      let period = item ? (item.period || `${item.startDate} - ${item.endDate}`) : '2020 - 2024';
+
+      eduFormContainer.innerHTML = `
         <div class="glass" style="padding: 2rem; border-color: var(--accent-primary);">
           <h3 class="admin-card-title">${item ? 'edit_education_record' : 'add_education_record'}</h3>
           <form id="edu-form" class="admin-form-grid">
             <div class="form-group">
-              <label class="form-label" for="edu-inst">Institution / Board:</label>
-              <input class="form-input" type="text" id="edu-inst" value="${item ? sanitizeHTML(item.institution) : ''}" required>
+              <label class="form-label" for="edu-inst">Institution:</label>
+              <input class="form-input" type="text" id="edu-inst" value="${item ? sanitizeHTML(item.institution || '') : ''}" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="edu-degree">Degree / Title:</label>
-              <input class="form-input" type="text" id="edu-degree" value="${item ? sanitizeHTML(item.degree) : ''}" required>
+              <label class="form-label" for="edu-degree">Degree:</label>
+              <input class="form-input" type="text" id="edu-degree" value="${item ? sanitizeHTML(item.degree || '') : ''}" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="edu-field">Field of Study:</label>
-              <input class="form-input" type="text" id="edu-field" value="${item ? sanitizeHTML(item.field) : ''}" required>
+              <label class="form-label" for="edu-field">Field (Optional):</label>
+              <input class="form-input" type="text" id="edu-field" value="${item ? sanitizeHTML(item.field || '') : ''}">
             </div>
-            <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-              <div>
-                <label class="form-label" for="edu-start">Start Year:</label>
-                <input class="form-input" type="number" id="edu-start" value="${item ? item.startDate : '2020'}" required>
-              </div>
-              <div>
-                <label class="form-label" for="edu-end">End Year:</label>
-                <input class="form-input" type="number" id="edu-end" value="${item ? item.endDate : '2024'}" required>
-              </div>
+            <div class="form-group">
+              <label class="form-label" for="edu-period">Period (e.g., 2025 - 2029):</label>
+              <input class="form-input" type="text" id="edu-period" value="${period}" required>
             </div>
             <div class="form-group admin-form-full">
               <label class="form-label" for="edu-desc">Description (Optional):</label>
-              <textarea class="form-textarea" id="edu-desc" style="min-height: 100px;">${item ? sanitizeHTML(item.description) : ''}</textarea>
+              <textarea class="form-textarea" id="edu-desc" style="min-height: 80px;">${item ? sanitizeHTML(item.description || '') : ''}</textarea>
             </div>
             <div class="admin-btn-group admin-form-full">
               <button class="admin-btn admin-btn-primary" type="submit">Save Education</button>
@@ -740,42 +763,140 @@ class ContentEditor {
         </div>
       `;
 
-      const form = formContainer.querySelector('#edu-form');
-
+      const form = eduFormContainer.querySelector('#edu-form');
       form.querySelector('#btn-cancel-edu').addEventListener('click', () => {
-        formContainer.style.display = 'none';
+        eduFormContainer.style.display = 'none';
       });
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const payload = {
-          id: item ? item.id : 'edu-' + Math.random().toString(36).substr(2, 9),
           institution: form.querySelector('#edu-inst').value,
           degree: form.querySelector('#edu-degree').value,
           field: form.querySelector('#edu-field').value,
-          startDate: form.querySelector('#edu-start').value,
-          endDate: form.querySelector('#edu-end').value,
+          period: form.querySelector('#edu-period').value,
           description: form.querySelector('#edu-desc').value
         };
 
-        if (item) {
-          const idx = education.findIndex(x => x.id === item.id);
-          education[idx] = payload;
+        if (index > -1) {
+          dataObj.education[index] = payload;
         } else {
-          education.push(payload);
+          dataObj.education.push(payload);
         }
 
-        const success = await this.saveData('education.json', education, 'Save education catalog info');
+        const success = await this.saveData('education.json', dataObj, 'Save education info');
         if (success) {
-          formContainer.style.display = 'none';
-          renderList();
+          eduFormContainer.style.display = 'none';
+          renderEduList();
         }
       });
     };
 
-    container.querySelector('#btn-new-edu').addEventListener('click', () => showForm());
-    renderList();
+    container.querySelector('#btn-new-edu').addEventListener('click', () => showEduForm());
+    renderEduList();
+
+    // --- CERTIFICATIONS LOGIC ---
+    const certTableBody = container.querySelector('#cert-table-body');
+    const certFormContainer = container.querySelector('#cert-form-container');
+
+    const renderCertList = () => {
+      certTableBody.innerHTML = '';
+      if (dataObj.certifications.length === 0) {
+        certTableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No certifications entered.</td></tr>';
+        return;
+      }
+
+      dataObj.certifications.forEach((cert, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight:600; color:var(--accent-primary);">${sanitizeHTML(cert.name)}</td>
+          <td>${sanitizeHTML(cert.issuer)}</td>
+          <td style="font-family:monospace;">${sanitizeHTML(cert.year)}</td>
+          <td style="text-align:right;">
+            <button class="admin-btn admin-btn-secondary admin-btn-sm btn-edit-cert" data-idx="${index}">Edit</button>
+            <button class="admin-btn admin-btn-danger admin-btn-sm btn-del-cert" data-idx="${index}">Delete</button>
+          </td>
+        `;
+        certTableBody.appendChild(tr);
+      });
+
+      certTableBody.querySelectorAll('.btn-edit-cert').forEach(btn => {
+        btn.addEventListener('click', () => {
+          showCertForm(dataObj.certifications[parseInt(btn.dataset.idx)], parseInt(btn.dataset.idx));
+        });
+      });
+
+      certTableBody.querySelectorAll('.btn-del-cert').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (confirm('Delete this certification?')) {
+            dataObj.certifications.splice(parseInt(btn.dataset.idx), 1);
+            const success = await this.saveData('education.json', dataObj, 'Delete certification');
+            if (success) renderCertList();
+          }
+        });
+      });
+    };
+
+    const showCertForm = (cert = null, index = -1) => {
+      certFormContainer.style.display = 'block';
+      certFormContainer.innerHTML = `
+        <div class="glass" style="padding: 2rem; border-color: var(--accent-primary);">
+          <h3 class="admin-card-title">${cert ? 'edit_certification' : 'add_certification'}</h3>
+          <form id="cert-form" class="admin-form-grid">
+            <div class="form-group">
+              <label class="form-label" for="cert-name">Certificate Name:</label>
+              <input class="form-input" type="text" id="cert-name" value="${cert ? sanitizeHTML(cert.name) : ''}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cert-issuer">Issuer / Vendor:</label>
+              <input class="form-input" type="text" id="cert-issuer" value="${cert ? sanitizeHTML(cert.issuer) : ''}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cert-year">Year (e.g. 2025):</label>
+              <input class="form-input" type="text" id="cert-year" value="${cert ? sanitizeHTML(cert.year) : ''}" required>
+            </div>
+            <div class="form-group admin-form-full">
+              <label class="form-label" for="cert-desc">Description / Detail:</label>
+              <textarea class="form-textarea" id="cert-desc" style="min-height: 80px;">${cert ? sanitizeHTML(cert.description || '') : ''}</textarea>
+            </div>
+            <div class="admin-btn-group admin-form-full">
+              <button class="admin-btn admin-btn-primary" type="submit">Save Certification</button>
+              <button class="admin-btn admin-btn-secondary" type="button" id="btn-cancel-cert">Cancel</button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      const form = certFormContainer.querySelector('#cert-form');
+      form.querySelector('#btn-cancel-cert').addEventListener('click', () => {
+        certFormContainer.style.display = 'none';
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+          name: form.querySelector('#cert-name').value,
+          issuer: form.querySelector('#cert-issuer').value,
+          year: form.querySelector('#cert-year').value,
+          description: form.querySelector('#cert-desc').value
+        };
+
+        if (index > -1) {
+          dataObj.certifications[index] = payload;
+        } else {
+          dataObj.certifications.push(payload);
+        }
+
+        const success = await this.saveData('education.json', dataObj, 'Save certification info');
+        if (success) {
+          certFormContainer.style.display = 'none';
+          renderCertList();
+        }
+      });
+    };
+
+    container.querySelector('#btn-new-cert').addEventListener('click', () => showCertForm());
+    renderCertList();
   }
 
   // ====== SKILLS EDITOR ======
