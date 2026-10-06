@@ -805,3 +805,117 @@ pre, code, .modal-content pre, .modal-content code {
 .post-tags { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
 .post-tag { font-size: 0.75rem; color: var(--accent-tertiary); background: rgba(139, 92, 246, 0.1); padding: 2px 8px; border-radius: 4px; }
 .featured-tool-card { display: flex; flex-direction: row; overflow: hidden; }
+
+
+/* ==========================================================
+   REDESIGNED CYBER BUTTONS
+   ========================================================== */
+
+/* Base common properties for all redesigned buttons */
+.btn-primary, .btn-secondary, .btn-outline, .btn-submit, .btn-compact, .btn-details {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+/* Base button pseudo-element for hover effect (scanline/glitch) */
+.btn-primary::before, .btn-secondary::before, .btn-outline::before, .btn-submit::before, .btn-compact::before, .btn-details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+.btn-primary:hover::before, .btn-secondary:hover::before, .btn-outline:hover::before, .btn-submit:hover::before, .btn-compact:hover::before, .btn-details:hover::before {
+  left: 100%;
+}
+
+/* PRIMARY BUTTON (e.g., "Launch tool") */
+.btn-primary, .btn-submit {
+  background: rgba(34, 211, 238, 0.1) !important;
+  color: var(--accent-primary) !important;
+  border: 1px solid var(--accent-primary) !important;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.15) !important;
+}
+
+.btn-primary:hover, .btn-submit:hover {
+  background: var(--accent-primary) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.5), 0 0 40px rgba(34, 211, 238, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active, .btn-submit:active {
+  transform: translateY(0);
+}
+
+/* DETAILS & OUTLINE BUTTONS (e.g., "Details" in project cards) */
+.btn-details, .btn-outline, .btn-secondary {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.btn-details:hover, .btn-outline:hover, .btn-secondary:hover {
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  background: rgba(34, 211, 238, 0.05) !important;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.2) !important;
+  transform: translateY(-2px);
+}
+
+/* COMPACT BUTTONS (e.g., smaller actions) */
+.btn-compact {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.75rem !important;
+  background: var(--bg-elevated) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid transparent !important;
+}
+
+.btn-compact:hover {
+  color: var(--text-primary) !important;
+  border-color: var(--text-primary) !important;
+  background: var(--bg-card-hover) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  transform: translateY(-2px);
+}
+
+/* Specifically target hero actions to ensure they don't break the layout but look awesome */
+.hero-actions .btn-primary {
+  padding: 0.8rem 1.75rem !important;
+  font-size: 0.95rem !important;
+}
+.hero-actions .btn-secondary {
+  padding: 0.8rem 1.75rem !important;
+  font-size: 0.95rem !important;
+}
+
+/* Make icons inside buttons space nicely */
+.btn-primary i, .btn-secondary i, .btn-outline i, .btn-submit i, .btn-compact i, .btn-details i {
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.btn-primary:hover i, .btn-details:hover i {
+  transform: translateX(3px);
+}
