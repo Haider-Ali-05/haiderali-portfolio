@@ -3,7 +3,7 @@
     {
       "institution": "Capital University of Sciences & Technology",
       "degree": "BS Cybersecurity",
-      "period": "2025 \u2013 2029",
+      "period": "2025 – 2029",
       "description": "Specialized in network security, cryptography, and ethical hacking. Dean's list recipient. Led the university's CTF team to national competitions."
     }
   ],
@@ -13,6 +13,12 @@
       "issuer": "TryHackMe",
       "year": "2025",
       "description": "Successfully completed the Penetration Testing with Kali Linux course and passed the 24-hour hands-on exam."
+    },
+    {
+      "name": "CYBER 101",
+      "issuer": "Try Hack Me",
+      "year": "2026",
+      "description": ""
     }
   ]
 }
