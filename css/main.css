@@ -919,3 +919,266 @@ pre, code, .modal-content pre, .modal-content code {
 .btn-primary:hover i, .btn-details:hover i {
   transform: translateX(3px);
 }
+
+
+/* ==========================================================
+   MOBILE OPTIMIZATION — COMPLETE RESPONSIVE OVERHAUL
+   ========================================================== */
+
+/* ── Swipe Indicator (touch feedback) ── */
+#swipe-indicator {
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(34, 211, 238, 0.15);
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+#swipe-indicator.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .hero-name { font-size: 2.8rem; }
+  .hero-role { font-size: 1.1rem; }
+  .hero-avatar-frame { width: clamp(200px, 35vw, 320px); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .tools-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+
+  /* === Global spacing === */
+  .container { padding: 0 1rem; }
+  .content-section { padding: 3rem 0 !important; }
+
+  /* === Hero === */
+  .hero-section { padding: 5.5rem 0 2rem; }
+  .hero-grid {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 2rem !important;
+    padding: 0 1rem !important;
+  }
+  .hero-content {
+    flex: unset !important;
+    max-width: 100% !important;
+    align-items: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .hero-name { font-size: 2.2rem !important; }
+  .hero-role { font-size: 1rem !important; }
+  .hero-bio { font-size: 0.9rem !important; max-width: 100% !important; text-align: center !important; }
+  .hero-focus-section { text-align: center; }
+  .focus-tags { justify-content: center; }
+  .hero-actions {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+  .hero-actions a, .hero-actions button {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+  .hero-avatar-wrapper {
+    flex: unset !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .hero-avatar-frame {
+    width: clamp(180px, 55vw, 260px) !important;
+  }
+
+  /* === Stats strip === */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  .stat-value { font-size: 1.5rem !important; }
+
+  /* === Social section === */
+  .social-links-row {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+  }
+  .social-btn { font-size: 0.8rem !important; padding: 0.55rem 0.9rem !important; }
+
+  /* === Dual grid (terminal + quick access) === */
+  .dual-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* === Section titles === */
+  .section-title { font-size: 1.6rem !important; }
+
+  /* === Project filters (horizontal scroll, keep as is) === */
+  .project-filters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .project-filters::-webkit-scrollbar { display: none; }
+  .filter-btn { white-space: nowrap !important; flex-shrink: 0 !important; }
+
+  /* === Projects & tools grid === */
+  .projects-grid, .tools-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* === Featured tool card === */
+  .featured-tool-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 1.5rem !important;
+    gap: 1rem !important;
+  }
+
+  /* === Project modal === */
+  .modal-content {
+    width: 95vw !important;
+    max-height: 85vh !important;
+    padding: 1.5rem !important;
+    border-radius: 12px !important;
+  }
+
+  /* === Education / Cert grid === */
+  .edu-cert-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+
+  /* === Contact form === */
+  .contact-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+  .contact-info { padding-right: 0 !important; text-align: center !important; }
+  .contact-method { justify-content: center !important; }
+
+  /* === Blog items === */
+  .blog-item { flex-direction: column !important; gap: 1rem !important; }
+
+  /* === Back to top button positioning on mobile === */
+  .fab-stack {
+    bottom: 1.25rem !important;
+    right: 1rem !important;
+  }
+
+  /* === Nexus Chat popup — full-width bottom sheet on mobile === */
+  .nexus-chat-popup {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    transform: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    max-height: 75vh !important;
+  }
+  .nexus-chat-popup.hidden {
+    transform: translateY(100%) !important;
+    opacity: 1 !important;
+  }
+  .chat-messages {
+    max-height: 45vh !important;
+  }
+
+  /* === Navbar mobile menu === */
+  .nav-links {
+    display: none !important;
+    flex-direction: column !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: var(--nav-bg) !important;
+    padding: 1rem !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    gap: 0.5rem !important;
+  }
+  .nav-links.active { display: flex !important; }
+  .nav-links a {
+    padding: 0.6rem 0.5rem !important;
+    font-size: 0.95rem !important;
+  }
+  .mobile-menu-btn { display: block !important; }
+
+  /* === Buttons — touch-friendly minimum tap area === */
+  .btn-primary, .btn-secondary, .btn-outline, .btn-submit, .btn-details {
+    min-height: 44px !important;
+    padding: 0.7rem 1.2rem !important;
+    font-size: 0.8rem !important;
+  }
+  .btn-compact {
+    min-height: 36px !important;
+    padding: 0.45rem 0.9rem !important;
+  }
+
+  /* === Terminal widget === */
+  .terminal-widget { font-size: 0.78rem !important; }
+  #terminal-in { font-size: 0.78rem !important; }
+
+  /* === GitHub heatmap — scroll, do not shrink === */
+  .github-heatmap-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* ── Small phones (≤ 480px) ── */
+@media (max-width: 480px) {
+  .hero-name { font-size: 1.9rem !important; }
+  .hero-avatar-frame { width: clamp(160px, 60vw, 220px) !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
+  .section-title { font-size: 1.4rem !important; }
+  .stat-value { font-size: 1.3rem !important; }
+  .container { padding: 0 0.75rem; }
+
+  /* Disable translateY hover on touch to avoid sticky hover states */
+  .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover,
+  .btn-submit:hover, .btn-details:hover, .btn-compact:hover {
+    transform: none !important;
+  }
+}
+
+/* ── Landscape phones ── */
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero-section { padding: 4rem 0 1.5rem; }
+  .hero-grid {
+    flex-direction: row !important;
+    text-align: left !important;
+    gap: 1.5rem !important;
+  }
+  .hero-content {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+  .focus-tags { justify-content: flex-start; }
+  .hero-actions {
+    flex-direction: row !important;
+    align-items: center !important;
+    width: auto !important;
+  }
+  .hero-actions a, .hero-actions button { width: auto !important; }
+  .hero-avatar-frame { width: clamp(140px, 25vw, 200px) !important; }
+  .nexus-chat-popup { max-height: 90vh !important; }
+}

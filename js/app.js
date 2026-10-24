@@ -6,6 +6,7 @@ import { initContact } from './contact.js';
 import { initTools } from './tools.js';
 import { trackVisit } from './analytics.js';
 import { initTerminal } from './terminal.js';
+import { initMobileSwipe } from './swipe.js';
 
 // Global Data State
 let siteData = {};
@@ -65,6 +66,7 @@ async function init() {
   initBackToTop();
   initScrollAnimations();
   initModalListeners();
+  initMobileSwipe();
 
   // 6. Hide Boot Loader
   const loader = document.getElementById('loading-screen');
